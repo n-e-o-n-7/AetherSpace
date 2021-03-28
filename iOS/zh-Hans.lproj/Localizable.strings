@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  Aether
+
+  Created by 许滨麟 on 2021/3/22.
+  
+*/
+
+"hello" = "你好";
+"Canvas" = "画布";
+"link" = "链接";
+"order" = "有序";
+"date" = "日期";
+"edit" = "编辑";
+"cancel" = "取消";
+"hide" = "隐藏";
+"title" = "标题";
+"please enter title" = "请输入标题";
+"confirm" = "确认";
+"content" = "内容";
+"please enter link🔗" = "请输入链接🔗";
+"delete" = "删除";
+"choose" = "选择";
