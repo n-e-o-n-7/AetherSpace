@@ -8,22 +8,20 @@
 import Foundation
 
 struct Node: Identifiable, Codable {
-	let id: UUID
+	let id: Nid
 	let creatTime: Date
 	let type: Species
-	var asHeadLinkIds: [UUID]
-	var asTailLinkIds: [UUID]
+	var asHeadLinkIds: [Lid: Lid]
+	var asTailLinkIds: [Lid: Lid]
 	var content: NodeContent
-
 	init(type: Species, content: NodeContent) {
-		self.id = UUID()
+		self.id = Nid()
 		self.creatTime = Date()
 		self.type = type
-		self.asHeadLinkIds = []
-		self.asTailLinkIds = []
+		self.asHeadLinkIds = [:]
+		self.asTailLinkIds = [:]
 		self.content = content
 	}
-
 }
 
 extension Node {

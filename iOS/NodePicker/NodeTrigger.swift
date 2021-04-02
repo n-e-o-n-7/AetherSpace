@@ -10,6 +10,8 @@ import SwiftUI
 struct NodeTrigger: View {
 	@Binding var position: CGPoint
 	@Binding var isPresented: Bool
+	@State var showAlert = false
+	@State var errorMessage = ""
 	@EnvironmentObject var svm: SpaceVM
 	var body: some View {
 		Color(.clear)
@@ -29,11 +31,41 @@ struct NodeTrigger: View {
 			//			)
 			.popover(isPresented: $isPresented, arrowEdge: .leading) {
 				NodePicker(confirm: addNode)
+					.alert(isPresented: $showAlert) {
+						Alert(title: Text(errorMessage))
+					}
 			}
 			.offset(x: position.x - 0, y: position.y - 0)
 	}
 
 	func addNode(type: Node.Species, content: NodeContent) {
+		guard content.title != "" else {
+			errorMessage = "no title"
+			showAlert = true
+			return
+		}
+		switch type {
+		case .image:
+			if content.data == nil || content.fileName == "" {
+				errorMessage = "no data"
+				showAlert = true
+				return
+			}
+		case .sound:
+			if content.data == nil || content.fileName == "" {
+				errorMessage = "no data"
+				showAlert = true
+				return
+			}
+		case .link:
+			if content.url == "" {
+				errorMessage = "no url"
+				showAlert = true
+				return
+			}
+		default: break
+		}
+
 		svm.addNode(type: type, content: content, position: position)
 		isPresented = false
 	}

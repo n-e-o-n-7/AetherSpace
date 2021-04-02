@@ -61,6 +61,6 @@ struct LinkView: View {
 
 	var body: some View {
 		LinkPath(headP: headP, tailP: tailP)
-			.stroke(Color.yellow.opacity(0.6), lineWidth: lineWidth)
+			.stroke(Color.blue.opacity(0.3), lineWidth: lineWidth)
 	}
 }

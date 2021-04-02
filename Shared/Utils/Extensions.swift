@@ -104,16 +104,17 @@ func ?? <T>(binding: Binding<T?>, fallback: T) -> Binding<T> {
 }
 extension Binding {
 	func unwrap<Wrapped>() -> Binding<Wrapped>? where Wrapped? == Value {
-		guard let value = self.wrappedValue else { return nil }
+		guard self.wrappedValue != nil else { return nil }
 		return Binding<Wrapped>(
 			get: {
-				return value
+				return self.wrappedValue!
 			},
-			set: { value in
-				self.wrappedValue = value
+			set: { newValue in
+				self.wrappedValue = newValue
 			}
 		)
 	}
+
 }
 
 // For all Bindings whose Value is a collection
@@ -177,3 +178,31 @@ extension Binding: Identifiable where Value: Identifiable {
 		self.wrappedValue.id
 	}
 }
+
+extension Color {
+	func toString() -> String {
+		let uiColor = UIColor(self)
+		var hue: CGFloat = 0
+		var saturation: CGFloat = 0
+		var brightness: CGFloat = 0
+		var alpha: CGFloat = 0
+		uiColor.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+		return "\(hue),\(saturation),\(brightness),\(alpha)"
+	}
+}
+
+extension String {
+	func toColor() -> Color? {
+		let ca = self.components(separatedBy: ",")
+		if ca.count == 4, let hue = Double(ca[0]), let saturation = Double(ca[1]),
+			let brightness = Double(ca[2]), let opacity = Double(ca[3])
+		{
+			return Color(hue: hue, saturation: saturation, brightness: brightness, opacity: opacity)
+		} else {
+			return nil
+		}
+	}
+}
+
+typealias Nid = UUID
+typealias Lid = UUID

@@ -10,83 +10,73 @@ import CoreData
 import SwiftUI
 
 class SpaceVM: ObservableObject {
-	let saveSubject = PassthroughSubject<Int, Never>()
-	var space: Space {
-		didSet {
-			if let lastNodeId = space.lastNodeId {
-				self.nowNode = self.space.nodes[lastNodeId]
-			} else {
-				self.nowNode = nil
-			}
-		}
-	}
 
-	@Published var nowNode: Node? = nil {
-		didSet {
-			if nowNode?.id != oldValue?.id {
-				if let node = self.nowNode {
-					print("nowNode change")
-					initData(node: node)
-				} else {
-					initData()
-				}
-			}
+	@Published var space: Space
 
-		}
-	}
 	init() {
 		self.space = Space()
+		initData()
 	}
-	//	deinit {
-	//		debugPrint(space.id, "vm deinit")
-	//		//MARK: - save? and fisrtnode
-	//		if let nowNode = nowNode {
-	//			space.lastNode = nowNode
-	//		} else if let firstNode = nodes.first {
-	//			space.lastNode = firstNode
-	//		}
-	//		viewContext.saveContext()
-	//	}
-
-	@Published var links: [Link] = []
-	@Published var nodes: [Node] = []
-	var nodePosition: [UUID: PositionVM] = [:]
+	func inject(about space: Space) {
+		self.space = space
+		if let nid = self.space.lastNodeId {
+			initData(node: self.space.nodes[nid]!)
+		} else {
+			initData()
+		}
+	}
+	@Published var links: [Lid: Lid] = [:]
+	@Published var nodes: [Nid: Nid] = [:]
+	var nodePosition: [Nid: PositionVM] = [:]
 
 	func initData() {
-		links = []
-		nodes = []
+		links = [:]
+		nodes = [:]
 		nodePosition = [:]
+		stack = []
 	}
 	func initData(node: Node) {
-		let asHeadLinks = node.asHeadLinkIds.map { space.links[$0]! }
-		let asTailLinks = node.asTailLinkIds.map { space.links[$0]! }
 
-		links = asHeadLinks + asTailLinks
+		links = node.asHeadLinkIds.merging(node.asTailLinkIds) { (ashead, _) in ashead }
 
-		let HeadNodes = asTailLinks.map { space.nodes[$0.headNodeId]! }
-		let TailNodes = asHeadLinks.map { space.nodes[$0.tailNodeId]! }
+		print(links)
 
-		nodes = HeadNodes + TailNodes
+		let HeadNodes = Dictionary(
+			uniqueKeysWithValues: node.asTailLinkIds.map { (Lid, _) in
+				(space.links[Lid]!.headNodeId, space.links[Lid]!.headNodeId)
+			})
+
+		let TailNodes = Dictionary(
+			uniqueKeysWithValues: node.asHeadLinkIds.map { (Lid, _) in
+				(space.links[Lid]!.tailNodeId, space.links[Lid]!.tailNodeId)
+			})
+
+		nodes = HeadNodes.merging(TailNodes) { (head, _) in head }
 
 		let HeadNodePosition = Dictionary(
-			uniqueKeysWithValues: asTailLinks.map {
-				($0.headNodeId, PositionVM(offset: $0.headOffset))
+			uniqueKeysWithValues: node.asTailLinkIds.map { (Lid, _) in
+				(space.links[Lid]!.headNodeId, PositionVM(offset: space.links[Lid]!.headOffset))
 			})
 		let TailNodePosition = Dictionary(
-			uniqueKeysWithValues: asHeadLinks.map {
-				($0.tailNodeId, PositionVM(offset: $0.tailOffset))
+			uniqueKeysWithValues: node.asHeadLinkIds.map { (Lid, _) in
+				(space.links[Lid]!.tailNodeId, PositionVM(offset: space.links[Lid]!.tailOffset))
 			})
 
-		nodePosition = HeadNodePosition.merging(TailNodePosition) { (head, _) -> PositionVM in
-			return head
-		}
+		nodePosition = HeadNodePosition.merging(TailNodePosition) { (head, _) in head }
+
 		nodePosition[node.id] = PositionVM()
-		print(links.count)
+
+		stack = []
 	}
 
 	func addNode(type: Node.Species, content: NodeContent, position: CGPoint) {
 		let newNode = Node(type: type, content: content)
-		let id = newNode.id
+		let nid = newNode.id
+
+		space.nodes[nid] = newNode
+		nodePosition[newNode.id] = PositionVM(offset: position)
+		nodes[nid] = nid
+
 		switch type {
 		case .image, .sound:
 			let token = SubscriptionToken()
@@ -96,10 +86,10 @@ class SpaceVM: ObservableObject {
 						token.unseal()
 					},
 					receiveValue: { value in
-						//MARK: - maybe ?
-						if let index = self.nodes.firstIndex(where: { $0.id == id }) {
-							self.nodes[index].content.fileName = value.savePath
-						}
+						//MARK: - maybe change space
+
+						self.space.nodes[nid]?.content.fileName = value.savePath
+						//operation
 					}
 				)
 				.seal(in: token)
@@ -107,73 +97,128 @@ class SpaceVM: ObservableObject {
 		default: break
 		}
 
-		nodes.append(newNode)
-		nodePosition[newNode.id] = PositionVM(offset: position)
+		stack.append(.addNode(nid))
+	}
+
+	func removeNode(nid: Nid) {
+		nodes[nid] = nil
+		let node = space.nodes[nid]!
+		let oldLinks = links
+		let oldSpace = space
+		space.nodes[nid]!.asHeadLinkIds.forEach { (Lid, _) in
+			space.nodes[space.links[Lid]!.tailNodeId]!.asTailLinkIds[Lid] = nil
+			links[Lid] = nil
+			space.links[Lid] = nil
+		}
+		space.nodes[nid]!.asTailLinkIds.forEach { (Lid, _) in
+			space.nodes[space.links[Lid]!.headNodeId]!.asHeadLinkIds[Lid] = nil
+			links[Lid] = nil
+			space.links[Lid] = nil
+		}
+		let np = nodePosition[nid]!
+		nodePosition[nid] = nil
+		space.nodes[nid] = nil
+
+		stack.append(.removeNode(node, np, oldLinks, oldSpace))
 	}
 
 	func addLink(head: Node, tail: Node) {
 		//MARK: -same link
-		//new node
 		if head.id != tail.id {
-			let newLink = Link(head: head, tail: tail, tailOffset: .zero)
-			//nodes
-			if let index = nodes.firstIndex(where: { $0.id == head.id }) {
-				nodes[index].asHeadLinkIds.append(newLink.id)
-			} else {
-				nowNode?.asHeadLinkIds.append(newLink.id)
-			}
-			if let index = nodes.firstIndex(where: { $0.id == tail.id }) {
-				nodes[index].asTailLinkIds.append(newLink.id)
-			} else {
-				nowNode?.asTailLinkIds.append(newLink.id)
-			}
-			links.append(newLink)
+			let newLink = Link(head: head, tail: tail)
+			let lid = newLink.id
+
+			space.links[lid] = newLink
+			space.nodes[head.id]!.asHeadLinkIds[lid] = lid
+			space.nodes[tail.id]!.asTailLinkIds[lid] = lid
+			links[lid] = lid
+
+			stack.append(.addLink(newLink))
 		}
+
 		//MARK: -no nowNode
 
 	}
 
+	func removeLink(lid: Lid) {
+		let link = space.links[lid]!
+		links[lid] = nil
+		space.nodes[space.links[lid]!.headNodeId]!.asHeadLinkIds[lid] = nil
+		space.nodes[space.links[lid]!.tailNodeId]!.asTailLinkIds[lid] = nil
+		space.links[lid] = nil
+
+		stack.append(.removeLink(link))
+	}
+
+	let saveSubject = PassthroughSubject<Int, Never>()
 	func save(nextNode: Node? = nil) {
 		print("save")
-		if let n = nowNode ?? nodes.first {
+		if let nid = space.lastNodeId ?? nodes.popFirst()?.value {
 
-			let newLinks = links.map { link -> Link in
+			links.forEach { (lid, _) in
 
-				var newlink = link
-
-				if newlink.headNodeId == n.id {
-
-					newlink.tailOffset = nodePosition[newlink.tailNodeId]!.save.subtract(
-						nodePosition[newlink.headNodeId]!.save)
-
-				} else if newlink.tailNodeId == n.id {
-
-					newlink.headOffset = nodePosition[newlink.headNodeId]!.save.subtract(
-						nodePosition[newlink.tailNodeId]!.save)
-
+				if space.links[lid]!.headNodeId == nid {
+					space.links[lid]!.tailOffset = nodePosition[space.links[lid]!.tailNodeId]!.save
+						.subtract(nodePosition[space.links[lid]!.headNodeId]!.save)
+					if space.links[lid]!.justAdded {
+						space.links[lid]!.headOffset = space.links[lid]!.tailOffset
+						space.links[lid]!.justAdded = false
+					}
+				} else if space.links[lid]!.tailNodeId == nid {
+					space.links[lid]!.headOffset = nodePosition[space.links[lid]!.headNodeId]!.save
+						.subtract(nodePosition[space.links[lid]!.tailNodeId]!.save)
+					if space.links[lid]!.justAdded {
+						space.links[lid]!.tailOffset = space.links[lid]!.headOffset
+						space.links[lid]!.justAdded = false
+					}
 				} else {
-
-					newlink.tailOffset = nodePosition[newlink.tailNodeId]!.save.subtract(
-						nodePosition[newlink.headNodeId]!.save)
-					newlink.headOffset = CGPoint(x: -newlink.tailOffset.x, y: -newlink.tailOffset.y)
+					space.links[lid]!.headOffset = nodePosition[space.links[lid]!.headNodeId]!.save
+						.subtract(nodePosition[space.links[lid]!.tailNodeId]!.save)
+					space.links[lid]!.tailOffset = space.links[lid]!.headOffset
+					space.links[lid]!.justAdded = false
 				}
-				return newlink
 			}
 
-			var newSpace = space
-			newLinks.forEach { link in
-				newSpace.links[link.id] = link
+			if let n = nextNode {
+				space.lastNodeId = n.id
+				self.initData(node: n)
 
+			} else if space.lastNodeId == nil {
+				space.lastNodeId = nid
 			}
+		}
 
-			let newNodes = nowNode == nil ? nodes : nodes + [nowNode!]
-			newNodes.forEach { node in
-				newSpace.nodes[node.id] = node
-			}
+	}
 
-			newSpace.lastNodeId = nextNode?.id ?? n.id
+	//MARK: - published?
+	var stack: [Operation] = []
 
-			space = newSpace
+	func backout() {
+		guard let op = stack.popLast() else { return }
+		switch op {
+		case .addNode(let nid):
+			nodes[nid] = nil
+			nodePosition[nid] = nil
+			space.nodes[nid] = nil
+		case .removeNode(let node, let np, let oldLinks, let oldSpace):
+			space = oldSpace
+			nodePosition[node.id] = np
+			links = oldLinks
+			nodes[node.id] = node.id
+		case .editNode(let _): break
+
+		case .addLink(let link):
+			links[link.id] = nil
+			space.nodes[link.headNodeId]!.asHeadLinkIds[link.id] = link.id
+			space.nodes[link.tailNodeId]!.asTailLinkIds[link.id] = link.id
+			space.links[link.id] = link
+
+		case .removeLink(let link):
+			let lid = link.id
+			space.nodes[space.links[lid]!.headNodeId]!.asHeadLinkIds[lid] = lid
+			space.nodes[space.links[lid]!.tailNodeId]!.asTailLinkIds[lid] = lid
+			space.links[lid] = link
+			links[lid] = lid
 		}
 
 	}

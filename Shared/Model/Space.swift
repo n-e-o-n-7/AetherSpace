@@ -9,8 +9,8 @@ import Foundation
 
 struct Space: Codable {
 	var lastNodeId: UUID?
-	var nodes: [UUID: Node]
-	var links: [UUID: Link]
+	var nodes: [Nid: Node]
+	var links: [Lid: Link]
 	var mode: ModeType
 
 	init() {

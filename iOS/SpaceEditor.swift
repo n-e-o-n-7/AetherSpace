@@ -9,10 +9,13 @@ import SwiftUI
 
 struct SpaceEditor: View {
 	@EnvironmentObject var svm: SpaceVM
+	@State var save = CGPoint.zero
+	@State var extra = CGSize.zero
 
+	@State var showSet = false
 	//MARK: - nodeTrigger
 	@State var position = CGPoint.zero
-	@State var listPresented = false
+	@State var showPicker = false
 
 	//MARK: - MagnificationGesture
 	@GestureState var magnifyBy = CGFloat(1.0)
@@ -22,34 +25,45 @@ struct SpaceEditor: View {
 				gestureState = currentState
 			}
 	}
-
-	//MARK: - Notification
-	@StateObject var delegate = NotificationDelegate()
-
+	@State var a = false
 	var body: some View {
 
 		ZStack {
 			if svm.space.mode == Space.ModeType.link {
 				Background { location in
-					listPresented.toggle()
+					showPicker.toggle()
 					position = location
-				}.background(Color("CanvasBackground"))
+				}
+				.background(Color("CanvasBackground"))
+				.edgesIgnoringSafeArea(.bottom)
 
-				LinkLayer()
+				.gesture(
+					DragGesture()
+						.onChanged { value in
 
-				NodeLayer()
+							extra = value.translation
 
-				NodeTrigger(position: $position, isPresented: $listPresented)
+						}.onEnded { value in
+							save = CGPoint(x: save.x + extra.width, y: save.y + extra.height)
+							extra = CGSize.zero
+						}
+				)
+
+				Group {
+					LinkLayer()
+
+					NodeLayer()
+				}
+				.scaleEffect(magnifyBy)
+				.offset(x: save.x + extra.width, y: save.y + extra.height)
+
+				NodeTrigger(position: $position, isPresented: $showPicker)
 
 				ToolLayer(showSearch: $showSearch)
 
 			}
 
 		}
-		.onAppear(
-			perform: { accessNotifications(delegate: delegate) }
-		)
-		.scaleEffect(magnifyBy)
 		.gesture(magnification)
 		.toolbar {
 			ToolbarItem(placement: .navigationBarLeading) { backout }
@@ -57,10 +71,7 @@ struct SpaceEditor: View {
 			ToolbarItem(placement: .navigationBarTrailing) { search }
 			ToolbarItem(placement: .navigationBarTrailing) { more }
 		}
-
 		.navigationBarTitleDisplayMode(.inline)
-		//        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-		//        .navigationBarHidden(false)
 
 	}
 
@@ -81,16 +92,16 @@ struct SpaceEditor: View {
 	//    }
 	@ViewBuilder
 	var backout: some View {
-
-		Button(
-			action: {
-				print(":")
-			},
-			label: {
-				Label("backout", systemImage: "arrow.uturn.left.circle")
-			}
-		)
-
+		if svm.stack.count != 0 {
+			Button(
+				action: {
+					svm.backout()
+				},
+				label: {
+					Label("backout", systemImage: "arrow.uturn.left.circle")
+				}
+			)
+		}
 	}
 
 	var mode: some View {
@@ -124,6 +135,7 @@ struct SpaceEditor: View {
 	}
 
 	@State var showAlert = false
+
 	var more: some View {
 		Menu {
 			Button(
@@ -134,11 +146,18 @@ struct SpaceEditor: View {
 				action: { svm.saveSubject.send(1) },
 				label: { Label("save", systemImage: "magnifyingglass") }
 			)
+			Button(
+				action: { showSet.toggle() },
+				label: { Label("set", systemImage: "magnifyingglass") }
+			)
 		} label: {
 			Label("more", systemImage: "ellipsis.circle.fill").font(.title2)
 
 		}
 		.menuStyle(DefaultMenuStyle())
+		.sheet(isPresented: $showSet) {
+			SetHome()
+		}
 		.alert(isPresented: $showAlert) {
 			Alert(
 				title: Text("success"), message: Text("?"),

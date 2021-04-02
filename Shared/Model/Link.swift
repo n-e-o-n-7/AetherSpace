@@ -9,19 +9,21 @@ import CoreGraphics
 import Foundation
 
 struct Link: Codable, Identifiable {
-	let id: UUID
+	let id: Lid
 	let creatTime: Date
-	let headNodeId: UUID
-	let tailNodeId: UUID
+	let headNodeId: Nid
+	let tailNodeId: Nid
 	var headOffset: CGPoint
 	var tailOffset: CGPoint
+	var justAdded: Bool
 
-	init(head: Node, tail: Node, tailOffset: CGPoint) {
-		self.id = UUID()
+	init(head: Node, tail: Node) {
+		self.id = Lid()
 		self.creatTime = Date()
 		self.headNodeId = head.id
 		self.tailNodeId = tail.id
-		self.headOffset = tailOffset
-		self.tailOffset = tailOffset
+		self.headOffset = .zero
+		self.tailOffset = .zero
+		self.justAdded = true
 	}
 }

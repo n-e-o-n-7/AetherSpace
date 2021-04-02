@@ -10,13 +10,15 @@ import SwiftUI
 struct LinkLayer: View {
 
 	@EnvironmentObject var svm: SpaceVM
-
+	var lids: [Lid] {
+		svm.links.map { $0.value }
+	}
 	var body: some View {
 		ZStack {
-			ForEach(svm.links, id: \.id) { link in
+			ForEach(lids, id: \.self) { lid in
 				LinkView(
-					headPVM: svm.nodePosition[link.headNodeId]!,
-					tailPVM: svm.nodePosition[link.tailNodeId]!
+					headPVM: svm.nodePosition[svm.space.links[lid]!.headNodeId]!,
+					tailPVM: svm.nodePosition[svm.space.links[lid]!.tailNodeId]!
 				)
 
 			}

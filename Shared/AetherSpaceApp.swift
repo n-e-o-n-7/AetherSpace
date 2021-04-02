@@ -11,15 +11,15 @@ import SwiftUI
 @main
 struct AetherSpaceApp: App {
 	let svm = SpaceVM()
-
 	var body: some Scene {
 
 		return DocumentGroup(newDocument: AetherSpaceDocument()) { file in
+
 			ContentView()
 				.environmentObject(svm)
 				.onAppear {
 					print(file.document.space, "appear")
-					svm.space = file.document.space
+					svm.inject(about: file.document.space)
 					print(svm.space, "appear")
 				}
 				.onReceive(
@@ -33,3 +33,22 @@ struct AetherSpaceApp: App {
 		}
 	}
 }
+
+//func content(file: FileDocumentConfiguration<AetherSpaceDocument>) -> some View {
+//	let svm = SpaceVM()
+//	print("asd")//change
+//	return ContentView()
+//		.environmentObject(svm)
+//		.onAppear {
+//			print(file.document.space, "appear")
+//			svm.space = file.document.space
+//			print(svm.space, "appear")
+//		}
+//		.onReceive(
+//			svm.saveSubject,
+//			perform: { i in
+//				svm.save()
+//				file.document.space = svm.space
+//				print(file.document.space, "disappear")
+//			})
+//}

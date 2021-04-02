@@ -29,6 +29,7 @@ struct NodeView: View {
 		.foregroundColor(.gray)
 		.padding(9)
 	}
+
 	var body: some View {
 
 		GeometryReader { proxy in
@@ -36,7 +37,9 @@ struct NodeView: View {
 				VStack(spacing: 0) {
 					title
 					Divider()
-					NodeContentView(type: node.type, content: $node.content)
+					NodeContentView(
+						type: node.type,
+						content: $node.content)
 					Spacer()
 				}
 				.roundedBackground(radius: .small)
@@ -58,11 +61,11 @@ struct NodeView: View {
 							Label("delete", systemImage: "trash").foregroundColor(.red)
 						})
 				}
-				.onTapGesture {
-					print("change")
-					svm.save(nextNode: node)
-
-				}
+				//				.onTapGesture {
+				//					print("change")
+				//					svm.save(nextNode: node)
+				//
+				//				}
 				if isLinking {
 					BlurView(style: .systemMaterial)
 				}

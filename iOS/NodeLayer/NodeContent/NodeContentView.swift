@@ -31,6 +31,15 @@ struct NodeContentView: View {
 	var lc: some View {
 		Color.gray
 			.fullScreenCover(isPresented: $isPresented) {
+				VStack {
+					Button("a") {
+						isPresented = false
+					}
+					Text(content.title!)
+					Button("c") {
+						content.title = "1212"
+					}
+				}
 			}.onTapGesture {
 				isPresented.toggle()
 			}
@@ -65,6 +74,7 @@ struct NodeContentView: View {
 	var sc: some View {
 		Color.gray
 			.fullScreenCover(isPresented: $isPresented) {
+
 			}.onTapGesture {
 				isPresented.toggle()
 			}
@@ -72,7 +82,11 @@ struct NodeContentView: View {
 	var mc: some View {
 		Color.gray
 			.fullScreenCover(isPresented: $isPresented) {
-				MarkdownContent(markdown: $content.markdown.unwrap()!)
+				MarkdownContent(
+
+					markdown:
+						$content.markdown.unwrap()!
+				)
 			}.onTapGesture {
 				isPresented.toggle()
 			}

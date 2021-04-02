@@ -9,10 +9,16 @@ import Combine
 import SwiftUI
 
 struct ContentView: View {
-
+	//MARK: - Notification
+	@StateObject var delegate = NotificationDelegate()
 	var body: some View {
 
-		return SpaceEditor()
+		return SpaceEditor().onAppear(
+			perform: {
+				accessNotifications(delegate: delegate)
+
+			}
+		)
 
 	}
 }

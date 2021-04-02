@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E9044B60260DE8590072C97B /* TagContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9044B5F260DE8590072C97B /* TagContent.swift */; };
 		E92F9EB8260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EB9260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EBA260D9E130092216F /* AetherSpaceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */; };
@@ -35,8 +34,6 @@
 		E92F9F0C260D9F110092216F /* MarkdownContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F02260D9F110092216F /* MarkdownContent.swift */; };
 		E92F9F0D260D9F110092216F /* NodeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F03260D9F110092216F /* NodeContentView.swift */; };
 		E92F9F0E260D9F110092216F /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F04260D9F110092216F /* MarkdownView.swift */; };
-		E92F9F0F260D9F110092216F /* LinkContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F05260D9F110092216F /* LinkContent.swift */; };
-		E92F9F10260D9F110092216F /* DateContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F06260D9F110092216F /* DateContent.swift */; };
 		E92F9F11260D9F110092216F /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F07260D9F110092216F /* ImageContent.swift */; };
 		E92F9F12260D9F110092216F /* SoundContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F08260D9F110092216F /* SoundContent.swift */; };
 		E92F9F18260D9F210092216F /* LinkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F16260D9F210092216F /* LinkLayer.swift */; };
@@ -79,10 +76,18 @@
 		E958D32C260DB1D30045FA42 /* NodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D32B260DB1D30045FA42 /* NodeContent.swift */; };
 		E958D32D260DB1D30045FA42 /* NodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D32B260DB1D30045FA42 /* NodeContent.swift */; };
 		E99512B6260F8E1400FA2CA7 /* LinkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512B5260F8E1400FA2CA7 /* LinkPath.swift */; };
+		E99512C22610E19800FA2CA7 /* SetHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C12610E19800FA2CA7 /* SetHome.swift */; };
+		E99512CA2611B47E00FA2CA7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C92611B47E00FA2CA7 /* AppState.swift */; };
+		E99512CB2611B47E00FA2CA7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C92611B47E00FA2CA7 /* AppState.swift */; };
+		E99512D32611ED7200FA2CA7 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512D22611ED7200FA2CA7 /* Operation.swift */; };
+		E99512D42611ED7200FA2CA7 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512D22611ED7200FA2CA7 /* Operation.swift */; };
+		E9BD4332261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
+		E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
+		E9BD433F2616C095002148FA /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD433E2616C095002148FA /* TimePicker.swift */; };
+		E9BD43442616F9C8002148FA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD43432616F9C8002148FA /* AboutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E9044B5F260DE8590072C97B /* TagContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagContent.swift; sourceTree = "<group>"; };
 		E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceApp.swift; sourceTree = "<group>"; };
 		E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceDocument.swift; sourceTree = "<group>"; };
 		E92F9EA6260D9E110092216F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -108,8 +113,6 @@
 		E92F9F02260D9F110092216F /* MarkdownContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownContent.swift; sourceTree = "<group>"; };
 		E92F9F03260D9F110092216F /* NodeContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeContentView.swift; sourceTree = "<group>"; };
 		E92F9F04260D9F110092216F /* MarkdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
-		E92F9F05260D9F110092216F /* LinkContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkContent.swift; sourceTree = "<group>"; };
-		E92F9F06260D9F110092216F /* DateContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateContent.swift; sourceTree = "<group>"; };
 		E92F9F07260D9F110092216F /* ImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
 		E92F9F08260D9F110092216F /* SoundContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundContent.swift; sourceTree = "<group>"; };
 		E92F9F16260D9F210092216F /* LinkLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkLayer.swift; sourceTree = "<group>"; };
@@ -144,6 +147,12 @@
 		E958D326260DB1C80045FA42 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		E958D32B260DB1D30045FA42 /* NodeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeContent.swift; sourceTree = "<group>"; };
 		E99512B5260F8E1400FA2CA7 /* LinkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPath.swift; sourceTree = "<group>"; };
+		E99512C12610E19800FA2CA7 /* SetHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHome.swift; sourceTree = "<group>"; };
+		E99512C92611B47E00FA2CA7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E99512D22611ED7200FA2CA7 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		E9BD4331261466AF002148FA /* SpaceVMx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceVMx.swift; sourceTree = "<group>"; };
+		E9BD433E2616C095002148FA /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		E9BD43432616F9C8002148FA /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,15 +212,15 @@
 			isa = PBXGroup;
 			children = (
 				E92F9EE0260D9EC40092216F /* SpaceEditor.swift */,
-				E92F9EEC260D9F070092216F /* Background.swift */,
-				E92F9EAF260D9E130092216F /* Info.plist */,
-				E92F9F7E260DA0230092216F /* InfoPlist.strings */,
-				E92F9F8A260DA0370092216F /* Localizable.strings */,
+				E9BD43422616F9AD002148FA /* SetHome */,
 				E92F9EF0260D9F0C0092216F /* NodePicker */,
 				E92F9EFD260D9F110092216F /* NodeLayer */,
 				E92F9F15260D9F210092216F /* LinkLayer */,
 				E92F9F1C260D9F2D0092216F /* ToolLayer */,
 				E92F9F29260D9F3A0092216F /* Helpers */,
+				E92F9EAF260D9E130092216F /* Info.plist */,
+				E92F9F7E260DA0230092216F /* InfoPlist.strings */,
+				E92F9F8A260DA0370092216F /* Localizable.strings */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -228,6 +237,7 @@
 		E92F9EF0260D9F0C0092216F /* NodePicker */ = {
 			isa = PBXGroup;
 			children = (
+				E92F9EEC260D9F070092216F /* Background.swift */,
 				E92F9EF4260D9F0C0092216F /* NodeTrigger.swift */,
 				E92F9EF5260D9F0C0092216F /* NodePicker.swift */,
 				E92F9EF2260D9F0C0092216F /* AddContent.swift */,
@@ -254,11 +264,8 @@
 				E92F9F03260D9F110092216F /* NodeContentView.swift */,
 				E92F9F02260D9F110092216F /* MarkdownContent.swift */,
 				E92F9F04260D9F110092216F /* MarkdownView.swift */,
-				E92F9F05260D9F110092216F /* LinkContent.swift */,
-				E92F9F06260D9F110092216F /* DateContent.swift */,
 				E92F9F07260D9F110092216F /* ImageContent.swift */,
 				E92F9F08260D9F110092216F /* SoundContent.swift */,
-				E9044B5F260DE8590072C97B /* TagContent.swift */,
 			);
 			path = NodeContent;
 			sourceTree = "<group>";
@@ -301,6 +308,7 @@
 				E92F9F36260D9F3A0092216F /* SlideOverCard.swift */,
 				E92F9F37260D9F3A0092216F /* RoundedButtonStyle.swift */,
 				E92F9F38260D9F3A0092216F /* SheetHeight.swift */,
+				E9BD433E2616C095002148FA /* TimePicker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -327,14 +335,26 @@
 			isa = PBXGroup;
 			children = (
 				E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */,
+				E99512C92611B47E00FA2CA7 /* AppState.swift */,
 				E92F9ECA260D9EA60092216F /* Space.swift */,
 				E958D321260DB1C00045FA42 /* Node.swift */,
 				E958D32B260DB1D30045FA42 /* NodeContent.swift */,
 				E958D326260DB1C80045FA42 /* Link.swift */,
+				E99512D22611ED7200FA2CA7 /* Operation.swift */,
 				E92F9ECF260D9EAA0092216F /* SpaceVM.swift */,
+				E9BD4331261466AF002148FA /* SpaceVMx.swift */,
 				E92F9ED4260D9EAF0092216F /* PositionVM.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E9BD43422616F9AD002148FA /* SetHome */ = {
+			isa = PBXGroup;
+			children = (
+				E99512C12610E19800FA2CA7 /* SetHome.swift */,
+				E9BD43432616F9C8002148FA /* AboutView.swift */,
+			);
+			path = SetHome;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -469,14 +489,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E92F9EBA260D9E130092216F /* AetherSpaceDocument.swift in Sources */,
-				E92F9F0F260D9F110092216F /* LinkContent.swift in Sources */,
-				E9044B60260DE8590072C97B /* TagContent.swift in Sources */,
 				E92F9ED5260D9EAF0092216F /* PositionVM.swift in Sources */,
 				E92F9F0E260D9F110092216F /* MarkdownView.swift in Sources */,
 				E92F9F4F260D9F4F0092216F /* Upload.swift in Sources */,
-				E92F9F10260D9F110092216F /* DateContent.swift in Sources */,
 				E958D322260DB1C00045FA42 /* Node.swift in Sources */,
 				E92F9F41260D9F3A0092216F /* RoundedBackgroundModifier.swift in Sources */,
+				E9BD433F2616C095002148FA /* TimePicker.swift in Sources */,
+				E99512CA2611B47E00FA2CA7 /* AppState.swift in Sources */,
 				E92F9EFA260D9F0C0092216F /* NodePicker.swift in Sources */,
 				E92F9F3F260D9F3A0092216F /* MapView.swift in Sources */,
 				E92F9F42260D9F3A0092216F /* DragModifier.swift in Sources */,
@@ -489,9 +508,13 @@
 				E92F9F40260D9F3A0092216F /* ActionButtonBackgroundStyle.swift in Sources */,
 				E92F9F21260D9F2D0092216F /* ToolLayer.swift in Sources */,
 				E92F9F19260D9F210092216F /* LinkView.swift in Sources */,
+				E9BD4332261466AF002148FA /* SpaceVMx.swift in Sources */,
 				E92F9F18260D9F210092216F /* LinkLayer.swift in Sources */,
 				E92F9ECB260D9EA60092216F /* Space.swift in Sources */,
 				E92F9EED260D9F070092216F /* Background.swift in Sources */,
+				E9BD43442616F9C8002148FA /* AboutView.swift in Sources */,
+				E99512C22610E19800FA2CA7 /* SetHome.swift in Sources */,
+				E99512D32611ED7200FA2CA7 /* Operation.swift in Sources */,
 				E92F9EE1260D9EC40092216F /* SpaceEditor.swift in Sources */,
 				E92F9ED0260D9EAB0092216F /* SpaceVM.swift in Sources */,
 				E92F9EF7260D9F0C0092216F /* AddContent.swift in Sources */,
@@ -527,6 +550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */,
 				E92F9EBB260D9E130092216F /* AetherSpaceDocument.swift in Sources */,
 				E92F9ED6260D9EAF0092216F /* PositionVM.swift in Sources */,
 				E92F9F57260D9F560092216F /* Constant.swift in Sources */,
@@ -535,7 +559,9 @@
 				E958D323260DB1C00045FA42 /* Node.swift in Sources */,
 				E92F9EB9260D9E130092216F /* AetherSpaceApp.swift in Sources */,
 				E92F9F4E260D9F4F0092216F /* Test.swift in Sources */,
+				E99512D42611ED7200FA2CA7 /* Operation.swift in Sources */,
 				E92F9F59260D9F560092216F /* Extensions.swift in Sources */,
+				E99512CB2611B47E00FA2CA7 /* AppState.swift in Sources */,
 				E92F9F50260D9F4F0092216F /* Upload.swift in Sources */,
 				E92F9ECC260D9EA60092216F /* Space.swift in Sources */,
 				E92F9ED1260D9EAB0092216F /* SpaceVM.swift in Sources */,

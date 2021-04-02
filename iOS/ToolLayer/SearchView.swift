@@ -29,34 +29,51 @@ struct SearchView: View {
 							}
 						},
 						label: {
-							Text("hide").padding(.trailing, 10)
+							Text("hide").padding(.trailing, 8)
 						})
 
 				}
+				//				Picker(
+				//					selection: /*@START_MENU_TOKEN@*/ .constant(1) /*@END_MENU_TOKEN@*/,
+				//					label: /*@START_MENU_TOKEN@*/ Text("Picker") /*@END_MENU_TOKEN@*/
+				//				) {
+				//					Text("日期").tag(1)
+				//					Text("内容").tag(2)
+				//				}.pickerStyle(SegmentedPickerStyle())
+				//
+				//					.padding(.horizontal, 7)
+				VStack {
 
-				ScrollView {
-					LazyVStack {
-						ForEach((1...100), id: \.self) {
-							Text("Placeholder \($0)")
+					ScrollView(showsIndicators: false) {
+						LazyVStack {
+							ForEach((1...100), id: \.self) {
+								Text("Placeholder \($0)")
+							}
 						}
 					}
-				}
-				.padding(.horizontal, 10)
-				.padding(.vertical, 5)
 
-				HandleView()
+					HandleView()
+				}.padding(.horizontal, 8)
+					.padding(.top, 5)
+
 			}
 			.padding(5)
 			.blurBackground()
 			.cornerRadius(20, corners: [.topLeft, .bottomLeft])
-			//				.background(Color("NodeBackground"))
 			.frame(width: 340)
 			.frame(maxHeight: 740)
-
 			.shadow(.thick)
+			.offset(x: 5)
 
 			Spacer()
 		}
 
+	}
+}
+
+struct SearchView_Previews: PreviewProvider {
+	static var previews: some View {
+		SearchView(showSearch: .constant(true))
+			.previewDevice("iPhone 11 Pro")
 	}
 }
