@@ -7,6 +7,7 @@
 
 import Combine
 import CoreData
+import MobileCoreServices
 import SwiftUI
 
 class SpaceVM: ObservableObject {
@@ -25,9 +26,10 @@ class SpaceVM: ObservableObject {
 			initData()
 		}
 	}
+
 	@Published var links: [Lid: Lid] = [:]
 	@Published var nodes: [Nid: Nid] = [:]
-	var nodePosition: [Nid: PositionVM] = [:]
+	@Published var nodePosition: [Nid: PositionVM] = [:]
 
 	func initData() {
 		links = [:]
@@ -37,9 +39,9 @@ class SpaceVM: ObservableObject {
 	}
 	func initData(node: Node) {
 
-		links = node.asHeadLinkIds.merging(node.asTailLinkIds) { (ashead, _) in ashead }
+		stack = []
 
-		print(links)
+		links = node.asHeadLinkIds.merging(node.asTailLinkIds) { (ashead, _) in ashead }
 
 		let HeadNodes = Dictionary(
 			uniqueKeysWithValues: node.asTailLinkIds.map { (Lid, _) in
@@ -52,7 +54,7 @@ class SpaceVM: ObservableObject {
 			})
 
 		nodes = HeadNodes.merging(TailNodes) { (head, _) in head }
-
+		nodes[node.id] = node.id
 		let HeadNodePosition = Dictionary(
 			uniqueKeysWithValues: node.asTailLinkIds.map { (Lid, _) in
 				(space.links[Lid]!.headNodeId, PositionVM(offset: space.links[Lid]!.headOffset))
@@ -65,14 +67,15 @@ class SpaceVM: ObservableObject {
 		nodePosition = HeadNodePosition.merging(TailNodePosition) { (head, _) in head }
 
 		nodePosition[node.id] = PositionVM()
-
-		stack = []
 	}
 
 	func addNode(type: Node.Species, content: NodeContent, position: CGPoint) {
+
 		let newNode = Node(type: type, content: content)
 		let nid = newNode.id
-
+		if space.lastNodeId == nil {
+			space.lastNodeId = nid
+		}
 		space.nodes[nid] = newNode
 		nodePosition[newNode.id] = PositionVM(offset: position)
 		nodes[nid] = nid
@@ -102,6 +105,13 @@ class SpaceVM: ObservableObject {
 
 	func removeNode(nid: Nid) {
 		nodes[nid] = nil
+		if nid == space.lastNodeId {
+			if let first = nodes.first {
+				space.lastNodeId = first.value
+			} else {
+				space.lastNodeId = nil
+			}
+		}
 		let node = space.nodes[nid]!
 		let oldLinks = links
 		let oldSpace = space
@@ -122,41 +132,45 @@ class SpaceVM: ObservableObject {
 		stack.append(.removeNode(node, np, oldLinks, oldSpace))
 	}
 
-	func addLink(head: Node, tail: Node) {
-		//MARK: -same link
-		if head.id != tail.id {
-			let newLink = Link(head: head, tail: tail)
-			let lid = newLink.id
+	func addLink(head: Nid, tail: Nid) {
+		guard head != tail else { return }
 
-			space.links[lid] = newLink
-			space.nodes[head.id]!.asHeadLinkIds[lid] = lid
-			space.nodes[tail.id]!.asTailLinkIds[lid] = lid
-			links[lid] = lid
+		let newLink = Link(head: head, tail: tail)
+		let lid = newLink.id
 
-			stack.append(.addLink(newLink))
-		}
+		guard space.links[lid] == nil else { return }
+
+		space.links[lid] = newLink
+		space.nodes[head]!.asHeadLinkIds[lid] = lid
+		space.nodes[tail]!.asTailLinkIds[lid] = lid
+		links[lid] = lid
+
+		stack.append(.addLink(newLink))
 
 		//MARK: -no nowNode
 
 	}
 
 	func removeLink(lid: Lid) {
-		let link = space.links[lid]!
-		links[lid] = nil
-		space.nodes[space.links[lid]!.headNodeId]!.asHeadLinkIds[lid] = nil
-		space.nodes[space.links[lid]!.tailNodeId]!.asTailLinkIds[lid] = nil
-		space.links[lid] = nil
+		if space.links[lid] != nil {
+			let link = space.links[lid]!
+			links[lid] = nil
+			space.nodes[space.links[lid]!.headNodeId]!.asHeadLinkIds[lid] = nil
+			space.nodes[space.links[lid]!.tailNodeId]!.asTailLinkIds[lid] = nil
+			space.links[lid] = nil
 
-		stack.append(.removeLink(link))
+			stack.append(.removeLink(link))
+
+			let generator = UINotificationFeedbackGenerator()
+			generator.notificationOccurred(.success)
+		}
 	}
 
 	let saveSubject = PassthroughSubject<Int, Never>()
-	func save(nextNode: Node? = nil) {
-		print("save")
-		if let nid = space.lastNodeId ?? nodes.popFirst()?.value {
-
+	func savePosition() {
+		print("savePosition")
+		if let nid = space.lastNodeId {
 			links.forEach { (lid, _) in
-
 				if space.links[lid]!.headNodeId == nid {
 					space.links[lid]!.tailOffset = nodePosition[space.links[lid]!.tailNodeId]!.save
 						.subtract(nodePosition[space.links[lid]!.headNodeId]!.save)
@@ -178,16 +192,14 @@ class SpaceVM: ObservableObject {
 					space.links[lid]!.justAdded = false
 				}
 			}
-
-			if let n = nextNode {
-				space.lastNodeId = n.id
-				self.initData(node: n)
-
-			} else if space.lastNodeId == nil {
-				space.lastNodeId = nid
-			}
 		}
+	}
 
+	func jump(to next: Node) {
+		guard next.id != space.lastNodeId else { return }
+		savePosition()
+		space.lastNodeId = next.id
+		self.initData(node: next)
 	}
 
 	//MARK: - published?
@@ -215,11 +227,40 @@ class SpaceVM: ObservableObject {
 
 		case .removeLink(let link):
 			let lid = link.id
+			space.links[lid] = link
 			space.nodes[space.links[lid]!.headNodeId]!.asHeadLinkIds[lid] = lid
 			space.nodes[space.links[lid]!.tailNodeId]!.asTailLinkIds[lid] = lid
-			space.links[lid] = link
 			links[lid] = lid
 		}
+	}
 
+}
+
+extension SpaceVM: DropDelegate {
+
+	//    func dropEntered(info: DropInfo) {
+	//        NSSound(named: "Morse")?.play()
+	//    }
+
+	func performDrop(info: DropInfo) -> Bool {
+		print(info.location)
+		for provider in info.itemProviders(for: [String(kUTTypeURL)]) {
+			if provider.canLoadObject(ofClass: URL.self) {
+				let _ = provider.loadObject(
+					ofClass: URL.self,
+					completionHandler: { (url, error) in
+						let id = UUID(uuidString: url!.path)!
+						if self.nodes[id] == nil {
+							DispatchQueue.main.async {
+								withAnimation(.easeOut) {
+									self.nodePosition[id] = PositionVM()
+									self.nodes[id] = id
+								}
+							}
+						}
+					})
+			}
+		}
+		return true
 	}
 }

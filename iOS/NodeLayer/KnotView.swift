@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct KnotView: View {
-	let node: Node
+	let nid: Nid
 	@State var isDraw: Bool = false
 	@State var extra = CGSize.zero
 	let inPoint: CGPoint = CGPoint(x: 7.5, y: 7.5)
@@ -20,12 +20,12 @@ struct KnotView: View {
 	var direct: Bool {
 		inPoint.x < outPoint.x
 	}
-	let linkSubject: PassthroughSubject<(Node, CGPoint), Never>
+	let linkSubject: PassthroughSubject<(Nid, CGPoint), Never>
 	@State var globalOffset = CGSize.zero
 	var body: some View {
 
 		Circle()
-			.fill(Color.gray)
+			.fill(Color.gray.opacity(0.4))
 			.frame(width: 15, height: 15)
 			.overlay(
 				GeometryReader { proxy in
@@ -60,7 +60,7 @@ struct KnotView: View {
 						isDraw = true
 						extra = value.translation
 					}.onEnded { value in
-						linkSubject.send((node, outPoint.applyOffset(size: globalOffset)))
+						linkSubject.send((nid, outPoint.applyOffset(size: globalOffset)))
 						isDraw = false
 						extra = CGSize.zero
 					}

@@ -112,14 +112,14 @@ struct SetHome: View {
 		}
 	}
 
-	@State var uploadImage = false
+	@State var enableUpload = false
 	var system: some View {
 		Group {
 			Button("noti") {
 				UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
 			}
-			Toggle(isOn: $enableSave) {
-				Text("image upload")
+			Toggle(isOn: $enableUpload) {
+				Text("upload")
 			}
 		}
 

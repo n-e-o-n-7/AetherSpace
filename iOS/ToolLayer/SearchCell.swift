@@ -1,19 +1,16 @@
 //
-//  ContentView.swift
-//  Aether
+//  SearchCell.swift
+//  AetherSpace (iOS)
 //
-//  Created by 许滨麟 on 2021/3/22.
+//  Created by 许滨麟 on 2021/4/5.
 //
 
-import Combine
 import SwiftUI
 
-struct NodeContentView: View {
-	let type: Node.Species
-	@Binding var content: NodeContent
-	let knot: () -> KnotView
+struct SearchCell: View {
+	let node: Node
 	var body: some View {
-		switch type {
+		switch node.type {
 		case .link:
 			return AnyView(lc)
 		case .tag:
@@ -30,13 +27,13 @@ struct NodeContentView: View {
 	}
 	var title: some View {
 		HStack {
-			Image(systemName: type.systemImage)
+			Image(systemName: node.type.systemImage)
 				.foregroundColor(Color.accentColor)
-			Text(content.title!)
+			Text(node.content.title!)
 				.font(.caption)
 				.fontWeight(.regular)
 			Spacer()
-			knot()
+
 		}
 		.font(.headline)
 		.foregroundColor(.gray)
@@ -45,8 +42,8 @@ struct NodeContentView: View {
 	@State var isPresented = false
 	var lc: some View {
 
-		SwiftUI.Link(destination: URL(string: content.url!)!) {
-			Text(content.url!)
+		SwiftUI.Link(destination: URL(string: node.content.url!)!) {
+			Text(node.content.url!)
 		}
 
 		.padding(9)
@@ -69,7 +66,7 @@ struct NodeContentView: View {
 
 		DatePicker(
 			"",
-			selection: $content.time.unwrap()!,
+			selection: Binding(get: { node.content.time! }, set: { _, _ in }),
 			in: dateRange,
 			displayedComponents: [.date, .hourAndMinute]
 		)
@@ -83,15 +80,9 @@ struct NodeContentView: View {
 	var ic: some View {
 		VStack(spacing: 9) {
 			title
-			Image(uiImage: UIImage(data: content.data!)!)
+			Image(uiImage: UIImage(data: node.content.data!)!)
 				.resizable()
 				.aspectRatio(contentMode: .fit)
-				.onTapGesture {
-					isPresented.toggle()
-				}
-				.fullScreenCover(isPresented: $isPresented) {
-					ImageContent(content: $content)
-				}
 				.cornerRadius(9)
 				.shadow(.base)
 		}.frame(width: 210)
@@ -106,39 +97,30 @@ struct NodeContentView: View {
 				.frame(width: 40, height: 40)
 				.padding(.top, 30)
 				.padding(.bottom, 42)
-				.fullScreenCover(isPresented: $isPresented) {
-					SoundContent(content: $content)
-				}.onTapGesture {
-					isPresented.toggle()
-				}
 
 		}.frame(width: 170)
 	}
 
 	var tc: some View {
 
-		TextField(
-			"Placeholder", text: $content.title.unwrap()!
-		)
-		.font(.title3)
-		.frame(maxWidth: 170)
-		.fixedSize(horizontal: true, vertical: true)
-		.lineLimit(4)
-		.padding(.trailing, 30)
-		.padding(.leading, 9)
-		.overlay(knot(), alignment: .trailing)
+		Text(node.content.title!)
+			.font(.title3)
+			.frame(maxWidth: 170)
+			.fixedSize(horizontal: true, vertical: true)
+			.lineLimit(4)
+			.padding(.leading, 9)
 
 	}
 
 	var mc: some View {
 		title
 			.frame(width: 170)
-			.fullScreenCover(isPresented: $isPresented) {
-				MarkdownContent(
-					markdown: $content.markdown.unwrap()!
-				)
-			}.onTapGesture {
-				isPresented.toggle()
-			}
+	}
+}
+
+struct SearchCell_Previews: PreviewProvider {
+	static let node = Node(type: .link, content: NodeContent(title: ""))
+	static var previews: some View {
+		SearchCell(node: node)
 	}
 }

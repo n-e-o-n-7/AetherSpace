@@ -19,12 +19,14 @@ struct ImageContent: View {
 
 				Spacer()
 
+				Button("edit") {
+
+				}
 			}
 			Image(uiImage: UIImage(data: content.data!)!)
-				.renderingMode(.original)
 				.resizable()
-				.aspectRatio(contentMode: .fill)
-		}
+				.aspectRatio(contentMode: .fit)
+		}.padding()
 
 	}
 }

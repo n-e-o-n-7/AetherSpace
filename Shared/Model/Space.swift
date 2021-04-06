@@ -12,18 +12,20 @@ struct Space: Codable {
 	var nodes: [Nid: Node]
 	var links: [Lid: Link]
 	var mode: ModeType
-
+	var searchHistory: Set<String> = []
 	init() {
 		self.lastNodeId = nil
 		self.nodes = [:]
 		self.links = [:]
 		self.mode = ModeType.link
+		self.searchHistory = []
 	}
 	init(from space: Space) {
 		self.lastNodeId = space.lastNodeId
 		self.nodes = space.nodes
 		self.links = space.links
 		self.mode = space.mode
+		self.searchHistory = space.searchHistory
 	}
 }
 

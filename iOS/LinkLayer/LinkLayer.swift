@@ -17,6 +17,7 @@ struct LinkLayer: View {
 		ZStack {
 			ForEach(lids, id: \.self) { lid in
 				LinkView(
+					lid: lid,
 					headPVM: svm.nodePosition[svm.space.links[lid]!.headNodeId]!,
 					tailPVM: svm.nodePosition[svm.space.links[lid]!.tailNodeId]!
 				)

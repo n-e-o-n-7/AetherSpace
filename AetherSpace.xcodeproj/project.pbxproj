@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E91AA9F7261AE6FA00E0DBE0 /* soundWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AA9F6261AE6FA00E0DBE0 /* soundWave.swift */; };
 		E92F9EB8260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EB9260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EBA260D9E130092216F /* AetherSpaceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */; };
@@ -75,6 +76,7 @@
 		E958D328260DB1C80045FA42 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D326260DB1C80045FA42 /* Link.swift */; };
 		E958D32C260DB1D30045FA42 /* NodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D32B260DB1D30045FA42 /* NodeContent.swift */; };
 		E958D32D260DB1D30045FA42 /* NodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D32B260DB1D30045FA42 /* NodeContent.swift */; };
+		E98B6977261B2B7300A5BAF8 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B6976261B2B7300A5BAF8 /* SearchCell.swift */; };
 		E99512B6260F8E1400FA2CA7 /* LinkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512B5260F8E1400FA2CA7 /* LinkPath.swift */; };
 		E99512C22610E19800FA2CA7 /* SetHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C12610E19800FA2CA7 /* SetHome.swift */; };
 		E99512CA2611B47E00FA2CA7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C92611B47E00FA2CA7 /* AppState.swift */; };
@@ -85,9 +87,12 @@
 		E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
 		E9BD433F2616C095002148FA /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD433E2616C095002148FA /* TimePicker.swift */; };
 		E9BD43442616F9C8002148FA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD43432616F9C8002148FA /* AboutView.swift */; };
+		E9E06E10261C40B800817066 /* NodeDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */; };
+		E9E06E11261C40B800817066 /* NodeDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E91AA9F6261AE6FA00E0DBE0 /* soundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = soundWave.swift; sourceTree = "<group>"; };
 		E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceApp.swift; sourceTree = "<group>"; };
 		E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceDocument.swift; sourceTree = "<group>"; };
 		E92F9EA6260D9E110092216F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -146,6 +151,7 @@
 		E958D321260DB1C00045FA42 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		E958D326260DB1C80045FA42 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		E958D32B260DB1D30045FA42 /* NodeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeContent.swift; sourceTree = "<group>"; };
+		E98B6976261B2B7300A5BAF8 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		E99512B5260F8E1400FA2CA7 /* LinkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPath.swift; sourceTree = "<group>"; };
 		E99512C12610E19800FA2CA7 /* SetHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHome.swift; sourceTree = "<group>"; };
 		E99512C92611B47E00FA2CA7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 		E9BD4331261466AF002148FA /* SpaceVMx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceVMx.swift; sourceTree = "<group>"; };
 		E9BD433E2616C095002148FA /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		E9BD43432616F9C8002148FA /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeDropDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,8 +291,9 @@
 			isa = PBXGroup;
 			children = (
 				E92F9F1D260D9F2D0092216F /* ToolLayer.swift */,
-				E92F9F1E260D9F2D0092216F /* SearchView.swift */,
 				E92F9F1F260D9F2D0092216F /* SearchBar.swift */,
+				E92F9F1E260D9F2D0092216F /* SearchView.swift */,
+				E98B6976261B2B7300A5BAF8 /* SearchCell.swift */,
 			);
 			path = ToolLayer;
 			sourceTree = "<group>";
@@ -309,6 +317,7 @@
 				E92F9F37260D9F3A0092216F /* RoundedButtonStyle.swift */,
 				E92F9F38260D9F3A0092216F /* SheetHeight.swift */,
 				E9BD433E2616C095002148FA /* TimePicker.swift */,
+				E91AA9F6261AE6FA00E0DBE0 /* soundWave.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -344,6 +353,7 @@
 				E92F9ECF260D9EAA0092216F /* SpaceVM.swift */,
 				E9BD4331261466AF002148FA /* SpaceVMx.swift */,
 				E92F9ED4260D9EAF0092216F /* PositionVM.swift */,
+				E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -492,6 +502,7 @@
 				E92F9ED5260D9EAF0092216F /* PositionVM.swift in Sources */,
 				E92F9F0E260D9F110092216F /* MarkdownView.swift in Sources */,
 				E92F9F4F260D9F4F0092216F /* Upload.swift in Sources */,
+				E98B6977261B2B7300A5BAF8 /* SearchCell.swift in Sources */,
 				E958D322260DB1C00045FA42 /* Node.swift in Sources */,
 				E92F9F41260D9F3A0092216F /* RoundedBackgroundModifier.swift in Sources */,
 				E9BD433F2616C095002148FA /* TimePicker.swift in Sources */,
@@ -502,6 +513,7 @@
 				E92F9F3A260D9F3A0092216F /* RoundedCorner.swift in Sources */,
 				E92F9EF9260D9F0C0092216F /* NodeTrigger.swift in Sources */,
 				E92F9F46260D9F3A0092216F /* RoundedButtonStyle.swift in Sources */,
+				E91AA9F7261AE6FA00E0DBE0 /* soundWave.swift in Sources */,
 				E92F9EB8260D9E130092216F /* AetherSpaceApp.swift in Sources */,
 				E92F9F4D260D9F4F0092216F /* Test.swift in Sources */,
 				E92F9F12260D9F110092216F /* SoundContent.swift in Sources */,
@@ -537,6 +549,7 @@
 				E92F9F22260D9F2D0092216F /* SearchView.swift in Sources */,
 				E92F9F0D260D9F110092216F /* NodeContentView.swift in Sources */,
 				E92F9F09260D9F110092216F /* NodeView.swift in Sources */,
+				E9E06E10261C40B800817066 /* NodeDropDelegate.swift in Sources */,
 				E92F9F45260D9F3A0092216F /* SlideOverCard.swift in Sources */,
 				E92F9F44260D9F3A0092216F /* FormSheet.swift in Sources */,
 				E92F9F43260D9F3A0092216F /* ShadowModifier.swift in Sources */,
@@ -565,6 +578,7 @@
 				E92F9F50260D9F4F0092216F /* Upload.swift in Sources */,
 				E92F9ECC260D9EA60092216F /* Space.swift in Sources */,
 				E92F9ED1260D9EAB0092216F /* SpaceVM.swift in Sources */,
+				E9E06E11261C40B800817066 /* NodeDropDelegate.swift in Sources */,
 				E92F9EBD260D9E130092216F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

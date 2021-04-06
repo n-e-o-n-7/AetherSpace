@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct SoundContent: View {
-
+	@Environment(\.presentationMode) var presentationMode
+	@Binding var content: NodeContent
 	var body: some View {
-		Text( /*@START_MENU_TOKEN@*/"Hello, World!" /*@END_MENU_TOKEN@*/)
+		VStack {
+			HStack {
+				Button("cancel") {
+					presentationMode.wrappedValue.dismiss()
+				}
+
+				Spacer()
+
+				Button("edit") {
+
+				}
+			}
+
+		}.padding()
+
 	}
 }

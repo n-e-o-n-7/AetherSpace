@@ -13,14 +13,8 @@ struct SearchBar: UIViewRepresentable {
 		return SearchBar.Coordinator(parent: self)
 	}
 
-	var onSearch: (String) -> Void
-	//	var onCancel: () -> Void
-
-	//	init(onSearch: @escaping (String) -> Void, onCancel: @escaping () -> Void) {
-	//
-	//		self.onSearch = onSearch
-	//		self.onCancel = onCancel
-	//	}
+	@Binding var searchText: String
+	var onSearch: () -> Void
 
 	func makeUIView(context: Context) -> UISearchBar {
 
@@ -31,6 +25,7 @@ struct SearchBar: UIViewRepresentable {
 		searchBar.autocapitalizationType = .none
 		searchBar.delegate = context.coordinator
 		searchBar.placeholder = "Search"
+
 		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
 			searchBar.becomeFirstResponder()
 		}
@@ -40,6 +35,7 @@ struct SearchBar: UIViewRepresentable {
 	}
 
 	func updateUIView(_ uiView: UISearchBar, context: Context) {
+		uiView.text = searchText
 	}
 
 	class Coordinator: NSObject, UISearchBarDelegate {
@@ -51,8 +47,10 @@ struct SearchBar: UIViewRepresentable {
 		}
 
 		func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
-			self.parent.onSearch(searchText)
+			self.parent.searchText = searchText
+		}
+		func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+			self.parent.onSearch()
 		}
 
 		//		func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

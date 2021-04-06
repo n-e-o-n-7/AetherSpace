@@ -33,11 +33,23 @@ struct ShadowModifier: ViewModifier {
 					x: CGFloat(0),
 					y: CGFloat(0)
 				)
+
+		case .thin:
+			return
+				content
+				.shadow(
+					color: colorScheme == .light
+						? Color.gray.opacity(0.1) : Color.black.opacity(0.1),
+					radius: 30.0,
+					x: CGFloat(0),
+					y: CGFloat(4)
+				)
 		}
 	}
 }
 
 enum ShadowType {
+	case thin
 	case base
 	case thick
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NodeTrigger: View {
 	@Binding var position: CGPoint
+	@Binding var save: CGPoint
 	@Binding var isPresented: Bool
 	@State var showAlert = false
 	@State var errorMessage = ""
@@ -62,11 +63,16 @@ struct NodeTrigger: View {
 				errorMessage = "no url"
 				showAlert = true
 				return
+			} else if urlReg.matches(
+				in: content.url!, options: [], range: NSMakeRange(0, content.url!.count)
+			).count == 0 {
+				errorMessage = "wrong url"
+				showAlert = true
+				return
 			}
 		default: break
 		}
-
-		svm.addNode(type: type, content: content, position: position)
+		svm.addNode(type: type, content: content, position: position.subtract(save))
 		isPresented = false
 	}
 }

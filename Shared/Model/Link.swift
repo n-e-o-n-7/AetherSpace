@@ -8,8 +8,8 @@
 import CoreGraphics
 import Foundation
 
-struct Link: Codable, Identifiable {
-	let id: Lid
+struct Link: Codable {
+
 	let creatTime: Date
 	let headNodeId: Nid
 	let tailNodeId: Nid
@@ -17,13 +17,26 @@ struct Link: Codable, Identifiable {
 	var tailOffset: CGPoint
 	var justAdded: Bool
 
-	init(head: Node, tail: Node) {
-		self.id = Lid()
+	init(head: Nid, tail: Nid) {
+
 		self.creatTime = Date()
-		self.headNodeId = head.id
-		self.tailNodeId = tail.id
+		self.headNodeId = head
+		self.tailNodeId = tail
 		self.headOffset = .zero
 		self.tailOffset = .zero
 		self.justAdded = true
+	}
+}
+
+extension Link: Identifiable {
+	var id: Lid {
+		self.hashValue
+	}
+}
+
+extension Link: Hashable {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(self.headNodeId)
+		hasher.combine(self.tailNodeId)
 	}
 }

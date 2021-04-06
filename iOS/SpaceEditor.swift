@@ -5,6 +5,7 @@
 //  Created by 许滨麟 on 2021/3/25.
 //
 
+import MobileCoreServices
 import SwiftUI
 
 struct SpaceEditor: View {
@@ -30,39 +31,70 @@ struct SpaceEditor: View {
 
 		ZStack {
 			if svm.space.mode == Space.ModeType.link {
-				Background { location in
-					showPicker.toggle()
-					position = location
-				}
-				.background(Color("CanvasBackground"))
-				.edgesIgnoringSafeArea(.bottom)
+				GeometryReader { proxy in
+					Background { offset in
+						showPicker.toggle()
+						position = offset
+					}
+					.onDrop(
+						of: [String(kUTTypeURL)], isTargeted: nil,
+						perform: { (items, point) in
+							if let item = items.first {
+								if item.canLoadObject(ofClass: URL.self) {
+									let _ = item.loadObject(
+										ofClass: URL.self,
+										completionHandler: { (url, error) in
+											let id = UUID(uuidString: url!.path)!
+											if self.svm.nodes[id] == nil {
+												DispatchQueue.main.async {
+													let center = CGPoint(
+														x: proxy.size.width / 2,
+														y: proxy.size.height / 2)
+													//													print(UIApplication.shared.windows.first?.safeAreaInsets)
+													let extra = CGPoint(
+														x: 0,
+														y: UIScreen.main.bounds.size.height
+															- proxy.size.height)
+													withAnimation(.easeOut) {
+														self.svm.nodePosition[id] = PositionVM(
+															offset: point.subtract(extra).subtract(
+																center
+															).subtract(
+																self.save))
+														self.svm.nodes[id] = id
+													}
 
-				.gesture(
-					DragGesture()
-						.onChanged { value in
+												}
 
-							extra = value.translation
-
-						}.onEnded { value in
-							save = CGPoint(x: save.x + extra.width, y: save.y + extra.height)
-							extra = CGSize.zero
+											}
+										})
+								}
+							}
+							return true
 						}
-				)
-
+					)
+					.gesture(
+						DragGesture()
+							.onChanged { value in
+								extra = value.translation
+							}.onEnded { value in
+								save = CGPoint(x: save.x + extra.width, y: save.y + extra.height)
+								extra = CGSize.zero
+							}
+					)
+					.padding(100)
+					.background(Color("CanvasBackground"))
+				}.edgesIgnoringSafeArea(.bottom)
 				Group {
 					LinkLayer()
-
 					NodeLayer()
 				}
 				.scaleEffect(magnifyBy)
 				.offset(x: save.x + extra.width, y: save.y + extra.height)
 
-				NodeTrigger(position: $position, isPresented: $showPicker)
-
+				NodeTrigger(position: $position, save: $save, isPresented: $showPicker)
 				ToolLayer(showSearch: $showSearch)
-
 			}
-
 		}
 		.gesture(magnification)
 		.toolbar {
@@ -134,14 +166,8 @@ struct SpaceEditor: View {
 		}
 	}
 
-	@State var showAlert = false
-
 	var more: some View {
 		Menu {
-			Button(
-				action: { showAlert.toggle() },
-				label: { Label("other", systemImage: "magnifyingglass") }
-			)
 			Button(
 				action: { svm.saveSubject.send(1) },
 				label: { Label("save", systemImage: "magnifyingglass") }
@@ -157,12 +183,6 @@ struct SpaceEditor: View {
 		.menuStyle(DefaultMenuStyle())
 		.sheet(isPresented: $showSet) {
 			SetHome()
-		}
-		.alert(isPresented: $showAlert) {
-			Alert(
-				title: Text("success"), message: Text("?"),
-				primaryButton: .destructive(Text("确认")) {},
-				secondaryButton: .cancel())
 		}
 	}
 }

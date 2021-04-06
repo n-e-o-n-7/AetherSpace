@@ -28,8 +28,8 @@ struct Background: UIViewRepresentable {
 
 			let point = gesture.location(in: gesture.view)
 			let center = gesture.view!.center
-			let real = CGPoint(x: point.x - center.x, y: point.y - center.y)
-			self.tappedCallback(real)
+			let offset = CGPoint(x: point.x - center.x, y: point.y - center.y)
+			self.tappedCallback(offset)
 		}
 	}
 

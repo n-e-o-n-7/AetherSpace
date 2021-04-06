@@ -25,7 +25,7 @@ struct AetherSpaceApp: App {
 				.onReceive(
 					svm.saveSubject,
 					perform: { i in
-						svm.save()
+						svm.savePosition()
 						file.document.space = svm.space
 						print(file.document.space, "disappear")
 					})

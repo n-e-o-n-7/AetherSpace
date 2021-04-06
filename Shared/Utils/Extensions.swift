@@ -25,7 +25,7 @@ extension CGPoint {
 	}
 
 	func distance(to point: CGPoint) -> CGFloat {
-		return sqrt(self.x - point.x) + sqrt(self.y - point.y)
+		return sqrt(pow((self.x - point.x), 2) + pow((self.y - point.y), 2))
 	}
 
 	func subtract(_ point: CGPoint) -> CGPoint {
@@ -205,4 +205,10 @@ extension String {
 }
 
 typealias Nid = UUID
-typealias Lid = UUID
+typealias Lid = Int
+
+extension String {
+	func toReg() -> NSRegularExpression? {
+		try? NSRegularExpression(pattern: self, options: .caseInsensitive)
+	}
+}
