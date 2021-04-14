@@ -10,16 +10,16 @@ import SwiftUI
 
 struct SpaceEditor: View {
 	@EnvironmentObject var svm: SpaceVM
+	@EnvironmentObject var autoSave: AutoSave
 	@State var save = CGPoint.zero
 	@State var extra = CGSize.zero
-
 	@State var showSet = false
 	//MARK: - nodeTrigger
 	@State var position = CGPoint.zero
 	@State var showPicker = false
-
 	//MARK: - MagnificationGesture
 	@GestureState var magnifyBy = CGFloat(1.0)
+	@AppStorage("autosave") var autosave: TimeInterval = 60
 	var magnification: some Gesture {
 		MagnificationGesture()
 			.updating($magnifyBy) { currentState, gestureState, transaction in
@@ -28,7 +28,6 @@ struct SpaceEditor: View {
 	}
 	@State var a = false
 	var body: some View {
-
 		ZStack {
 			if svm.space.mode == Space.ModeType.link {
 				GeometryReader { proxy in
@@ -50,7 +49,6 @@ struct SpaceEditor: View {
 													let center = CGPoint(
 														x: proxy.size.width / 2,
 														y: proxy.size.height / 2)
-													//													print(UIApplication.shared.windows.first?.safeAreaInsets)
 													let extra = CGPoint(
 														x: 0,
 														y: UIScreen.main.bounds.size.height
@@ -63,9 +61,7 @@ struct SpaceEditor: View {
 																self.save))
 														self.svm.nodes[id] = id
 													}
-
 												}
-
 											}
 										})
 								}
@@ -84,7 +80,7 @@ struct SpaceEditor: View {
 					)
 					.padding(100)
 					.background(Color("CanvasBackground"))
-				}.edgesIgnoringSafeArea(.bottom)
+				}.edgesIgnoringSafeArea(.vertical)
 				Group {
 					LinkLayer()
 					NodeLayer()
@@ -93,17 +89,32 @@ struct SpaceEditor: View {
 				.offset(x: save.x + extra.width, y: save.y + extra.height)
 
 				NodeTrigger(position: $position, save: $save, isPresented: $showPicker)
+
 				ToolLayer(showSearch: $showSearch)
+
 			}
 		}
 		.gesture(magnification)
 		.toolbar {
+			ToolbarItem(placement: .navigationBarLeading) { quit }
 			ToolbarItem(placement: .navigationBarLeading) { backout }
 			ToolbarItem(placement: .principal) { mode }
 			ToolbarItem(placement: .navigationBarTrailing) { search }
 			ToolbarItem(placement: .navigationBarTrailing) { more }
 		}
 		.navigationBarTitleDisplayMode(.inline)
+		.navigationBarHidden(showSearch)
+
+		//MARK: - save
+		.onAppear {
+			autoSave.setSave(frequency: autosave)
+		}
+		.onDisappear {
+			autoSave.setSave(frequency: 0)
+		}
+		.onChange(of: autosave) { time in
+			autoSave.setSave(frequency: time)
+		}
 
 	}
 
@@ -122,6 +133,23 @@ struct SpaceEditor: View {
 	//                showHistory.toggle()
 	//            }
 	//    }
+	@Environment(\.loading) var showLoad: Binding<Bool>
+	var quit: some View {
+		Button(
+			action: {
+				showLoad.wrappedValue.toggle()
+				autoSave.save()
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+					UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true)
+					{}
+				}
+			},
+			label: {
+				Label("home", systemImage: "tray.full")
+			}
+		)
+	}
+
 	@ViewBuilder
 	var backout: some View {
 		if svm.stack.count != 0 {
@@ -169,7 +197,7 @@ struct SpaceEditor: View {
 	var more: some View {
 		Menu {
 			Button(
-				action: { svm.saveSubject.send(1) },
+				action: { autoSave.save() },
 				label: { Label("save", systemImage: "magnifyingglass") }
 			)
 			Button(

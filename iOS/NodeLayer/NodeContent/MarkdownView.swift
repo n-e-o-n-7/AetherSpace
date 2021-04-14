@@ -6,18 +6,36 @@
 //
 
 import MarkdownView
+import SafariServices
 import SwiftUI
 
 struct Markdown: UIViewRepresentable {
 	@Binding var markdown: String
-	func makeCoordinator() -> Coordinator {
-		return Markdown.Coordinator(parent: self)
-	}
+	@Environment(\.loading) var showLoad: Binding<Bool>
 
 	func makeUIView(context: Context) -> MarkdownView {
 		let mdView = MarkdownView()
 		mdView.isScrollEnabled = false
+		mdView.onRendered = { _ in
+			self.showLoad.wrappedValue = false
+		}
+		//		        mdView.onTouchLink = { request in
+		//		          guard let url = request.url else { return false }
+		//
+		//		          if url.scheme == "file" {
+		//		            return false
+		//		          } else if url.scheme == "https" {
+		//		            let safari = SFSafariViewController(url: url)
+		//
+		//
+		//                    mdView.navigationController?.pushViewController(safari, animated: true)
+		//		            return false
+		//		          } else {
+		//		            return false
+		//		          }
+		//		        }
 		mdView.load(markdown: markdown, enableImage: true)
+
 		return mdView
 	}
 
@@ -25,12 +43,16 @@ struct Markdown: UIViewRepresentable {
 		mdView.load(markdown: markdown, enableImage: true)
 	}
 
-	class Coordinator: NSObject {
+}
 
-		var parent: Markdown
-
-		init(parent: Markdown) {
-			self.parent = parent
+extension UIView {
+	func findViewController() -> UIViewController? {
+		if let nextResponder = self.next as? UIViewController {
+			return nextResponder
+		} else if let nextResponder = self.next as? UIView {
+			return nextResponder.findViewController()
+		} else {
+			return nil
 		}
 	}
 }

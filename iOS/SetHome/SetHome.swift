@@ -18,7 +18,6 @@ struct SetHome: View {
 					color
 				}
 				Section(header: Text("canvas")) {
-
 					save
 				}
 				Section(header: Text("system")) {
@@ -37,11 +36,10 @@ struct SetHome: View {
 
 						//MARK: - save
 						if enableSave {
-							autosave = selections[0] * 60 + selections[1]
+							autosave = Double(selections[0] * 60 + selections[1])
 						} else {
 							autosave = 0
 						}
-
 						presentationMode.wrappedValue.dismiss()
 
 					}
@@ -90,7 +88,7 @@ struct SetHome: View {
 	]
 	@State var enableSave: Bool = false
 	@State private var selections: [Int] = [0, 0]
-	@AppStorage("autosave") var autosave = 60
+	@AppStorage("autosave") var autosave: TimeInterval = 60
 	var save: some View {
 		Group {
 			Toggle(isOn: $enableSave) {
@@ -106,8 +104,8 @@ struct SetHome: View {
 		}.onAppear {
 			if autosave != 0 {
 				self.enableSave = true
-				self.selections[0] = autosave / 60
-				self.selections[1] = autosave % 60
+				self.selections[0] = Int(autosave) / 60
+				self.selections[1] = Int(autosave) % 60
 			}
 		}
 	}
@@ -115,14 +113,13 @@ struct SetHome: View {
 	@State var enableUpload = false
 	var system: some View {
 		Group {
-			Button("noti") {
+			Button("permission") {
 				UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
 			}
 			Toggle(isOn: $enableUpload) {
-				Text("upload")
+				Text("clear photo cache")
 			}
 		}
-
 	}
 
 	var about: some View {

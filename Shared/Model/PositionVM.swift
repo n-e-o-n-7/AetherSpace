@@ -14,8 +14,5 @@ class PositionVM: ObservableObject {
 	init(offset position: CGPoint) {
 		self.save = position
 	}
-	init() {
-
-	}
-
+	init() {}
 }

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct AddContent: View {
 	@Binding var nodeType: Node.Species
-	let confirm: (NodeContent) -> Void
+	let confirm: ([NodeContent]) -> Void
 	var body: some View {
 		switch nodeType {
 		case .link:
@@ -47,7 +47,7 @@ struct AddContent: View {
 		Spacer()
 		confirmButton {
 			let content = NodeContent(url: link)
-			confirm(content)
+			confirm([content])
 		}
 	}
 
@@ -76,49 +76,40 @@ struct AddContent: View {
 		Spacer()
 		confirmButton {
 			let content = NodeContent(time: date)
-			confirm(content)
+			confirm([content])
 		}
 	}
 
 	//MARK: - image
 	@State private var showImage = false
-	@State var photo: UIImage?
-	@State var photoName: String?
+	@State var photo: [(String, UIImage)] = []
 	var config: PHPickerConfiguration {
 		var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
 		config.filter = .images  //videos, livePhotos...
-		config.selectionLimit = 1  //0 => any, set 1-2-3 for har limit
+		config.selectionLimit = 0  //0 => any, set 1-2-3 for har limit
 		return config
 	}
 	@ViewBuilder
 	var ip: some View {
 		Text("content").font(.caption).foregroundColor(.gray).fontWeight(.bold)
-		photo.map {
-			Image(uiImage: $0)
-				.renderingMode(.original)
-				.resizable()
-				.aspectRatio(contentMode: .fill)
-		}
-		photoName.map {
-			Text($0)
-		}
-		if photo == nil {
-
+		if photo.count == 0 {
 			Button("click to add image") {
 				showImage.toggle()
 			}.sheet(isPresented: $showImage) {
 				ImagePicker(
 					configuration: self.config,
-					pickerResult: $photo,
-					photoName: $photoName)
+					pickerResult: $photo)
 			}.padding(.top, 5)
-
+		} else {
+			Text("choose \(photo.count) images").padding(.top, 5).foregroundColor(.accentColor)
 		}
 		Spacer()
 		confirmButton {
-			let content = NodeContent(data: photo?.pngData(), fileName: photoName ?? "")
-			confirm(content)
-
+			guard photo.count != 0 else { return }
+			let contents = photo.map { (name, image) in
+				NodeContent(data: image.pngData(), fileName: name)
+			}
+			confirm(contents)
 		}
 	}
 
@@ -154,7 +145,7 @@ struct AddContent: View {
 		Spacer()
 		confirmButton {
 			let content = NodeContent(data: sound, fileName: soundName ?? "")
-			confirm(content)
+			confirm([content])
 
 		}
 	}
@@ -162,7 +153,7 @@ struct AddContent: View {
 	var mp: some View {
 		confirmButton {
 			let content = NodeContent(markdown: example)
-			confirm(content)
+			confirm([content])
 		}
 	}
 
@@ -170,26 +161,25 @@ struct AddContent: View {
 	var tp: some View {
 		confirmButton {
 			let content = NodeContent()
-			confirm(content)
+			confirm([content])
 		}
 	}
 
 	func confirmButton(confirm: @escaping () -> Void) -> some View {
-
 		Button(
 			action: confirm,
 			label: {
 				Color.accentColor.opacity(0.3)
 					.cornerRadius(CornerRadius.ssmall.rawValue)
 					.overlay(
-						Text("confirm").fontWeight(.bold)
-							.foregroundColor(.accentColor)
+						Text("confirm")
+							.fontWeight(.bold)
+							.foregroundColor(Color.accentColor)
 					)
 					//        .buttonStyle(LightButtonStyle())
 					.frame(height: 40)
 					.padding(.top, 5)
 			}
 		)
-
 	}
 }

@@ -17,32 +17,28 @@ struct SearchView: View {
 		return svm.space.nodes.map { (_, node) in
 			node
 		}.filter { node in
-			node.content.title!.lowercased().contains(searchText.lowercased())
+			node.title.lowercased().contains(searchText.lowercased())
 		}
 	}
 	var historys: [String] {
 		Array(svm.space.searchHistory)
 	}
 	var body: some View {
-		VStack {
-			VStack(spacing: 0) {
-				searchHead
-				if searchText == "" {
-					searchHistory
-				} else {
-					searchBody
-				}
-			}
-			.padding(5)
-			.blurBackground()
-			.cornerRadius(20, corners: [.topLeft, .bottomLeft])
-			.frame(width: 340)
-			.frame(maxHeight: 740)
-			.shadow(.thick)
-			.offset(x: 5)
 
-			Spacer()
+		VStack(spacing: 0) {
+			searchHead
+			if searchText == "" {
+				searchHistory
+			} else {
+				searchBody
+			}
 		}
+		.blurBackground()
+		.frame(width: 340)
+		.frame(maxHeight: 740)
+		.cornerRadius(20)
+		//		.cornerRadius(20, corners: [.topLeft, .bottomLeft])
+		.shadow(.thick)
 
 	}
 
@@ -55,24 +51,22 @@ struct SearchView: View {
 				})
 			Button(
 				action: {
-					withAnimation {
-						UIApplication.shared.sendAction(
-							#selector(UIResponder.resignFirstResponder), to: nil,
-							from: nil, for: nil)
-						showSearch = false
-					}
+					UIApplication.shared.sendAction(
+						#selector(UIResponder.resignFirstResponder), to: nil,
+						from: nil, for: nil)
+					showSearch = false
+
 				},
 				label: {
-					Text("hide")
-						.font(.title3)
-						.padding(.trailing, 8)
-				})
+					Text("Hide")
 
-		}
+						.padding(.trailing, 3)
+				})
+		}.padding(5)
 	}
 
 	var searchHistory: some View {
-		VStack {
+		VStack(spacing: 5) {
 			HStack {
 				Text("Recent Searches")
 					.opacity(0.7)
@@ -86,8 +80,7 @@ struct SearchView: View {
 					})
 			}
 			ScrollView(showsIndicators: false) {
-				LazyVStack(alignment: .leading) {
-
+				VStack(alignment: .leading) {
 					ForEach(historys, id: \.self) { history in
 						Divider()
 						Button(
@@ -98,21 +91,19 @@ struct SearchView: View {
 								Text(history).padding(.trailing, 8)
 							})
 					}
-
 				}
 			}
-			HandleView()
-		}
-		.padding(.leading, 8)
-		.padding(.top, 5)
+			//			HandleView()
+		}.padding(.leading, 13)
 	}
 
 	var searchBody: some View {
-		VStack {
-			ScrollView(showsIndicators: false) {
-				LazyVStack(alignment: .leading) {
-					ForEach(searchResult, id: \.id) { node in
-						Divider()
+
+		ScrollView(showsIndicators: false) {
+			LazyVStack(alignment: .leading, spacing: 10) {
+				ForEach(searchResult, id: \.id) { node in
+					//						Divider()
+					HStack {
 						SearchCell(node: node)
 							.padding(9)
 							.roundedBackground(radius: .mid)
@@ -121,13 +112,25 @@ struct SearchView: View {
 									item: URL(string: node.id.uuidString)! as NSSecureCoding,
 									typeIdentifier: String(kUTTypeURL))
 							})
+						Spacer()
+						Button(
+							action: {
+								withAnimation {
+									svm.jump(to: node)
+								}
+							},
+							label: {
+								Image(systemName: "arrow.right.circle.fill")
+									.font(.title3)
+							})
 					}
-				}
+					.padding(.trailing, 33)
+					.roundedBackground(radius: .mid)
+				}.offset(x: 13)
 			}
-			HandleView()
 		}
-		.padding(.leading, 8)
-		.padding(.top, 5)
+		//			HandleView()
+
 	}
 }
 

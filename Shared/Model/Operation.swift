@@ -9,8 +9,8 @@ import Foundation
 
 enum Operation {
 	case addNode(Nid)
-	case removeNode(Node, PositionVM, [Lid: Lid], Space)
-	case editNode(Node)
+	case removeNode(Nid, PositionVM, [Lid: Lid], Space)
+	case hideNode(Nid, PositionVM, [Lid: Lid])
 	case addLink(Link)
 	case removeLink(Link)
 }

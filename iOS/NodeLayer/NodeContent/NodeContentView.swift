@@ -6,11 +6,17 @@
 //
 
 import Combine
+import Introspect
 import SwiftUI
 
 struct NodeContentView: View {
-	let type: Node.Species
-	@Binding var content: NodeContent
+	@Binding var node: Node
+	var type: Node.Species {
+		node.type
+	}
+	var content: NodeContent {
+		node.contents.first!
+	}
 	let knot: () -> KnotView
 	var body: some View {
 		switch type {
@@ -32,7 +38,7 @@ struct NodeContentView: View {
 		HStack {
 			Image(systemName: type.systemImage)
 				.foregroundColor(Color.accentColor)
-			Text(content.title!)
+			Text(node.title)
 				.font(.caption)
 				.fontWeight(.regular)
 			Spacer()
@@ -44,18 +50,16 @@ struct NodeContentView: View {
 
 	@State var isPresented = false
 	var lc: some View {
-
 		SwiftUI.Link(destination: URL(string: content.url!)!) {
 			Text(content.url!)
 		}
-
 		.padding(9)
 		.background(Color.accentColor.opacity(0.3).cornerRadius(CornerRadius.ssmall.rawValue))
 		.padding(.top, 30)
 		.overlay(
 			title,
-			alignment: .top)
-
+			alignment: .top
+		)
 	}
 
 	let dateRange: ClosedRange<Date> = {
@@ -66,20 +70,20 @@ struct NodeContentView: View {
 		return calendar.date(from: startComponents)!...calendar.date(from: endComponents)!
 	}()
 	var dc: some View {
-
 		DatePicker(
 			"",
-			selection: $content.time.unwrap()!,
+			selection: $node.contents[0].time.unwrap()!,
 			in: dateRange,
 			displayedComponents: [.date, .hourAndMinute]
 		)
 		.labelsHidden().accentColor(Color("TextColor"))
 		.padding(.top, 30)
-		.overlay(
+		.background(
 			title,
-			alignment: .top)
-
+			alignment: .top
+		)
 	}
+
 	var ic: some View {
 		VStack(spacing: 9) {
 			title
@@ -90,13 +94,14 @@ struct NodeContentView: View {
 					isPresented.toggle()
 				}
 				.fullScreenCover(isPresented: $isPresented) {
-					ImageContent(content: $content)
+					ImageContent(node: $node)
 				}
 				.cornerRadius(9)
 				.shadow(.base)
 		}.frame(width: 210)
-
 	}
+
+	@State var playing = false
 	var sc: some View {
 		VStack(spacing: 9) {
 			title
@@ -104,30 +109,41 @@ struct NodeContentView: View {
 				.resizable()
 				.opacity(0.7)
 				.frame(width: 40, height: 40)
+				.soundWave(playState: $playing)
+				.onTapGesture {
+					playing.toggle()
+				}
 				.padding(.top, 30)
 				.padding(.bottom, 42)
+				.frame(maxWidth: .infinity)
+				.contentShape(Rectangle())
 				.fullScreenCover(isPresented: $isPresented) {
-					SoundContent(content: $content)
+					SoundContent(node: $node)
 				}.onTapGesture {
 					isPresented.toggle()
 				}
-
 		}.frame(width: 170)
 	}
 
 	var tc: some View {
 
-		TextField(
-			"Placeholder", text: $content.title.unwrap()!
-		)
-		.font(.title3)
-		.frame(maxWidth: 170)
-		.fixedSize(horizontal: true, vertical: true)
-		.lineLimit(4)
-		.padding(.trailing, 30)
-		.padding(.leading, 9)
-		.overlay(knot(), alignment: .trailing)
-
+		Text(node.title).opacity(0)
+			.overlay(
+				TextEditor(text: $node.title)
+					.introspectTextView { textView in
+						textView.backgroundColor = UIColor.clear
+						textView.isScrollEnabled = false
+						textView.textContainerInset = UIEdgeInsets.zero
+						textView.textContainer.lineFragmentPadding = 0
+					}
+			)
+			.font(.title3)
+			//		.frame(width: 100, height: 100)
+			//		.frame(maxWidth: 170)
+			//		.fixedSize(horizontal: true, vertical: true)
+			//		.lineLimit(4)
+			//			.padding(.leading, 9)
+			.padding(.trailing, 30).overlay(knot(), alignment: .trailing)
 	}
 
 	var mc: some View {
@@ -135,7 +151,7 @@ struct NodeContentView: View {
 			.frame(width: 170)
 			.fullScreenCover(isPresented: $isPresented) {
 				MarkdownContent(
-					markdown: $content.markdown.unwrap()!
+					node: $node
 				)
 			}.onTapGesture {
 				isPresented.toggle()

@@ -9,24 +9,20 @@ import SwiftUI
 
 struct ImageContent: View {
 	@Environment(\.presentationMode) var presentationMode
-	@Binding var content: NodeContent
+	@Binding var node: Node
 	var body: some View {
 		VStack {
 			HStack {
 				Button("cancel") {
 					presentationMode.wrappedValue.dismiss()
 				}
-
 				Spacer()
+				EditButton()
+			}.padding()
+			ImageList(images: $node.contents)
+				.listRowInsets(EdgeInsets())
 
-				Button("edit") {
-
-				}
-			}
-			Image(uiImage: UIImage(data: content.data!)!)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-		}.padding()
+		}
 
 	}
 }

@@ -17,7 +17,7 @@ func uploadPublisher(data: Data, name: String, mimeType: String) -> AnyPublisher
 		multipartFormData: { multipartFormData in
 			multipartFormData.append(
 				data, withName: "file", fileName: name, mimeType: mimeType)
-		}, to: server + "/upload"
+		}, to: server + "/api/upload"
 	)
 	.validate()
 	.publishDecodable(type: uploadResponse.self)

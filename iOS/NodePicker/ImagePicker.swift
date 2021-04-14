@@ -12,8 +12,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 	let configuration: PHPickerConfiguration
 	@Environment(\.presentationMode) var presentationMode
-	@Binding var pickerResult: UIImage?
-	@Binding var photoName: String?
+	@Binding var pickerResult: [(String, UIImage)]
 
 	func makeUIViewController(context: Context)
 		-> PHPickerViewController
@@ -39,7 +38,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 		}
 
 		func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-
+			parent.pickerResult = []
 			for image in results {
 				if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
 					image.itemProvider.loadObject(ofClass: UIImage.self) { (newImage, error) in
@@ -48,9 +47,10 @@ struct ImagePicker: UIViewControllerRepresentable {
 						} else {
 							let fetchResult = PHAsset.fetchAssets(
 								withLocalIdentifiers: [image.assetIdentifier!], options: nil)
-							self.parent.photoName =
+							let photoName =
 								fetchResult.firstObject?.value(forKey: "filename") as? String
-							self.parent.pickerResult = newImage as? UIImage
+							let image = newImage as? UIImage
+							self.parent.pickerResult.append((photoName!, image!))
 						}
 					}
 				} else {

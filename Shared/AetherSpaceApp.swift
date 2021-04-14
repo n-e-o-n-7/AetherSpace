@@ -11,25 +11,25 @@ import SwiftUI
 @main
 struct AetherSpaceApp: App {
 	let svm = SpaceVM()
+	let autoSave = AutoSave()
 	var body: some Scene {
 
 		return DocumentGroup(newDocument: AetherSpaceDocument()) { file in
 
 			ContentView()
 				.environmentObject(svm)
+				.environmentObject(autoSave)
+				.navigationBarHidden(true)
 				.onAppear {
-					print(file.document.space, "appear")
 					svm.inject(about: file.document.space)
-					print(svm.space, "appear")
 				}
 				.onReceive(
-					svm.saveSubject,
-					perform: { i in
+					autoSave.saveSubject,
+					perform: { _ in
 						svm.savePosition()
 						file.document.space = svm.space
-						print(file.document.space, "disappear")
+						print("save")
 					})
-
 		}
 	}
 }

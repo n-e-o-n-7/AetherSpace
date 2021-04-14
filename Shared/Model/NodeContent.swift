@@ -8,16 +8,19 @@
 import Foundation
 
 struct NodeContent: Codable {
-	var title: String?
 
+	//image,sound
 	var data: Data?
 	var path: String?
 	var fileName: String?
 
+	//date
 	var time: Date?
 
+	//mark
 	var markdown: String?
 
+	//link
 	var url: String?
 }
 //protocol NodeContent {

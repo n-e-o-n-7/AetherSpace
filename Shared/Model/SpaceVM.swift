@@ -5,13 +5,9 @@
 //  Created by 许滨麟 on 2021/3/16.
 //
 
-import Combine
-import CoreData
-import MobileCoreServices
 import SwiftUI
 
 class SpaceVM: ObservableObject {
-
 	@Published var space: Space
 
 	init() {
@@ -30,6 +26,9 @@ class SpaceVM: ObservableObject {
 	@Published var links: [Lid: Lid] = [:]
 	@Published var nodes: [Nid: Nid] = [:]
 	@Published var nodePosition: [Nid: PositionVM] = [:]
+
+	//MARK: - published?
+	var stack: [Operation] = []
 
 	func initData() {
 		links = [:]
@@ -68,10 +67,11 @@ class SpaceVM: ObservableObject {
 
 		nodePosition[node.id] = PositionVM()
 	}
+}
 
-	func addNode(type: Node.Species, content: NodeContent, position: CGPoint) {
-
-		let newNode = Node(type: type, content: content)
+//MARK: - node operation
+extension SpaceVM {
+	func addNode(newNode: Node, position: CGPoint) {
 		let nid = newNode.id
 		if space.lastNodeId == nil {
 			space.lastNodeId = nid
@@ -80,22 +80,23 @@ class SpaceVM: ObservableObject {
 		nodePosition[newNode.id] = PositionVM(offset: position)
 		nodes[nid] = nid
 
-		switch type {
+		switch newNode.type {
 		case .image, .sound:
-			let token = SubscriptionToken()
-			if let pub = upload(data: content.data, name: content.fileName) {
-				pub.sink(
-					receiveCompletion: { c in
-						token.unseal()
-					},
-					receiveValue: { value in
-						//MARK: - maybe change space
-
-						self.space.nodes[nid]?.content.fileName = value.savePath
-						//operation
-					}
-				)
-				.seal(in: token)
+			newNode.contents.enumerated().forEach { (index, content) in
+				let token = SubscriptionToken()
+				if let pub = upload(data: content.data, name: content.fileName) {
+					pub.sink(
+						receiveCompletion: { c in
+							token.unseal()
+						},
+						receiveValue: { value in
+							//MARK: - maybe change space
+							self.space.nodes[nid]?.contents[index].path = value.name
+							//operation
+						}
+					)
+					.seal(in: token)
+				}
 			}
 		default: break
 		}
@@ -129,9 +130,26 @@ class SpaceVM: ObservableObject {
 		nodePosition[nid] = nil
 		space.nodes[nid] = nil
 
-		stack.append(.removeNode(node, np, oldLinks, oldSpace))
+		stack.append(.removeNode(node.id, np, oldLinks, oldSpace))
 	}
 
+	func hide(nid: Nid) {
+		let oldLinks = links
+		space.nodes[nid]!.asHeadLinkIds.forEach { (Lid, _) in
+			links[Lid] = nil
+		}
+		space.nodes[nid]!.asTailLinkIds.forEach { (Lid, _) in
+			links[Lid] = nil
+		}
+		let np = nodePosition[nid]!
+		nodePosition[nid] = nil
+		nodes[nid] = nil
+		stack.append(.hideNode(nid, np, oldLinks))
+	}
+}
+
+//MARK: - link operation
+extension SpaceVM {
 	func addLink(head: Nid, tail: Nid) {
 		guard head != tail else { return }
 
@@ -166,7 +184,10 @@ class SpaceVM: ObservableObject {
 		}
 	}
 
-	let saveSubject = PassthroughSubject<Int, Never>()
+}
+
+//MARK: - save
+extension SpaceVM {
 	func savePosition() {
 		print("savePosition")
 		if let nid = space.lastNodeId {
@@ -202,8 +223,10 @@ class SpaceVM: ObservableObject {
 		self.initData(node: next)
 	}
 
-	//MARK: - published?
-	var stack: [Operation] = []
+}
+
+//MARK: - backout
+extension SpaceVM {
 
 	func backout() {
 		guard let op = stack.popLast() else { return }
@@ -212,19 +235,20 @@ class SpaceVM: ObservableObject {
 			nodes[nid] = nil
 			nodePosition[nid] = nil
 			space.nodes[nid] = nil
-		case .removeNode(let node, let np, let oldLinks, let oldSpace):
+		case .removeNode(let nid, let np, let oldLinks, let oldSpace):
 			space = oldSpace
-			nodePosition[node.id] = np
+			nodePosition[nid] = np
 			links = oldLinks
-			nodes[node.id] = node.id
-		case .editNode(let _): break
-
+			nodes[nid] = nid
+		case .hideNode(let nid, let np, let oldLinks):
+			nodePosition[nid] = np
+			nodes[nid] = nid
+			links = oldLinks
 		case .addLink(let link):
 			links[link.id] = nil
 			space.nodes[link.headNodeId]!.asHeadLinkIds[link.id] = link.id
 			space.nodes[link.tailNodeId]!.asTailLinkIds[link.id] = link.id
 			space.links[link.id] = link
-
 		case .removeLink(let link):
 			let lid = link.id
 			space.links[lid] = link
@@ -234,33 +258,4 @@ class SpaceVM: ObservableObject {
 		}
 	}
 
-}
-
-extension SpaceVM: DropDelegate {
-
-	//    func dropEntered(info: DropInfo) {
-	//        NSSound(named: "Morse")?.play()
-	//    }
-
-	func performDrop(info: DropInfo) -> Bool {
-		print(info.location)
-		for provider in info.itemProviders(for: [String(kUTTypeURL)]) {
-			if provider.canLoadObject(ofClass: URL.self) {
-				let _ = provider.loadObject(
-					ofClass: URL.self,
-					completionHandler: { (url, error) in
-						let id = UUID(uuidString: url!.path)!
-						if self.nodes[id] == nil {
-							DispatchQueue.main.async {
-								withAnimation(.easeOut) {
-									self.nodePosition[id] = PositionVM()
-									self.nodes[id] = id
-								}
-							}
-						}
-					})
-			}
-		}
-		return true
-	}
 }

@@ -1,13 +1,13 @@
 //
-//  SearchCell.swift
+//  MatterCell.swift
 //  AetherSpace (iOS)
 //
-//  Created by 许滨麟 on 2021/4/5.
+//  Created by 许滨麟 on 2021/4/7.
 //
 
 import SwiftUI
 
-struct SearchCell: View {
+struct FodderCell: View {
 	let node: Node
 	var content: NodeContent {
 		node.contents.first!
@@ -24,10 +24,11 @@ struct SearchCell: View {
 			return AnyView(ic)
 		case .sound:
 			return AnyView(sc)
-		case .markdown:
-			return AnyView(mc)
+		default:
+			return AnyView(Color.clear)
 		}
 	}
+
 	var title: some View {
 		HStack {
 			Image(systemName: node.type.systemImage)
@@ -35,25 +36,24 @@ struct SearchCell: View {
 				.font(.caption)
 				.fontWeight(.regular)
 			Spacer()
-
 		}
 		.font(.headline)
 		.foregroundColor(.gray)
 	}
-
-	@State var isPresented = false
+	@ViewBuilder
 	var lc: some View {
-
-		SwiftUI.Link(destination: URL(string: content.url!)!) {
-			Text(content.url!)
+		VStack(alignment: .leading, spacing: 9) {
+			title
+			SwiftUI.Link(destination: URL(string: content.url!)!) {
+				Text(content.url!)
+			}
+			.padding(9)
+			.roundedBackground(radius: .ssmall, color: Color.accentColor.opacity(0.3))
+			.onDrag({
+				NSItemProvider(
+					object: String("[\(node.title)](\(content.url!))") as NSString)
+			})
 		}
-
-		.padding(9)
-		.background(Color.accentColor.opacity(0.3).cornerRadius(CornerRadius.ssmall.rawValue))
-		.padding(.top, 30)
-		.overlay(
-			title,
-			alignment: .top)
 
 	}
 
@@ -65,7 +65,6 @@ struct SearchCell: View {
 		return calendar.date(from: startComponents)!...calendar.date(from: endComponents)!
 	}()
 	var dc: some View {
-
 		DatePicker(
 			"",
 			selection: Binding(get: { content.time! }, set: { _, _ in }),
@@ -74,24 +73,26 @@ struct SearchCell: View {
 		)
 		.labelsHidden().accentColor(Color("TextColor"))
 		.padding(.top, 30)
-		.overlay(
-			title,
-			alignment: .top)
-
 	}
-	var ic: some View {
-		VStack(spacing: 9) {
-			title
-			Image(uiImage: UIImage(data: content.data!)!)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-				.cornerRadius(9)
-		}.frame(width: 210)
 
+	var ic: some View {
+		VStack {
+			ForEach(node.contents, id: \.fileName) { content in
+				Image(uiImage: UIImage(data: content.data!)!)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+					.cornerRadius(9)
+					.onDrag({
+						NSItemProvider(
+							object: String(
+								"![\(node.title)](\(server)/\( content.fileName ?? ""))")
+								as NSString)
+					})
+			}
+		}
 	}
 	var sc: some View {
 		VStack(spacing: 9) {
-			title
 			Image(systemName: "play.circle.fill")
 				.resizable()
 				.opacity(0.7)
@@ -111,9 +112,10 @@ struct SearchCell: View {
 			.lineLimit(4)
 			.padding(.leading, 9)
 	}
-
-	var mc: some View {
-		title
-			.frame(width: 170)
-	}
 }
+
+//struct FodderCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FodderCell()
+//    }
+//}

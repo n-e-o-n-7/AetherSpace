@@ -11,13 +11,17 @@ import SwiftUI
 struct NodeLayer: View {
 
 	@EnvironmentObject var svm: SpaceVM
+	@State var top: Nid?
 	var nids: [Nid] {
-		svm.nodes.map { $0.value }
+		var r = svm.nodes.map { $0.value }
+		if let top = top {
+			r.append(r.remove(at: r.firstIndex(of: top)!))
+		}
+		return r
 	}
 	let linkSubject = PassthroughSubject<(Nid, CGPoint), Never>()
 
 	var body: some View {
-
 		ZStack {
 			//			if let nid = svm.space.lastNodeId {
 			//
@@ -33,7 +37,9 @@ struct NodeLayer: View {
 			//			}
 			ForEach(nids, id: \.self) { nid in
 				NodeView(
-					node: $svm.space.nodes[nid].unwrap()!, pvm: svm.nodePosition[nid]!,
+					node: $svm.space.nodes[nid].unwrap()!,
+					top: $top,
+					pvm: svm.nodePosition[nid]!,
 					linkSubject: linkSubject)
 			}
 		}

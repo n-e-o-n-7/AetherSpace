@@ -16,8 +16,7 @@ struct ToolLayer: View {
 			if showSearch {
 				SearchView(showSearch: $showSearch)
 			}
-
 		}
-		.padding(.vertical, 20)
+		.padding(.vertical, 40)
 	}
 }

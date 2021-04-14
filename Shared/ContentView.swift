@@ -12,14 +12,13 @@ struct ContentView: View {
 	//MARK: - Notification
 	@StateObject var delegate = NotificationDelegate()
 	var body: some View {
-
-		return SpaceEditor().onAppear(
-			perform: {
-				accessNotifications(delegate: delegate)
-
-			}
-		)
-
+		NavigationView {
+			SpaceEditor()
+				.onAppear {
+					accessNotifications(delegate: delegate)
+				}
+				.canLoad()
+		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 }
 

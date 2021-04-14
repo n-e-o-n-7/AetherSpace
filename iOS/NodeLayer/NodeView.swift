@@ -10,16 +10,15 @@ import SwiftUI
 
 struct NodeView: View {
 	@Binding var node: Node
+	@Binding var top: Nid?
 	@ObservedObject var pvm: PositionVM
 	@EnvironmentObject var svm: SpaceVM
-
 	let linkSubject: PassthroughSubject<(Nid, CGPoint), Never>
+	@State var showAlert = false
 
 	var body: some View {
-
 		NodeContentView(
-			type: node.type,
-			content: $node.content,
+			node: $node,
 			knot: { KnotView(nid: node.id, linkSubject: linkSubject) }
 		)
 		.padding(9)
@@ -41,25 +40,42 @@ struct NodeView: View {
 								svm.addLink(head: sender, tail: node.id)
 							}
 						})
-			}  //            .coordinateSpace(name: "nodeView")
+			}
 		)
 		.contextMenu {
 			Button(
 				action: {
-					withAnimation(.easeInOut) {
-						svm.jump(to: node)
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+						withAnimation(.easeInOut) {
+							svm.jump(to: node)
+						}
 					}
 				},
 				label: {
-					Label("choose", systemImage: "dot.circle.and.cursorarrow")
+					Label("choose", systemImage: "cursorarrow.rays")
 				})
 			Button(
-				action: {},
+				action: { top = node.id },
 				label: {
-					Label("remove", systemImage: "square.and.pencil")
+					Label("front", systemImage: "rectangle.stack")
 				})
 			Button(
-				action: { svm.removeNode(nid: node.id) },  //alert },
+				action: { svm.hide(nid: node.id) },
+				label: {
+					Label("hide", systemImage: "eye.slash")
+				})
+			Button(
+				action: {
+					if node.id == svm.space.lastNodeId {
+						showAlert.toggle()
+					} else {
+						DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+							withAnimation(.easeInOut) {
+								svm.removeNode(nid: node.id)
+							}
+						}
+					}
+				},
 				label: {
 					Label("delete", systemImage: "trash").foregroundColor(.red)
 				})
@@ -75,5 +91,12 @@ struct NodeView: View {
 					pvm.extra = CGSize.zero
 				}
 		)
+		.alert(isPresented: $showAlert) {
+			Alert(
+				title: Text("this is the center node"),
+				message: Text("please confirm whether to delete"),
+				primaryButton: .destructive(Text("delete")) { svm.removeNode(nid: node.id) },
+				secondaryButton: .cancel())
+		}
 	}
 }

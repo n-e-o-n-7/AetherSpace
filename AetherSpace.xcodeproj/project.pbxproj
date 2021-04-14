@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E91AA9F7261AE6FA00E0DBE0 /* soundWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AA9F6261AE6FA00E0DBE0 /* soundWave.swift */; };
 		E92F9EB8260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EB9260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EBA260D9E130092216F /* AetherSpaceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */; };
@@ -76,6 +75,13 @@
 		E958D328260DB1C80045FA42 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D326260DB1C80045FA42 /* Link.swift */; };
 		E958D32C260DB1D30045FA42 /* NodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D32B260DB1D30045FA42 /* NodeContent.swift */; };
 		E958D32D260DB1D30045FA42 /* NodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D32B260DB1D30045FA42 /* NodeContent.swift */; };
+		E95BF17C2624370C00D071EA /* SoftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BF17B2624370C00D071EA /* SoftView.swift */; };
+		E95BF18026248FAD00D071EA /* GradientText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BF17F26248FAD00D071EA /* GradientText.swift */; };
+		E95BF1842624958300D071EA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BF1832624958300D071EA /* LoadingView.swift */; };
+		E95BF188262563F000D071EA /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BF187262563F000D071EA /* ImageList.swift */; };
+		E95BF1982625D5EE00D071EA /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = E95BF1972625D5EE00D071EA /* Introspect */; };
+		E98771162627341F00AF5C79 /* AutoSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98771152627341F00AF5C79 /* AutoSave.swift */; };
+		E98771172627341F00AF5C79 /* AutoSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98771152627341F00AF5C79 /* AutoSave.swift */; };
 		E98B6977261B2B7300A5BAF8 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B6976261B2B7300A5BAF8 /* SearchCell.swift */; };
 		E99512B6260F8E1400FA2CA7 /* LinkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512B5260F8E1400FA2CA7 /* LinkPath.swift */; };
 		E99512C22610E19800FA2CA7 /* SetHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C12610E19800FA2CA7 /* SetHome.swift */; };
@@ -83,16 +89,20 @@
 		E99512CB2611B47E00FA2CA7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C92611B47E00FA2CA7 /* AppState.swift */; };
 		E99512D32611ED7200FA2CA7 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512D22611ED7200FA2CA7 /* Operation.swift */; };
 		E99512D42611ED7200FA2CA7 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512D22611ED7200FA2CA7 /* Operation.swift */; };
+		E9A069A9261ED91D0013CAEA /* SoundShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A069A8261ED91D0013CAEA /* SoundShape.swift */; };
 		E9BD4332261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
 		E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
 		E9BD433F2616C095002148FA /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD433E2616C095002148FA /* TimePicker.swift */; };
 		E9BD43442616F9C8002148FA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD43432616F9C8002148FA /* AboutView.swift */; };
 		E9E06E10261C40B800817066 /* NodeDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */; };
 		E9E06E11261C40B800817066 /* NodeDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */; };
+		E9E06E2A261DF5D600817066 /* FodderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E29261DF5D600817066 /* FodderCell.swift */; };
+		E9E06E30261DF6D600817066 /* ToolPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E2F261DF6D600817066 /* ToolPanel.swift */; };
+		E9E06E34261DF6E200817066 /* FodderPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E33261DF6E200817066 /* FodderPanel.swift */; };
+		E9F9503626207A950004F5D6 /* ScrollableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9503526207A940004F5D6 /* ScrollableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E91AA9F6261AE6FA00E0DBE0 /* soundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = soundWave.swift; sourceTree = "<group>"; };
 		E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceApp.swift; sourceTree = "<group>"; };
 		E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceDocument.swift; sourceTree = "<group>"; };
 		E92F9EA6260D9E110092216F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -151,15 +161,25 @@
 		E958D321260DB1C00045FA42 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		E958D326260DB1C80045FA42 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		E958D32B260DB1D30045FA42 /* NodeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeContent.swift; sourceTree = "<group>"; };
+		E95BF17B2624370C00D071EA /* SoftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftView.swift; sourceTree = "<group>"; };
+		E95BF17F26248FAD00D071EA /* GradientText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientText.swift; sourceTree = "<group>"; };
+		E95BF1832624958300D071EA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		E95BF187262563F000D071EA /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
+		E98771152627341F00AF5C79 /* AutoSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSave.swift; sourceTree = "<group>"; };
 		E98B6976261B2B7300A5BAF8 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		E99512B5260F8E1400FA2CA7 /* LinkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPath.swift; sourceTree = "<group>"; };
 		E99512C12610E19800FA2CA7 /* SetHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHome.swift; sourceTree = "<group>"; };
 		E99512C92611B47E00FA2CA7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E99512D22611ED7200FA2CA7 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		E9A069A8261ED91D0013CAEA /* SoundShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundShape.swift; sourceTree = "<group>"; };
 		E9BD4331261466AF002148FA /* SpaceVMx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceVMx.swift; sourceTree = "<group>"; };
 		E9BD433E2616C095002148FA /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		E9BD43432616F9C8002148FA /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeDropDelegate.swift; sourceTree = "<group>"; };
+		E9E06E29261DF5D600817066 /* FodderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FodderCell.swift; sourceTree = "<group>"; };
+		E9E06E2F261DF6D600817066 /* ToolPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPanel.swift; sourceTree = "<group>"; };
+		E9E06E33261DF6E200817066 /* FodderPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FodderPanel.swift; sourceTree = "<group>"; };
+		E9F9503526207A940004F5D6 /* ScrollableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E958D31E260DA9000045FA42 /* Kingfisher in Frameworks */,
+				E95BF1982625D5EE00D071EA /* Introspect in Frameworks */,
 				E958D314260DA3020045FA42 /* MarkdownView in Frameworks */,
 				E958D319260DA4F20045FA42 /* Alamofire in Frameworks */,
 			);
@@ -269,10 +290,15 @@
 			isa = PBXGroup;
 			children = (
 				E92F9F03260D9F110092216F /* NodeContentView.swift */,
-				E92F9F02260D9F110092216F /* MarkdownContent.swift */,
 				E92F9F04260D9F110092216F /* MarkdownView.swift */,
+				E92F9F02260D9F110092216F /* MarkdownContent.swift */,
+				E9E06E33261DF6E200817066 /* FodderPanel.swift */,
+				E9E06E29261DF5D600817066 /* FodderCell.swift */,
+				E9E06E2F261DF6D600817066 /* ToolPanel.swift */,
 				E92F9F07260D9F110092216F /* ImageContent.swift */,
+				E95BF187262563F000D071EA /* ImageList.swift */,
 				E92F9F08260D9F110092216F /* SoundContent.swift */,
+				E9A069A8261ED91D0013CAEA /* SoundShape.swift */,
 			);
 			path = NodeContent;
 			sourceTree = "<group>";
@@ -317,7 +343,10 @@
 				E92F9F37260D9F3A0092216F /* RoundedButtonStyle.swift */,
 				E92F9F38260D9F3A0092216F /* SheetHeight.swift */,
 				E9BD433E2616C095002148FA /* TimePicker.swift */,
-				E91AA9F6261AE6FA00E0DBE0 /* soundWave.swift */,
+				E9F9503526207A940004F5D6 /* ScrollableView.swift */,
+				E95BF17B2624370C00D071EA /* SoftView.swift */,
+				E95BF17F26248FAD00D071EA /* GradientText.swift */,
+				E95BF1832624958300D071EA /* LoadingView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -354,6 +383,7 @@
 				E9BD4331261466AF002148FA /* SpaceVMx.swift */,
 				E92F9ED4260D9EAF0092216F /* PositionVM.swift */,
 				E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */,
+				E98771152627341F00AF5C79 /* AutoSave.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -388,6 +418,7 @@
 				E958D313260DA3020045FA42 /* MarkdownView */,
 				E958D318260DA4F20045FA42 /* Alamofire */,
 				E958D31D260DA9000045FA42 /* Kingfisher */,
+				E95BF1972625D5EE00D071EA /* Introspect */,
 			);
 			productName = "AetherSpace (iOS)";
 			productReference = E92F9EAC260D9E130092216F /* AetherSpace.app */;
@@ -441,6 +472,7 @@
 				E958D312260DA3020045FA42 /* XCRemoteSwiftPackageReference "MarkdownView" */,
 				E958D317260DA4F20045FA42 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E958D31C260DA9000045FA42 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E95BF1962625D5EE00D071EA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = E92F9EAD260D9E130092216F /* Products */;
 			projectDirPath = "";
@@ -509,14 +541,17 @@
 				E99512CA2611B47E00FA2CA7 /* AppState.swift in Sources */,
 				E92F9EFA260D9F0C0092216F /* NodePicker.swift in Sources */,
 				E92F9F3F260D9F3A0092216F /* MapView.swift in Sources */,
+				E95BF18026248FAD00D071EA /* GradientText.swift in Sources */,
 				E92F9F42260D9F3A0092216F /* DragModifier.swift in Sources */,
 				E92F9F3A260D9F3A0092216F /* RoundedCorner.swift in Sources */,
 				E92F9EF9260D9F0C0092216F /* NodeTrigger.swift in Sources */,
 				E92F9F46260D9F3A0092216F /* RoundedButtonStyle.swift in Sources */,
-				E91AA9F7261AE6FA00E0DBE0 /* soundWave.swift in Sources */,
 				E92F9EB8260D9E130092216F /* AetherSpaceApp.swift in Sources */,
+				E9E06E30261DF6D600817066 /* ToolPanel.swift in Sources */,
 				E92F9F4D260D9F4F0092216F /* Test.swift in Sources */,
 				E92F9F12260D9F110092216F /* SoundContent.swift in Sources */,
+				E9F9503626207A950004F5D6 /* ScrollableView.swift in Sources */,
+				E98771162627341F00AF5C79 /* AutoSave.swift in Sources */,
 				E92F9F40260D9F3A0092216F /* ActionButtonBackgroundStyle.swift in Sources */,
 				E92F9F21260D9F2D0092216F /* ToolLayer.swift in Sources */,
 				E92F9F19260D9F210092216F /* LinkView.swift in Sources */,
@@ -525,20 +560,26 @@
 				E92F9ECB260D9EA60092216F /* Space.swift in Sources */,
 				E92F9EED260D9F070092216F /* Background.swift in Sources */,
 				E9BD43442616F9C8002148FA /* AboutView.swift in Sources */,
+				E9A069A9261ED91D0013CAEA /* SoundShape.swift in Sources */,
 				E99512C22610E19800FA2CA7 /* SetHome.swift in Sources */,
 				E99512D32611ED7200FA2CA7 /* Operation.swift in Sources */,
 				E92F9EE1260D9EC40092216F /* SpaceEditor.swift in Sources */,
+				E95BF17C2624370C00D071EA /* SoftView.swift in Sources */,
 				E92F9ED0260D9EAB0092216F /* SpaceVM.swift in Sources */,
 				E92F9EF7260D9F0C0092216F /* AddContent.swift in Sources */,
 				E92F9F3D260D9F3A0092216F /* LightButtonStyle.swift in Sources */,
 				E99512B6260F8E1400FA2CA7 /* LinkPath.swift in Sources */,
 				E92F9F3E260D9F3A0092216F /* imageList.swift in Sources */,
+				E9E06E2A261DF5D600817066 /* FodderCell.swift in Sources */,
 				E958D327260DB1C80045FA42 /* Link.swift in Sources */,
 				E92F9F23260D9F2D0092216F /* SearchBar.swift in Sources */,
 				E92F9EF8260D9F0C0092216F /* ImagePicker.swift in Sources */,
+				E9E06E34261DF6E200817066 /* FodderPanel.swift in Sources */,
 				E92F9F0C260D9F110092216F /* MarkdownContent.swift in Sources */,
 				E92F9F39260D9F3A0092216F /* HandleView.swift in Sources */,
 				E92F9EF6260D9F0C0092216F /* DocumentPicker.swift in Sources */,
+				E95BF1842624958300D071EA /* LoadingView.swift in Sources */,
+				E95BF188262563F000D071EA /* ImageList.swift in Sources */,
 				E92F9F3C260D9F3A0092216F /* SearchNavigation.swift in Sources */,
 				E92F9F56260D9F560092216F /* Constant.swift in Sources */,
 				E92F9F11260D9F110092216F /* ImageContent.swift in Sources */,
@@ -576,6 +617,7 @@
 				E92F9F59260D9F560092216F /* Extensions.swift in Sources */,
 				E99512CB2611B47E00FA2CA7 /* AppState.swift in Sources */,
 				E92F9F50260D9F4F0092216F /* Upload.swift in Sources */,
+				E98771172627341F00AF5C79 /* AutoSave.swift in Sources */,
 				E92F9ECC260D9EA60092216F /* Space.swift in Sources */,
 				E92F9ED1260D9EAB0092216F /* SpaceVM.swift in Sources */,
 				E9E06E11261C40B800817066 /* NodeDropDelegate.swift in Sources */,
@@ -868,6 +910,14 @@
 				minimumVersion = 6.2.1;
 			};
 		};
+		E95BF1962625D5EE00D071EA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -885,6 +935,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E958D31C260DA9000045FA42 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E95BF1972625D5EE00D071EA /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E95BF1962625D5EE00D071EA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
