@@ -18,11 +18,12 @@ struct LoadingModifier: ViewModifier {
 			.blur(radius: self.isLoading ? 3 : 0)
 			.overlay(
 				ZStack {
-					Color.primary.opacity(opacity)
-					ProgressView().progressViewStyle(CircularProgressViewStyle())
-						.scaleEffect(scale, anchor: .center)
-				}.opacity(self.isLoading ? 1 : 0)
-					.ignoresSafeArea(.all)
+					if isLoading {
+						Color.primary.opacity(opacity)
+						ProgressView().progressViewStyle(CircularProgressViewStyle())
+							.scaleEffect(scale, anchor: .center)
+					}
+				}.ignoresSafeArea(.all)
 			)
 	}
 }

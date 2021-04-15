@@ -9,12 +9,12 @@ import SwiftUI
 
 struct SetHome: View {
 	@Environment(\.presentationMode) var presentationMode
+	@EnvironmentObject var svm: SpaceVM
 
 	var body: some View {
 		NavigationView {
 			Form {
 				Section(header: Text("appearance")) {
-					appearance
 					color
 				}
 				Section(header: Text("canvas")) {
@@ -40,6 +40,11 @@ struct SetHome: View {
 						} else {
 							autosave = 0
 						}
+
+						cache = enableUpload
+
+						mainColor = currentColor
+
 						presentationMode.wrappedValue.dismiss()
 
 					}
@@ -51,35 +56,33 @@ struct SetHome: View {
 
 	}
 
-	@State var colorScheme = "sync with system"
-	var appearance: some View {
+	@AppStorage("mainColor") var mainColor = "blue"
+	@State var currentColor = "blue"
+	var color: some View {
 		HStack {
 			Text("color scheme")
 			Spacer()
-			Menu(colorScheme) {
-				Button("light mode") {
-					colorScheme = "light mode"
+			Picker(
+				selection: $currentColor,
+				label: Circle().fill(ColorSet(rawValue: currentColor)!.toColor()).frame(
+					width: 27, height: 27)
+			) {
+				ForEach(ColorSet.allCases, id: \.self) { color in
+					Text(color.rawValue).tag(color.rawValue)
 				}
-				Button("dark mode") {
-					colorScheme = "dark mode"
+			}.pickerStyle(MenuPickerStyle())
+				.onAppear {
+					currentColor = mainColor
 				}
-				Button("sync with") {
-					colorScheme = "sync with system"
-				}
-			}
 		}
-	}
-
-	@AppStorage("lineColor") var lineColor = "255,204,00,100"
-	var color: some View {
-		ColorPicker(
-			"Line Color",
-			selection: Binding(
-				get: { lineColor.toColor()! },
-				set: { newValue in
-					lineColor = newValue.toString()
-				}
-			))
+		//		ColorPicker(
+		//			"Line Color",
+		//			selection: Binding(
+		//				get: { lineColor.toColor()! },
+		//				set: { newValue in
+		//					lineColor = newValue.toString()
+		//				}
+		//			))
 	}
 
 	private let data: [[String]] = [
@@ -110,6 +113,7 @@ struct SetHome: View {
 		}
 	}
 
+	@AppStorage("cache") var cache: Bool = false
 	@State var enableUpload = false
 	var system: some View {
 		Group {
@@ -118,6 +122,8 @@ struct SetHome: View {
 			}
 			Toggle(isOn: $enableUpload) {
 				Text("clear photo cache")
+			}.onAppear {
+				enableUpload = cache
 			}
 		}
 	}

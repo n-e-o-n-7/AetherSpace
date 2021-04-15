@@ -15,6 +15,7 @@ struct SearchBar: UIViewRepresentable {
 
 	@Binding var searchText: String
 	var onSearch: () -> Void
+	var onMark: () -> Void
 
 	func makeUIView(context: Context) -> UISearchBar {
 
@@ -25,7 +26,7 @@ struct SearchBar: UIViewRepresentable {
 		searchBar.autocapitalizationType = .none
 		searchBar.delegate = context.coordinator
 		searchBar.placeholder = "Search"
-
+		searchBar.showsBookmarkButton = true
 		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
 			searchBar.becomeFirstResponder()
 		}
@@ -52,7 +53,9 @@ struct SearchBar: UIViewRepresentable {
 		func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 			self.parent.onSearch()
 		}
-
+		func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+			self.parent.onMark()
+		}
 		//		func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		//
 		//			self.parent.onCancel()

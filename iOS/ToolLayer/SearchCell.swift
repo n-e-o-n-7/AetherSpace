@@ -5,6 +5,7 @@
 //  Created by 许滨麟 on 2021/4/5.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct SearchCell: View {
@@ -82,10 +83,23 @@ struct SearchCell: View {
 	var ic: some View {
 		VStack(spacing: 9) {
 			title
-			Image(uiImage: UIImage(data: content.data!)!)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-				.cornerRadius(9)
+			Group {
+				if let data = content.data {
+					Image(uiImage: UIImage(data: data)!)
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+				} else {
+					KFImage(URL(string: content.path!))
+						.resizable()
+						.placeholder {
+							ProgressView().progressViewStyle(CircularProgressViewStyle()).padding(
+								.bottom)
+						}
+						.aspectRatio(contentMode: .fit)
+				}
+			}
+			.cornerRadius(9)
+			.shadow(.thin)
 		}.frame(width: 210)
 
 	}

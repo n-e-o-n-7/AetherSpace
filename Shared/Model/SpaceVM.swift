@@ -27,6 +27,7 @@ class SpaceVM: ObservableObject {
 	@Published var nodes: [Nid: Nid] = [:]
 	@Published var nodePosition: [Nid: PositionVM] = [:]
 
+	@AppStorage("cache") var cache: Bool = false
 	//MARK: - published?
 	var stack: [Operation] = []
 
@@ -91,7 +92,10 @@ extension SpaceVM {
 						},
 						receiveValue: { value in
 							//MARK: - maybe change space
-							self.space.nodes[nid]?.contents[index].path = value.name
+							self.space.nodes[nid]?.contents[index].path = server + "/" + value.name
+							if self.cache {
+								self.space.nodes[nid]?.contents[index].data = nil
+							}
 							//operation
 						}
 					)
@@ -257,5 +261,19 @@ extension SpaceVM {
 			links[lid] = lid
 		}
 	}
+}
+//MARK: - cache
 
+extension SpaceVM {
+	func clearCache() {
+		for (nid, node) in space.nodes {
+			if node.type == .image {
+				for i in space.nodes[nid]!.contents.indices {
+					if space.nodes[nid]!.contents[i].path != nil {
+						space.nodes[nid]!.contents[i].data = nil
+					}
+				}
+			}
+		}
+	}
 }

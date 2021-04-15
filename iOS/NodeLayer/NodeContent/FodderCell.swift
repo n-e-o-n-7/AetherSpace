@@ -5,6 +5,7 @@
 //  Created by 许滨麟 on 2021/4/7.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct FodderCell: View {
@@ -78,16 +79,30 @@ struct FodderCell: View {
 	var ic: some View {
 		VStack {
 			ForEach(node.contents, id: \.fileName) { content in
-				Image(uiImage: UIImage(data: content.data!)!)
-					.resizable()
-					.aspectRatio(contentMode: .fit)
-					.cornerRadius(9)
-					.onDrag({
-						NSItemProvider(
-							object: String(
-								"![\(node.title)](\(server)/\( content.fileName ?? ""))")
-								as NSString)
-					})
+				Group {
+					if let data = content.data {
+						Image(uiImage: UIImage(data: data)!)
+							.resizable()
+							.aspectRatio(contentMode: .fit)
+					} else {
+						KFImage(URL(string: content.path!))
+							.resizable()
+							.placeholder {
+								ProgressView().progressViewStyle(CircularProgressViewStyle())
+									.padding(.bottom)
+							}
+							.fade(duration: 1)
+							.cancelOnDisappear(true)
+							.aspectRatio(contentMode: .fit)
+					}
+				}
+				.cornerRadius(9)
+				.onDrag({
+					NSItemProvider(
+						object: String(
+							"![\(node.title)](\(server)/\( content.fileName ?? ""))")
+							as NSString)
+				})
 			}
 		}
 	}

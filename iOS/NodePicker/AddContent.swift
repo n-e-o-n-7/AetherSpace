@@ -5,7 +5,6 @@
 //  Created by 许滨麟 on 2021/3/24.
 //
 
-import AVFoundation
 import PhotosUI
 import SwiftUI
 
@@ -95,13 +94,16 @@ struct AddContent: View {
 		if photo.count == 0 {
 			Button("click to add image") {
 				showImage.toggle()
-			}.sheet(isPresented: $showImage) {
+			}
+			.accentColor(ColorSet(rawValue: mainColor)!.toColor())
+			.sheet(isPresented: $showImage) {
 				ImagePicker(
 					configuration: self.config,
 					pickerResult: $photo)
 			}.padding(.top, 5)
 		} else {
-			Text("choose \(photo.count) images").padding(.top, 5).foregroundColor(.accentColor)
+			Text("choose \(photo.count) images").padding(.top, 5).foregroundColor(
+				(ColorSet(rawValue: mainColor)!.toColor()))
 		}
 		Spacer()
 		confirmButton {
@@ -117,28 +119,19 @@ struct AddContent: View {
 	@State var sound: Data?
 	@State var soundName: String?
 	@State var showSound: Bool = false
-	@State var audio: AVAudioPlayer?
 	let fileType = "mp3"
 	@ViewBuilder
 	var sp: some View {
 		Text("content").font(.caption).foregroundColor(.gray).fontWeight(.bold)
-		sound.map { sound in
-			Button(
-				action: {
-					audio = try! AVAudioPlayer(data: sound)
-					audio?.play()
-				},
-				label: {
-					Text("Play")
-				})
-		}
 		soundName.map {
-			Text($0)
+			Text($0.replacingOccurrences(of: "%20", with: " "))
 		}
 		if sound == nil {
 			Button("click to add audio") {
 				showSound.toggle()
-			}.sheet(isPresented: $showSound) {
+			}
+			.accentColor(ColorSet(rawValue: mainColor)!.toColor())
+			.sheet(isPresented: $showSound) {
 				DocumentPicker(sound: $sound, soundName: $soundName, fileType: fileType)
 			}.padding(.top, 5)
 		}
@@ -165,16 +158,17 @@ struct AddContent: View {
 		}
 	}
 
+	@AppStorage("mainColor") var mainColor = "blue"
 	func confirmButton(confirm: @escaping () -> Void) -> some View {
 		Button(
 			action: confirm,
 			label: {
-				Color.accentColor.opacity(0.3)
+				ColorSet(rawValue: mainColor)!.toColor().opacity(0.3)
 					.cornerRadius(CornerRadius.ssmall.rawValue)
 					.overlay(
 						Text("confirm")
 							.fontWeight(.bold)
-							.foregroundColor(Color.accentColor)
+							.foregroundColor(ColorSet(rawValue: mainColor)!.toColor())
 					)
 					//        .buttonStyle(LightButtonStyle())
 					.frame(height: 40)

@@ -10,7 +10,7 @@ import SwiftUI
 struct ActionButtonBackgroundStyle: ButtonStyle {
 	func makeBody(configuration: Self.Configuration) -> some View {
 		configuration.label
-			.padding()
+			.padding(10)
 			.foregroundColor(.white)
 			.background(Color.accentColor)
 			.clipShape(Capsule())

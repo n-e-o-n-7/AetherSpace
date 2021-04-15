@@ -39,9 +39,9 @@ struct LinkView: View {
 			return base - (pow((length - minD), 2) * base / 40000)
 		}
 	}
-
+	@AppStorage("mainColor") var mainColor = "blue"
 	var body: some View {
 		LinkPath(headP: headP, tailP: tailP)
-			.stroke(Color.blue.opacity(0.3), lineWidth: lineWidth)
+			.stroke(ColorSet(rawValue: mainColor)!.toColor().opacity(0.3), lineWidth: lineWidth)
 	}
 }

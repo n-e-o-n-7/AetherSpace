@@ -19,7 +19,7 @@ struct SpaceEditor: View {
 	@State var showPicker = false
 	//MARK: - MagnificationGesture
 	@GestureState var magnifyBy = CGFloat(1.0)
-	@AppStorage("autosave") var autosave: TimeInterval = 60
+	@AppStorage("cache") var cache: Bool = false
 	var magnification: some Gesture {
 		MagnificationGesture()
 			.updating($magnifyBy) { currentState, gestureState, transaction in
@@ -104,18 +104,6 @@ struct SpaceEditor: View {
 		}
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarHidden(showSearch)
-
-		//MARK: - save
-		.onAppear {
-			autoSave.setSave(frequency: autosave)
-		}
-		.onDisappear {
-			autoSave.setSave(frequency: 0)
-		}
-		.onChange(of: autosave) { time in
-			autoSave.setSave(frequency: time)
-		}
-
 	}
 
 	//    @GestureState var isDetectingLongPress = false
@@ -138,6 +126,10 @@ struct SpaceEditor: View {
 		Button(
 			action: {
 				showLoad.wrappedValue.toggle()
+				autoSave.setSave(frequency: 0)
+				if cache {
+					svm.clearCache()
+				}
 				autoSave.save()
 				DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 					UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true)
@@ -197,13 +189,14 @@ struct SpaceEditor: View {
 	var more: some View {
 		Menu {
 			Button(
-				action: { autoSave.save() },
-				label: { Label("save", systemImage: "magnifyingglass") }
+				action: { showSet.toggle() },
+				label: { Label("set", systemImage: "gearshape") }
 			)
 			Button(
-				action: { showSet.toggle() },
-				label: { Label("set", systemImage: "magnifyingglass") }
+				action: { autoSave.save() },
+				label: { Label("save", systemImage: "doc") }
 			)
+
 		} label: {
 			Label("more", systemImage: "ellipsis.circle.fill").font(.title2)
 

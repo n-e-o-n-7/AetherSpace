@@ -7,6 +7,7 @@
 
 import Combine
 import Introspect
+import Kingfisher
 import SwiftUI
 
 struct NodeContentView: View {
@@ -87,17 +88,32 @@ struct NodeContentView: View {
 	var ic: some View {
 		VStack(spacing: 9) {
 			title
-			Image(uiImage: UIImage(data: content.data!)!)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-				.onTapGesture {
-					isPresented.toggle()
+			Group {
+				if let data = content.data {
+					Image(uiImage: UIImage(data: data)!)
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+				} else {
+					KFImage(URL(string: content.path!))
+						.loadImmediately()
+						.resizable()
+						.placeholder {
+							ProgressView().progressViewStyle(CircularProgressViewStyle()).padding(
+								.bottom)
+						}
+						.fade(duration: 1)
+						.cancelOnDisappear(true)
+						.aspectRatio(contentMode: .fit)
 				}
-				.fullScreenCover(isPresented: $isPresented) {
-					ImageContent(node: $node)
-				}
-				.cornerRadius(9)
-				.shadow(.base)
+			}
+			.onTapGesture {
+				isPresented.toggle()
+			}
+			.fullScreenCover(isPresented: $isPresented) {
+				ImageContent(node: $node)
+			}
+			.cornerRadius(9)
+			.shadow(.base)
 		}.frame(width: 210)
 	}
 

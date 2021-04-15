@@ -11,6 +11,7 @@ typealias AnimatablePoint = AnimatablePair<CGFloat, CGFloat>
 typealias AnimatableCorners = AnimatablePair<AnimatablePoint, AnimatablePoint>
 
 struct LinkPath: Shape {
+
 	var headP: CGPoint
 	var tailP: CGPoint
 	var direct: Bool {
