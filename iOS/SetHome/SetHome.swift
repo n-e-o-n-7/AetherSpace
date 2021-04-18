@@ -51,7 +51,8 @@ struct SetHome: View {
 				}
 			}
 			.navigationViewStyle(StackNavigationViewStyle())
-			.navigationTitle("Set")
+			.navigationTitle("Settings")
+
 		}
 
 	}

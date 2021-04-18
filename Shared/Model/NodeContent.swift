@@ -11,9 +11,9 @@ struct NodeContent: Codable {
 
 	//image,sound
 	var data: Data?
-	var path: String?
 	var fileName: String?
-
+	//image
+	var path: String?
 	//date
 	var time: Date?
 

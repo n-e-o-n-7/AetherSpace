@@ -364,3 +364,24 @@ extension Data {
 		return pcmBuffer
 	}
 }
+
+extension Array where Element == Float {
+	var sum: Float {
+		return self.reduce(0, +)
+	}
+	var ave: Float {
+		return sum / Float(self.count)
+	}
+	var variance: Float {
+		let ave = self.ave
+		return self.map { pow(($0 - ave), 2) }.ave
+	}
+	var std: Float {
+		return sqrt(variance)
+	}
+	var zscored: [Float] {
+		let ave = self.ave
+		let std = self.std
+		return self.map { std != 0 ? (($0 - ave) / std) : 0 }
+	}
+}

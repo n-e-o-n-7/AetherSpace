@@ -32,6 +32,7 @@ struct SearchCell: View {
 	var title: some View {
 		HStack {
 			Image(systemName: node.type.systemImage)
+				.foregroundColor(Color.accentColor)
 			Text(node.title)
 				.font(.caption)
 				.fontWeight(.regular)
@@ -40,6 +41,7 @@ struct SearchCell: View {
 		}
 		.font(.headline)
 		.foregroundColor(.gray)
+
 	}
 
 	@State var isPresented = false
@@ -104,16 +106,7 @@ struct SearchCell: View {
 
 	}
 	var sc: some View {
-		VStack(spacing: 9) {
-			title
-			Image(systemName: "play.circle.fill")
-				.resizable()
-				.opacity(0.7)
-				.frame(width: 40, height: 40)
-				.padding(.top, 30)
-				.padding(.bottom, 42)
-
-		}.frame(width: 170)
+		title.frame(width: 170)
 	}
 
 	var tc: some View {

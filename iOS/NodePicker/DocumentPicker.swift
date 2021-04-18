@@ -43,11 +43,8 @@ struct DocumentPicker: UIViewControllerRepresentable {
 		) {
 
 			if let url = urls.first {
-				print(url)
 
 				self.parent.sound = try! Data(contentsOf: url)
-
-				print(self.parent.sound!)
 				self.parent.soundName = String(url.absoluteString.split(separator: "/").last!)
 			}
 

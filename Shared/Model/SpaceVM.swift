@@ -82,7 +82,7 @@ extension SpaceVM {
 		nodes[nid] = nid
 
 		switch newNode.type {
-		case .image, .sound:
+		case .image:
 			newNode.contents.enumerated().forEach { (index, content) in
 				let token = SubscriptionToken()
 				if let pub = upload(data: content.data, name: content.fileName) {

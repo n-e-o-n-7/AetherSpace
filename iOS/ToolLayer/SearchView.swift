@@ -172,7 +172,6 @@ struct SearchView: View {
 			.padding(.bottom, 13)
 		}
 		//			HandleView()
-
 	}
 }
 

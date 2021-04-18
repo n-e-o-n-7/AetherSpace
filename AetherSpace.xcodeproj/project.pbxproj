@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E91BBA35262AD5960005DBD9 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91BBA34262AD5960005DBD9 /* SoundPlayer.swift */; };
+		E91BBA36262AD5960005DBD9 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91BBA34262AD5960005DBD9 /* SoundPlayer.swift */; };
 		E92F9EB8260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EB9260D9E130092216F /* AetherSpaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */; };
 		E92F9EBA260D9E130092216F /* AetherSpaceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */; };
@@ -83,6 +85,7 @@
 		E98771162627341F00AF5C79 /* AutoSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98771152627341F00AF5C79 /* AutoSave.swift */; };
 		E98771172627341F00AF5C79 /* AutoSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98771152627341F00AF5C79 /* AutoSave.swift */; };
 		E987711D26273B0200AF5C79 /* SoundWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E987711C26273B0200AF5C79 /* SoundWave.swift */; };
+		E98771242629A2DF00AF5C79 /* FrequencyShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98771232629A2DF00AF5C79 /* FrequencyShape.swift */; };
 		E98B6977261B2B7300A5BAF8 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B6976261B2B7300A5BAF8 /* SearchCell.swift */; };
 		E99512B6260F8E1400FA2CA7 /* LinkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512B5260F8E1400FA2CA7 /* LinkPath.swift */; };
 		E99512C22610E19800FA2CA7 /* SetHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512C12610E19800FA2CA7 /* SetHome.swift */; };
@@ -104,6 +107,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E91BBA34262AD5960005DBD9 /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		E92F9EA4260D9E110092216F /* AetherSpaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceApp.swift; sourceTree = "<group>"; };
 		E92F9EA5260D9E110092216F /* AetherSpaceDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceDocument.swift; sourceTree = "<group>"; };
 		E92F9EA6260D9E110092216F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 		E95BF187262563F000D071EA /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		E98771152627341F00AF5C79 /* AutoSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSave.swift; sourceTree = "<group>"; };
 		E987711C26273B0200AF5C79 /* SoundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWave.swift; sourceTree = "<group>"; };
+		E98771232629A2DF00AF5C79 /* FrequencyShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyShape.swift; sourceTree = "<group>"; };
 		E98B6976261B2B7300A5BAF8 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		E99512B5260F8E1400FA2CA7 /* LinkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPath.swift; sourceTree = "<group>"; };
 		E99512C12610E19800FA2CA7 /* SetHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHome.swift; sourceTree = "<group>"; };
@@ -301,6 +306,7 @@
 				E95BF187262563F000D071EA /* ImageList.swift */,
 				E92F9F08260D9F110092216F /* SoundContent.swift */,
 				E9A069A8261ED91D0013CAEA /* SoundShape.swift */,
+				E98771232629A2DF00AF5C79 /* FrequencyShape.swift */,
 			);
 			path = NodeContent;
 			sourceTree = "<group>";
@@ -387,6 +393,7 @@
 				E92F9ED4260D9EAF0092216F /* PositionVM.swift */,
 				E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */,
 				E98771152627341F00AF5C79 /* AutoSave.swift */,
+				E91BBA34262AD5960005DBD9 /* SoundPlayer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -538,6 +545,7 @@
 				E92F9F0E260D9F110092216F /* MarkdownView.swift in Sources */,
 				E92F9F4F260D9F4F0092216F /* Upload.swift in Sources */,
 				E98B6977261B2B7300A5BAF8 /* SearchCell.swift in Sources */,
+				E98771242629A2DF00AF5C79 /* FrequencyShape.swift in Sources */,
 				E958D322260DB1C00045FA42 /* Node.swift in Sources */,
 				E92F9F41260D9F3A0092216F /* RoundedBackgroundModifier.swift in Sources */,
 				E9BD433F2616C095002148FA /* TimePicker.swift in Sources */,
@@ -582,6 +590,7 @@
 				E92F9F0C260D9F110092216F /* MarkdownContent.swift in Sources */,
 				E92F9F39260D9F3A0092216F /* HandleView.swift in Sources */,
 				E92F9EF6260D9F0C0092216F /* DocumentPicker.swift in Sources */,
+				E91BBA35262AD5960005DBD9 /* SoundPlayer.swift in Sources */,
 				E95BF1842624958300D071EA /* LoadingView.swift in Sources */,
 				E95BF188262563F000D071EA /* ImageList.swift in Sources */,
 				E92F9F3C260D9F3A0092216F /* SearchNavigation.swift in Sources */,
@@ -615,6 +624,7 @@
 				E958D32D260DB1D30045FA42 /* NodeContent.swift in Sources */,
 				E958D328260DB1C80045FA42 /* Link.swift in Sources */,
 				E958D323260DB1C00045FA42 /* Node.swift in Sources */,
+				E91BBA36262AD5960005DBD9 /* SoundPlayer.swift in Sources */,
 				E92F9EB9260D9E130092216F /* AetherSpaceApp.swift in Sources */,
 				E92F9F4E260D9F4F0092216F /* Test.swift in Sources */,
 				E99512D42611ED7200FA2CA7 /* Operation.swift in Sources */,
