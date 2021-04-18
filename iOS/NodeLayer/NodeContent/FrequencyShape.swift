@@ -12,23 +12,27 @@ struct FrequencyShape: View {
 	@ObservedObject var player: SoundPlayer
 	@Binding var playing: Bool
 	@State var cur: [Float] = []
-    private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
+	private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
 	var body: some View {
-		VStack {
-			HStack {
-				ForEach(cur, id: \.self) { fac in
-					Rectangle()
-						.fill(Color.accentColor.opacity(0.4))
-						.frame(height: 300 * CGFloat(fac))
-				}
-			}.frame(minWidth: 0, maxWidth: .infinity)
-				.frame(height: 400)
+		Color.secondary.opacity(0.05)
+			.overlay(
+				HStack {
+					ForEach(cur, id: \.self) { fac in
+						Rectangle()
+							.fill(Color.accentColor.opacity(0.4))
+							.frame(height: 300 * CGFloat(fac))
+					}
 
-		}.onReceive(timer) { _ in
-			if playing {
-				cur = player.analyseCur()
+				}
+				.frame(minWidth: 0, maxWidth: .infinity)
+
+			).frame(height: 400)
+			.onReceive(timer) { _ in
+				if playing {
+					cur = player.analyseCur()
+				}
 			}
-		}
+
 	}
 
 	//	func action() {

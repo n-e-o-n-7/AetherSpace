@@ -72,11 +72,13 @@ class SoundPlayer: ObservableObject {
 	var current: TimeInterval {
 		player.currentTime
 	}
-
+	var factor: Double {
+		current / total
+	}
 	//MARK: - nor
 	@Published var normal: [Float] = []
-	func jump(to time: TimeInterval) {
-		player.currentTime = time
+	func jump(to factor: Double) {
+		player.currentTime = factor * total
 	}
 
 	//MARK: - fre
@@ -121,10 +123,10 @@ class SoundPlayer: ObservableObject {
 		return amplitudes
 	}
 
-	private var frequencyBands: Int = 80  //频带数量
-	private var startFrequency: Float = 100  //起始频率
-	private var endFrequency: Float = 18000  //截止频率
 	private lazy var bands: [(lowerFrequency: Float, upperFrequency: Float)] = {
+		let frequencyBands: Int = 80  //频带数量
+		let startFrequency: Float = 100  //起始频率
+		let endFrequency: Float = 18000  //截止频率
 		var bands = [(lowerFrequency: Float, upperFrequency: Float)]()
 		//1：根据起止频谱、频带数量确定增长的倍数：2^n
 		let n = log2(endFrequency / startFrequency) / Float(frequencyBands)
@@ -189,7 +191,7 @@ class SoundPlayer: ObservableObject {
 	}
 
 	var last: [Float] = []
-	let spectrumSmooth: Float = 0.5
+
 	//single channel
 	func analyseCur() -> [Float] {
 		let amplitudes = fft(frequency[Int(current / 0.05)])[0]
@@ -203,9 +205,9 @@ class SoundPlayer: ObservableObject {
 			findMaxAmplitude(for: $0, in: weightedAmplitudes, with: 20) * 5
 		}
 		spectrum = highlightWaveform(spectrum: spectrum)
-		let zipped = zip(last, spectrum)
 
-		last = zipped.map { $0 * spectrumSmooth + $1 * (1 - spectrumSmooth) }
+		let spectrumSmooth: Float = 0.5
+		last = zip(last, spectrum).map { $0 * spectrumSmooth + $1 * (1 - spectrumSmooth) }
 		return last
 	}
 }

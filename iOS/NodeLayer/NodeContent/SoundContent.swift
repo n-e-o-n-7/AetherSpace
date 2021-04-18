@@ -15,7 +15,7 @@ struct SoundContent: View {
 		node.contents.first!
 	}
 	@ObservedObject var player: SoundPlayer
-	@State private var mode: DisplayMode = .frequency
+	@State private var mode: DisplayMode = .decibel
 
 	init(node: Binding<Node>) {
 		_node = node
@@ -52,7 +52,7 @@ struct SoundContent: View {
 					} else {
 						ProgressView().progressViewStyle(CircularProgressViewStyle())
 					}
-				}
+				}.frame(height: UIScreen.main.bounds.height * 0.6)
 			}.frame(minHeight: 0, maxHeight: .infinity)
 		}
 	}
