@@ -30,12 +30,9 @@ struct NodeView: View {
 					.onReceive(
 						linkSubject,
 						perform: { (sender, point) in
-							let minX = proxy.frame(in: .global).minX
-							let minY = proxy.frame(in: .global).minY
-							let maxX = proxy.frame(in: .global).maxX
-							let maxY = proxy.frame(in: .global).maxY
-							if minX < point.x && point.x < maxX && minY < point.y
-								&& point.y < maxY
+							let pos = proxy.frame(in: .global)
+							if pos.minX < point.x && point.x < pos.maxX && pos.minY < point.y
+								&& point.y < pos.maxY
 							{
 								svm.addLink(head: sender, tail: node.id)
 							}

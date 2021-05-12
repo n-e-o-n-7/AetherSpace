@@ -163,12 +163,12 @@ struct AddContent: View {
 		Button(
 			action: confirm,
 			label: {
-				ColorSet(rawValue: mainColor)!.toColor().opacity(0.3)
+				ColorSet(rawValue: mainColor)!.toColor().opacity(0.2)
 					.cornerRadius(CornerRadius.ssmall.rawValue)
 					.overlay(
 						Text("confirm")
-							.fontWeight(.bold)
 							.foregroundColor(ColorSet(rawValue: mainColor)!.toColor())
+							.fontWeight(.bold)
 					)
 					//        .buttonStyle(LightButtonStyle())
 					.frame(height: 40)

@@ -5,96 +5,22 @@
 //  Created by 许滨麟 on 2021/3/25.
 //
 
-import MobileCoreServices
 import SwiftUI
 
 struct SpaceEditor: View {
 	@EnvironmentObject var svm: SpaceVM
 	@EnvironmentObject var autoSave: AutoSave
-	@State var save = CGPoint.zero
-	@State var extra = CGSize.zero
-	@State var showSet = false
-	//MARK: - nodeTrigger
-	@State var position = CGPoint.zero
-	@State var showPicker = false
-	//MARK: - MagnificationGesture
-	@GestureState var magnifyBy = CGFloat(1.0)
-	@AppStorage("cache") var cache: Bool = false
-	var magnification: some Gesture {
-		MagnificationGesture()
-			.updating($magnifyBy) { currentState, gestureState, transaction in
-				gestureState = currentState
-			}
-	}
-	@State var a = false
+
 	var body: some View {
 		ZStack {
-			if svm.space.mode == Space.ModeType.link {
-				GeometryReader { proxy in
-					Background { offset in
-						showPicker.toggle()
-						position = offset
-					}
-					.onDrop(
-						of: [String(kUTTypeURL)], isTargeted: nil,
-						perform: { (items, point) in
-							if let item = items.first {
-								if item.canLoadObject(ofClass: URL.self) {
-									let _ = item.loadObject(
-										ofClass: URL.self,
-										completionHandler: { (url, error) in
-											let id = UUID(uuidString: url!.path)!
-											if self.svm.nodes[id] == nil {
-												DispatchQueue.main.async {
-													let center = CGPoint(
-														x: proxy.size.width / 2,
-														y: proxy.size.height / 2)
-													let extra = CGPoint(
-														x: 0,
-														y: UIScreen.main.bounds.size.height
-															- proxy.size.height)
-													withAnimation(.easeOut) {
-														self.svm.nodePosition[id] = PositionVM(
-															offset: point.subtract(extra).subtract(
-																center
-															).subtract(
-																self.save))
-														self.svm.nodes[id] = id
-													}
-												}
-											}
-										})
-								}
-							}
-							return true
-						}
-					)
-					.gesture(
-						DragGesture()
-							.onChanged { value in
-								extra = value.translation
-							}.onEnded { value in
-								save = CGPoint(x: save.x + extra.width, y: save.y + extra.height)
-								extra = CGSize.zero
-							}
-					)
-					.padding(100)
-					.background(Color("CanvasBackground"))
-				}.edgesIgnoringSafeArea(.vertical)
-				Group {
-					LinkLayer()
-					NodeLayer()
-				}
-				.scaleEffect(magnifyBy)
-				.offset(x: save.x + extra.width, y: save.y + extra.height)
-
-				NodeTrigger(position: $position, save: $save, isPresented: $showPicker)
-
-				ToolLayer(showSearch: $showSearch)
-
+			if svm.space.mode == Space.ModeType.local {
+				LocalmodeView()
 			}
+			if svm.space.mode == Space.ModeType.global {
+				GlobalmodeView()
+			}
+			ToolLayer(showSearch: $showSearch)
 		}
-		.gesture(magnification)
 		.toolbar {
 			ToolbarItem(placement: .navigationBarLeading) { quit }
 			ToolbarItem(placement: .navigationBarLeading) { backout }
@@ -121,6 +47,9 @@ struct SpaceEditor: View {
 	//                showHistory.toggle()
 	//            }
 	//    }
+
+	//MARK: - quit
+	@AppStorage("cache") var cache: Bool = false
 	@Environment(\.loading) var showLoad: Binding<Bool>
 	var quit: some View {
 		Button(
@@ -142,6 +71,7 @@ struct SpaceEditor: View {
 		)
 	}
 
+	//MARK: - backout
 	@ViewBuilder
 	var backout: some View {
 		if svm.stack.count != 0 {
@@ -156,6 +86,7 @@ struct SpaceEditor: View {
 		}
 	}
 
+	//MARK: - mode
 	var mode: some View {
 		Picker(
 			selection: $svm.space.mode,
@@ -170,6 +101,7 @@ struct SpaceEditor: View {
 			.frame(width: 300)
 	}
 
+	//MARK: - search
 	@State private var showSearch = false
 	@State var searchText = "s"
 	@ViewBuilder
@@ -186,6 +118,8 @@ struct SpaceEditor: View {
 		}
 	}
 
+	//MARK: - more
+	@State var showSet = false
 	var more: some View {
 		Menu {
 			Button(
@@ -199,7 +133,6 @@ struct SpaceEditor: View {
 
 		} label: {
 			Label("more", systemImage: "ellipsis.circle.fill").font(.title2)
-
 		}
 		.menuStyle(DefaultMenuStyle())
 		.sheet(isPresented: $showSet) {

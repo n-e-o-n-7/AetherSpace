@@ -14,6 +14,7 @@ struct LinkPath: Shape {
 
 	var headP: CGPoint
 	var tailP: CGPoint
+	var dash: Bool
 	var direct: Bool {
 		headP.x < tailP.x
 	}
@@ -28,9 +29,11 @@ struct LinkPath: Shape {
 			to: t,
 			control1: h.applyOffset(x: direct ? curveOffset : -curveOffset, y: 0),
 			control2: t.applyOffset(x: direct ? -curveOffset : curveOffset, y: 0))
-
-		return path.strokedPath(StrokeStyle(lineCap: .round, lineJoin: .round))
-
+		if dash {
+			return path.strokedPath(StrokeStyle(lineCap: .round, lineJoin: .round, dash: [14]))
+		} else {
+			return path.strokedPath(StrokeStyle(lineCap: .round, lineJoin: .round))
+		}
 	}
 
 	var animatableData: AnimatableCorners {

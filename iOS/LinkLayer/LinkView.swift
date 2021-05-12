@@ -29,9 +29,7 @@ struct LinkView: View {
 		let maxD: CGFloat = 600
 		let minD: CGFloat = 400
 		if length >= maxD {
-
 			svm.removeLink(lid: lid)
-
 			return 0
 		} else if length <= minD {
 			return base
@@ -39,9 +37,16 @@ struct LinkView: View {
 			return base - (pow((length - minD), 2) * base / 40000)
 		}
 	}
+	var isLinkCenter: Bool {
+		let last = svm.space.lastNodeId
+		let head = svm.space.links[lid]?.headNodeId
+		let tail = svm.space.links[lid]?.tailNodeId
+		return last == head || last == tail
+	}
+
 	@AppStorage("mainColor") var mainColor = "blue"
 	var body: some View {
-		LinkPath(headP: headP, tailP: tailP)
+		LinkPath(headP: headP, tailP: tailP, dash: !isLinkCenter)
 			.stroke(ColorSet(rawValue: mainColor)!.toColor().opacity(0.3), lineWidth: lineWidth)
 	}
 }

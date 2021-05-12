@@ -23,35 +23,30 @@ struct NodeContent: Codable {
 	//link
 	var url: String?
 }
-//protocol NodeContent {
-//	var title: String { get set }
+//protocol NodeContent {}
+//extension NodeContent {
+//
 //}
 //
 //struct Alink: Codable, NodeContent {
-//	var title: String
 //	var url: String
 //}
 //struct Amark: Codable, NodeContent {
-//	var title: String
 //	var markdown: String
 //}
 //struct Atag: Codable, NodeContent {
-//	var title: String
+//    var text:String
 //}
 //struct Asound: Codable, NodeContent {
-//	var title: String
-//	var savePath: String?
-//	var soundName: String
-//	var data: Data?
+//    var data: Data
+//    var fileName: String
 //}
 //struct Aimage: Codable, NodeContent {
-//	var title: String
-//	var savePath: String?
-//	var imageName: String
-//	var data: Data?
+//    var data: Data?
+//    var fileName: String
+//    var path: String?
 //}
 //
 //struct Adate: Codable, NodeContent {
-//	var title: String
-//	var time: Date
+//    var time: Date
 //}

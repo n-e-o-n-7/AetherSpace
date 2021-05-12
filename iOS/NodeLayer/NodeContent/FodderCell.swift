@@ -49,7 +49,7 @@ struct FodderCell: View {
 				Text(content.url!)
 			}
 			.padding(9)
-			.roundedBackground(radius: .ssmall, color: Color.accentColor.opacity(0.3))
+			.roundedBackground(radius: .ssmall, color: Color.accentColor.opacity(0.2))
 			.onDrag({
 				NSItemProvider(
 					object: String("[\(node.title)](\(content.url!))") as NSString)

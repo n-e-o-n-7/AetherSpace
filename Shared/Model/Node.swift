@@ -63,7 +63,7 @@ extension Node {
 //		case title
 //		case asHeadLinkIds
 //		case asTailLInkIds
-//		case content
+//		case contents
 //	}
 //
 //	init(from decoder: Decoder) throws {
@@ -72,22 +72,22 @@ extension Node {
 //		creatTime = try value.decode(Date.self, forKey: .creatTime)
 //		type = try value.decode(Species.self, forKey: .type)
 //
-//		asHeadLinkIds = try value.decode(Array<UUID>.self, forKey: .asHeadLinkIds)
-//		asTailLInkIds = try value.decode(Array<UUID>.self, forKey: .asTailLInkIds)
+//		asHeadLinkIds = try value.decode(Dictionary<Int, Int>.self, forKey: .asHeadLinkIds)
+//		asTailLinkIds = try value.decode(Dictionary<Int, Int>.self, forKey: .asTailLInkIds)
 //
 //		switch type {
 //		case .link:
-//			content = try value.decode(Alink.self, forKey: .content)
+//			contents = try value.decode(Array<Alink>.self, forKey: .contents)
 //		case .tag:
-//			content = try value.decode(Atag.self, forKey: .content)
+//			contents = try value.decode(Array<Atag>.self, forKey: .contents)
 //		case .date:
-//			content = try value.decode(Adate.self, forKey: .content)
+//			contents = try value.decode(Array<Adate>.self, forKey: .contents)
 //		case .image:
-//			content = try value.decode(Aimage.self, forKey: .content)
+//			contents = try value.decode(Array<Aimage>.self, forKey: .contents)
 //		case .sound:
-//			content = try value.decode(Asound.self, forKey: .content)
+//			contents = try value.decode(Array<Asound>.self, forKey: .contents)
 //		case .markdown:
-//			content = try value.decode(Amark.self, forKey: .content)
+//			contents = try value.decode(Array<Amark>.self, forKey: .contents)
 //		}
 //
 //	}
@@ -98,21 +98,20 @@ extension Node {
 //		try v.encode(creatTime, forKey: .creatTime)
 //		try v.encode(type, forKey: .type)
 //		try v.encode(asHeadLinkIds, forKey: .asHeadLinkIds)
-//		try v.encode(asTailLInkIds, forKey: .asTailLInkIds)
+//		try v.encode(asTailLinkIds, forKey: .asTailLInkIds)
 //		switch type {
 //		case .link:
-//			try v.encode(content as! Alink, forKey: .content)
+//			try v.encode(contents as!Array<Alink>, forKey: .contents)
 //		case .tag:
-//			try v.encode(content as! Atag, forKey: .content)
+//			try v.encode(contents as!Array<Atag>, forKey: .contents)
 //		case .date:
-//			try v.encode(content as! Adate, forKey: .content)
+//			try v.encode(contents as!Array<Adate>, forKey: .contents)
 //		case .image:
-//			try v.encode(content as! Aimage, forKey: .content)
+//			try v.encode(contents as!Array<Aimage>, forKey: .contents)
 //		case .sound:
-//			try v.encode(content as! Asound, forKey: .content)
+//			try v.encode(contents as!Array<Asound>, forKey: .contents)
 //		case .markdown:
-//			try v.encode(content as! Amark, forKey: .content)
+//			try v.encode(contents as!Array<Amark>, forKey: .contents)
 //		}
-//
 //	}
 //}

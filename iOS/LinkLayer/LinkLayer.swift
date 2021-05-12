@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LinkLayer: View {
-
 	@EnvironmentObject var svm: SpaceVM
 	var lids: [Lid] {
 		svm.links.map { $0.value }
@@ -21,11 +20,7 @@ struct LinkLayer: View {
 					headPVM: svm.nodePosition[svm.space.links[lid]!.headNodeId]!,
 					tailPVM: svm.nodePosition[svm.space.links[lid]!.tailNodeId]!
 				)
-
 			}
 		}
-		//        .frame(width: 2, height: 2, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-		//        .offset(x: 1, y: 1)
-
 	}
 }

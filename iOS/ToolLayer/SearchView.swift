@@ -11,7 +11,7 @@ import SwiftUI
 struct SearchView: View {
 	@EnvironmentObject var svm: SpaceVM
 	@Binding var showSearch: Bool
-	@State var searchText: String = ""
+	@State private var searchText: String = ""
 
 	var nodes: [Node] {
 		svm.space.nodes.map { (_, node) in node }
@@ -22,6 +22,8 @@ struct SearchView: View {
 			node.title.lowercased().contains(searchText.lowercased())
 		}
 	}
+
+	@State private var showFilter = false
 	var filterResult: [Node] {
 		guard showFilter else { return searchResult }
 		return searchResult.filter { node in
@@ -32,7 +34,6 @@ struct SearchView: View {
 		Array(svm.space.searchHistory)
 	}
 	var body: some View {
-
 		VStack(spacing: 0) {
 			searchHead
 			if searchText == "" {
@@ -50,7 +51,6 @@ struct SearchView: View {
 		.shadow(.thick)
 
 	}
-	@State private var showFilter = false
 
 	var searchHead: some View {
 		VStack(spacing: 0) {

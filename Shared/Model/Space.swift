@@ -8,7 +8,7 @@
 import Foundation
 
 struct Space: Codable {
-	var lastNodeId: UUID?
+	var lastNodeId: Nid?
 	var nodes: [Nid: Node]
 	var links: [Lid: Link]
 	var mode: ModeType
@@ -17,7 +17,7 @@ struct Space: Codable {
 		self.lastNodeId = nil
 		self.nodes = [:]
 		self.links = [:]
-		self.mode = ModeType.link
+		self.mode = ModeType.local
 		self.searchHistory = []
 	}
 	init(from space: Space) {
@@ -31,15 +31,14 @@ struct Space: Codable {
 
 extension Space {
 	enum ModeType: String, CaseIterable, Codable {
-		case link = "link"
-		case order = "order"
+		case local = "local"
+		case global = "global"
 		var systemImage: String {
 			switch self {
-			case .link:
+			case .local:
 				return "point.topleft.down.curvedto.point.bottomright.up"
-			case .order:
+			case .global:
 				return "slider.vertical.3"
-
 			}
 		}
 	}

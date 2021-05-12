@@ -111,11 +111,7 @@ extension SpaceVM {
 	func removeNode(nid: Nid) {
 		nodes[nid] = nil
 		if nid == space.lastNodeId {
-			if let first = nodes.first {
-				space.lastNodeId = first.value
-			} else {
-				space.lastNodeId = nil
-			}
+			space.lastNodeId = nodes.first?.value
 		}
 		let node = space.nodes[nid]!
 		let oldLinks = links

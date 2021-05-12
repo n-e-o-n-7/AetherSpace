@@ -22,7 +22,6 @@ struct SearchBar: UIViewRepresentable {
 		let searchBar = UISearchBar()
 
 		searchBar.searchBarStyle = .minimal
-		//		searchBar.showsCancelButton = true
 		searchBar.autocapitalizationType = .none
 		searchBar.delegate = context.coordinator
 		searchBar.placeholder = "Search"
@@ -31,7 +30,6 @@ struct SearchBar: UIViewRepresentable {
 			searchBar.becomeFirstResponder()
 		}
 		//        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-
 		return searchBar
 	}
 
@@ -56,9 +54,5 @@ struct SearchBar: UIViewRepresentable {
 		func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
 			self.parent.onMark()
 		}
-		//		func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-		//
-		//			self.parent.onCancel()
-		//		}
 	}
 }

@@ -52,7 +52,7 @@ struct SearchCell: View {
 		}
 
 		.padding(9)
-		.background(Color.accentColor.opacity(0.3).cornerRadius(CornerRadius.ssmall.rawValue))
+		.background(Color.accentColor.opacity(0.2).cornerRadius(CornerRadius.ssmall.rawValue))
 		.padding(.top, 30)
 		.overlay(
 			title,

@@ -10,7 +10,7 @@ import SwiftUI
 struct LightButtonStyle: ButtonStyle {
 	func makeBody(configuration: Self.Configuration) -> some View {
 
-		Color.accentColor.opacity(0.3)
+		Color.accentColor.opacity(0.2)
 			.cornerRadius(CornerRadius.ssmall.rawValue)
 			.overlay(
 				configuration.label
