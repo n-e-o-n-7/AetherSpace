@@ -192,6 +192,7 @@
 		E95BF17F26248FAD00D071EA /* GradientText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientText.swift; sourceTree = "<group>"; };
 		E95BF1832624958300D071EA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E95BF187262563F000D071EA /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
+		E9759672264B971E00F695B2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E98771152627341F00AF5C79 /* AutoSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSave.swift; sourceTree = "<group>"; };
 		E987711C26273B0200AF5C79 /* SoundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWave.swift; sourceTree = "<group>"; };
 		E98771232629A2DF00AF5C79 /* FrequencyShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyShape.swift; sourceTree = "<group>"; };
@@ -257,6 +258,7 @@
 		E92F9E9E260D9E110092216F = {
 			isa = PBXGroup;
 			children = (
+				E9759672264B971E00F695B2 /* README.md */,
 				E92F9EA3260D9E110092216F /* Shared */,
 				E92F9EAE260D9E130092216F /* iOS */,
 				E92F9EB5260D9E130092216F /* macOS */,
