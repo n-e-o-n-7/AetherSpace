@@ -76,11 +76,13 @@ struct NodePicker: View {
 	}
 
 	func addNode(contents: [NodeContent]) {
+
 		guard title != "" else {
 			errorMessage = "no title"
 			showAlert = true
 			return
 		}
+		var contents = contents
 		switch nodeType {
 		case .image:
 			for content in contents {
@@ -110,6 +112,11 @@ struct NodePicker: View {
 				errorMessage = "wrong url"
 				showAlert = true
 				return
+			}
+		case .markdown:
+			if contents.count == 0 {
+				let content = NodeContent(markdown: "# \(title)")
+				contents.append(content)
 			}
 		default: break
 		}

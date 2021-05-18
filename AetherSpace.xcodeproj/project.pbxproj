@@ -69,7 +69,6 @@
 		E92F9F59260D9F560092216F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92F9F55260D9F560092216F /* Extensions.swift */; };
 		E92F9F7C260DA0230092216F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E92F9F7E260DA0230092216F /* InfoPlist.strings */; };
 		E92F9F88260DA0370092216F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E92F9F8A260DA0370092216F /* Localizable.strings */; };
-		E958D314260DA3020045FA42 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = E958D313260DA3020045FA42 /* MarkdownView */; };
 		E958D319260DA4F20045FA42 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E958D318260DA4F20045FA42 /* Alamofire */; };
 		E958D31E260DA9000045FA42 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E958D31D260DA9000045FA42 /* Kingfisher */; };
 		E958D322260DB1C00045FA42 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958D321260DB1C00045FA42 /* Node.swift */; };
@@ -91,6 +90,9 @@
 		E985A1B22652A18200E4B8F0 /* CheckboxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985A1B02652A18200E4B8F0 /* CheckboxStyle.swift */; };
 		E985A1B82652C9A900E4B8F0 /* IfModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985A1B72652C9A900E4B8F0 /* IfModifier.swift */; };
 		E985A1B92652C9A900E4B8F0 /* IfModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985A1B72652C9A900E4B8F0 /* IfModifier.swift */; };
+		E985A1BF26539E8100E4B8F0 /* ImageSinglePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985A1BE26539E8100E4B8F0 /* ImageSinglePicker.swift */; };
+		E985A1C026539E8100E4B8F0 /* ImageSinglePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985A1BE26539E8100E4B8F0 /* ImageSinglePicker.swift */; };
+		E985A1C72653B94100E4B8F0 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E985A1C62653B94100E4B8F0 /* MarkdownUI */; };
 		E98771162627341F00AF5C79 /* AutoSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98771152627341F00AF5C79 /* AutoSave.swift */; };
 		E98771172627341F00AF5C79 /* AutoSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98771152627341F00AF5C79 /* AutoSave.swift */; };
 		E987711D26273B0200AF5C79 /* SoundWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E987711C26273B0200AF5C79 /* SoundWave.swift */; };
@@ -206,6 +208,7 @@
 		E985A1A9265252E000E4B8F0 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		E985A1B02652A18200E4B8F0 /* CheckboxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxStyle.swift; sourceTree = "<group>"; };
 		E985A1B72652C9A900E4B8F0 /* IfModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfModifier.swift; sourceTree = "<group>"; };
+		E985A1BE26539E8100E4B8F0 /* ImageSinglePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSinglePicker.swift; sourceTree = "<group>"; };
 		E98771152627341F00AF5C79 /* AutoSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSave.swift; sourceTree = "<group>"; };
 		E987711C26273B0200AF5C79 /* SoundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWave.swift; sourceTree = "<group>"; };
 		E98771232629A2DF00AF5C79 /* FrequencyShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyShape.swift; sourceTree = "<group>"; };
@@ -239,8 +242,8 @@
 			files = (
 				E958D31E260DA9000045FA42 /* Kingfisher in Frameworks */,
 				E95BF1982625D5EE00D071EA /* Introspect in Frameworks */,
-				E958D314260DA3020045FA42 /* MarkdownView in Frameworks */,
 				E958D319260DA4F20045FA42 /* Alamofire in Frameworks */,
+				E985A1C72653B94100E4B8F0 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +374,7 @@
 				E92F9F08260D9F110092216F /* SoundContent.swift */,
 				E9A069A8261ED91D0013CAEA /* SoundShape.swift */,
 				E98771232629A2DF00AF5C79 /* FrequencyShape.swift */,
+				E985A1BE26539E8100E4B8F0 /* ImageSinglePicker.swift */,
 			);
 			path = NodeContent;
 			sourceTree = "<group>";
@@ -512,10 +516,10 @@
 			);
 			name = "AetherSpace (iOS)";
 			packageProductDependencies = (
-				E958D313260DA3020045FA42 /* MarkdownView */,
 				E958D318260DA4F20045FA42 /* Alamofire */,
 				E958D31D260DA9000045FA42 /* Kingfisher */,
 				E95BF1972625D5EE00D071EA /* Introspect */,
+				E985A1C62653B94100E4B8F0 /* MarkdownUI */,
 			);
 			productName = "AetherSpace (iOS)";
 			productReference = E92F9EAC260D9E130092216F /* AetherSpace.app */;
@@ -610,10 +614,10 @@
 			);
 			mainGroup = E92F9E9E260D9E110092216F;
 			packageReferences = (
-				E958D312260DA3020045FA42 /* XCRemoteSwiftPackageReference "MarkdownView" */,
 				E958D317260DA4F20045FA42 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E958D31C260DA9000045FA42 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E95BF1962625D5EE00D071EA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				E985A1C52653B94000E4B8F0 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
 			);
 			productRefGroup = E92F9EAD260D9E130092216F /* Products */;
 			projectDirPath = "";
@@ -748,6 +752,7 @@
 				E95BF188262563F000D071EA /* ImageList.swift in Sources */,
 				E92F9F3C260D9F3A0092216F /* SearchNavigation.swift in Sources */,
 				E92F9F56260D9F560092216F /* Constant.swift in Sources */,
+				E985A1BF26539E8100E4B8F0 /* ImageSinglePicker.swift in Sources */,
 				E92F9F11260D9F110092216F /* ImageContent.swift in Sources */,
 				E92F9F3B260D9F3A0092216F /* BlurView.swift in Sources */,
 				E92F9F0A260D9F110092216F /* NodeLayer.swift in Sources */,
@@ -771,6 +776,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E985A1C026539E8100E4B8F0 /* ImageSinglePicker.swift in Sources */,
 				E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */,
 				E92F9EBB260D9E130092216F /* AetherSpaceDocument.swift in Sources */,
 				E92F9ED6260D9EAF0092216F /* PositionVM.swift in Sources */,
@@ -1192,14 +1198,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E958D312260DA3020045FA42 /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/keitaoouchi/MarkdownView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.1;
-			};
-		};
 		E958D317260DA4F20045FA42 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1224,14 +1222,17 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		E985A1C52653B94000E4B8F0 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E958D313260DA3020045FA42 /* MarkdownView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E958D312260DA3020045FA42 /* XCRemoteSwiftPackageReference "MarkdownView" */;
-			productName = MarkdownView;
-		};
 		E958D318260DA4F20045FA42 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E958D317260DA4F20045FA42 /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -1246,6 +1247,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E95BF1962625D5EE00D071EA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		E985A1C62653B94100E4B8F0 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E985A1C52653B94000E4B8F0 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

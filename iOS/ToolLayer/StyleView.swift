@@ -54,7 +54,7 @@ struct StyleView: View {
 
 	var text: some View {
 		VStack(alignment: .leading) {
-			Text("Text").font(.callout).fontWeight(.bold)
+			Text("Text").font(.footnote).fontWeight(.bold)
 
 			VStack {
 				HStack {
@@ -103,7 +103,7 @@ struct StyleView: View {
 
 	var shadow: some View {
 		VStack(alignment: .leading) {
-			Text("Shadow").font(.callout).fontWeight(.bold)
+			Text("Shadow").font(.footnote).fontWeight(.bold)
 			Picker(
 				selection: style.shadow,
 				label: Text("shadow")
@@ -127,7 +127,7 @@ struct StyleView: View {
 	}
 	var border: some View {
 		VStack(alignment: .leading) {
-			Text("Border").font(.callout).fontWeight(.bold)
+			Text("Border").font(.footnote).fontWeight(.bold)
 			Toggle(isOn: style.border) {
 				Text("enable").font(.footnote).foregroundColor(.gray)
 			}.toggleStyle(CheckboxStyle())

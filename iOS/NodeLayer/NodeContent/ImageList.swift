@@ -35,7 +35,9 @@ struct ImageList: View {
 						.animation(.easeInOut)
 						//								.scaleEffect(self.scale(proxy, geometry))
 						.overlay(
-							EditImageView(remove: { images.remove(at: index) })
+							EditImageView(remove: {
+								if images.count > 1 { images.remove(at: index) }
+							})
 						).cornerRadius(CornerRadius.mid.rawValue)
 						.frame(height: proxy.size.height)
 						.shadow(.thin)

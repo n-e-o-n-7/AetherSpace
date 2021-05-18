@@ -143,10 +143,48 @@ struct AddContent: View {
 		}
 	}
 	//MARK: - markdown
+	@State private var showMark = false
+	@State private var markdown: String? = nil
+	@State private var mdname: String? = nil
+	@ViewBuilder
 	var mp: some View {
+		Text("content").font(.caption).foregroundColor(.gray).fontWeight(.bold)
+		if let name = mdname, markdown != nil {
+			Text(name).padding(.top, 5).foregroundColor(
+				(ColorSet(rawValue: mainColor)!.toColor()))
+		} else {
+			Button("import markdown") {
+				showMark.toggle()
+			}
+			.accentColor(ColorSet(rawValue: mainColor)!.toColor())
+			.fileImporter(
+				isPresented: $showMark,
+				allowedContentTypes: [UTType("net.daringfireball.markdown")!],
+				allowsMultipleSelection: true,
+				onCompletion: { res in
+					switch res {
+					case .success(let urls):
+						let url = urls.first!
+						guard url.startAccessingSecurityScopedResource() else { return }
+						markdown = String(decoding: try! Data(contentsOf: url), as: UTF8.self)
+						mdname = String(url.absoluteString.split(separator: "/").last!)
+						url.stopAccessingSecurityScopedResource()
+					case .failure(let error):
+						print(error.localizedDescription)
+					}
+
+				}
+			).padding(.top, 5)
+		}
+		Spacer()
 		confirmButton {
-			let content = NodeContent(markdown: example)
-			confirm([content])
+			if let doc = markdown {
+				let content = NodeContent(markdown: doc)
+				confirm([content])
+			} else {
+				confirm([])
+			}
+
 		}
 	}
 
