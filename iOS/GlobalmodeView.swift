@@ -61,7 +61,8 @@ struct GlobalmodeView: View {
 					ForEach(links, id: \.self) { link in
 						LinkPath(
 							headP: nodeDic[link.headId]!.pos, tailP: nodeDic[link.tailId]!.pos,
-							dash: false
+							dash: false,
+							curve: false
 						)
 						.stroke(ColorSet(rawValue: mainColor)!.toColor(), lineWidth: 7)
 						.opacity(
@@ -75,14 +76,16 @@ struct GlobalmodeView: View {
 				Group {
 					ForEach(nodes, id: \.id) { node in
 						ZStack {
-							Circle().fill(ColorSet(rawValue: mainColor)!.toColor())
-							Text(node.title).foregroundColor(.white)
+							Circle().fill(Color.white).frame(
+								width: 30, height: 30
+							).shadow(.base)
+							Text(node.title).foregroundColor(
+								ColorSet(rawValue: mainColor)!.toColor()
+							).frame(width: 70, height: 70)
 						}.onTapGesture {
 							currentNode = node.id
-							print(node.id)
-						}.frame(
-							width: 30, height: 30
-						).offset(x: node.pos.x, y: node.pos.y)
+
+						}.offset(x: node.pos.x, y: node.pos.y)
 							.transition(.opacity)
 					}
 				}
@@ -93,9 +96,9 @@ struct GlobalmodeView: View {
 			if let nid = svm.space.lastNodeId {
 				linkSet = []
 				nodeDic = [
-					nid: Node(id: nid, title: svm.space.nodes[nid]!.title, pos: CGPoint.zero)
+					nid: Node(id: nid, title: svm.space.nodes[nid]!.title, angle: nil)
 				]
-				dfs(nid: nid)
+				bfs(nid: nid)
 			} else {
 				linkSet = []
 				nodeDic = [:]
@@ -122,12 +125,54 @@ struct GlobalmodeView: View {
 					x: center.x + CGFloat(cos(angle) * h + Double.random(in: -50...50)),
 					y: center.y + CGFloat(sin(angle) * h + Double.random(in: -50...50))
 				)
-				nodeDic[oNid] = Node(id: oNid, title: svm.space.nodes[oNid]!.title, pos: pt)
+				nodeDic[oNid] = Node(
+					id: oNid, title: svm.space.nodes[oNid]!.title, pos: pt, angle: angle)
 				linkSet.insert(Link(headId: nid, tailId: oNid))
 				dfs(nid: oNid)
 			} else {
 				linkSet.insert(Link(headId: nid, tailId: oNid))
 			}
+		}
+	}
+
+	func bfs(nid: Nid) {
+		var queue: [Nid] = [nid]
+		var visited: [Nid: Bool] = [:]
+		func loop(nid: Nid) {
+			visited[nid] = true
+			let node = svm.space.nodes[nid]!
+			let newNodes =
+				node.asHeadLinkIds.map { svm.space.links[$0.value]!.tailNodeId }
+				+ node.asTailLinkIds.map { svm.space.links[$0.value]!.headNodeId }
+			let center = nodeDic[nid]!.pos
+			let tAngle = nodeDic[nid]!.angle
+			var count = Double(newNodes.filter { nodeDic[$0] == nil }.count)
+			let aveAngle = (tAngle == nil ? 360 : 120) / (tAngle == nil ? count : count + 1)
+			let midAngle = tAngle ?? 60
+			let h = 200.0
+			newNodes.forEach { oNid in
+				if nodeDic[oNid] == nil {
+					let angle = midAngle - 60 + count * aveAngle
+					let du = angle * Double.pi / 180
+					let pt = CGPoint(
+						x: center.x + CGFloat(cos(du) * h + Double.random(in: -30...30)),
+						y: center.y + CGFloat(sin(du) * h + Double.random(in: -30...30))
+					)
+					nodeDic[oNid] = Node(
+						id: oNid, title: svm.space.nodes[oNid]!.title, pos: pt, angle: angle)
+					linkSet.insert(Link(headId: nid, tailId: oNid))
+					count -= 1
+				} else {
+					linkSet.insert(Link(headId: nid, tailId: oNid))
+				}
+				if visited[oNid] == nil {
+					queue.append(oNid)
+				}
+			}
+		}
+
+		while queue.count != 0 {
+			loop(nid: queue.removeFirst())
 		}
 	}
 
@@ -144,7 +189,8 @@ struct GlobalmodeView: View {
 	struct Node: Identifiable {
 		let id: Nid
 		let title: String
-		var pos: CGPoint
+		var pos: CGPoint = CGPoint.zero
+		let angle: Double?
 	}
 
 }

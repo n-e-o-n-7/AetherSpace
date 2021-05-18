@@ -15,6 +15,7 @@ struct Node: Identifiable, Codable {
 	var asTailLinkIds: [Lid: Lid]
 	var contents: [NodeContent]
 	var title: String
+	var style: NodeStyle
 	init(title: String, type: Species, contents: [NodeContent]) {
 		self.id = Nid()
 		self.creatTime = Date()
@@ -23,6 +24,7 @@ struct Node: Identifiable, Codable {
 		self.asTailLinkIds = [:]
 		self.contents = contents
 		self.title = title
+		self.style = NodeStyle()
 	}
 }
 

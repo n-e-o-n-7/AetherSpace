@@ -15,18 +15,37 @@ struct NodeView: View {
 	@EnvironmentObject var svm: SpaceVM
 	let linkSubject: PassthroughSubject<(Nid, CGPoint), Never>
 	@State var showAlert = false
-
+	@Environment(\.showStyle) var showStyle
+	@State var proxyFrame: CGRect = CGRect.zero
 	var body: some View {
+
 		NodeContentView(
 			node: $node,
 			knot: { KnotView(nid: node.id, linkSubject: linkSubject) }
 		)
-		.padding(9)
+		.padding(node.style.padding)
+		.font(node.style.fontSize)
+		.if(node.style.textColor != .clear) {
+			$0.foregroundColor(node.style.textColor)
+		}
 		.background(
 			GeometryReader { proxy in
 				RoundedRectangle(cornerRadius: CornerRadius.mid.rawValue)
 					.fill(Color("NodeBackground"))
-					.shadow(.base)
+					.overlay(
+						Group {
+							if node.style.border {
+								RoundedRectangle(cornerRadius: CornerRadius.mid.rawValue)
+									.stroke(
+										node.style.lineColor,
+										style: node.style.dash
+											? StrokeStyle(
+												lineWidth: node.style.lineWidth, dash: [10])
+											: StrokeStyle(lineWidth: node.style.lineWidth))
+							}
+						}
+					)
+					.shadow(node.style.shadow)
 					.onReceive(
 						linkSubject,
 						perform: { (sender, point) in
@@ -36,6 +55,14 @@ struct NodeView: View {
 							{
 								svm.addLink(head: sender, tail: node.id)
 							}
+						}
+					)
+					.onAppear(perform: {
+						proxyFrame = proxy.frame(in: .global)
+					}).onChange(
+						of: proxy.frame(in: .global),
+						perform: { value in
+							proxyFrame = value
 						})
 			}
 		)
@@ -55,6 +82,27 @@ struct NodeView: View {
 				action: { top = node.id },
 				label: {
 					Label("front", systemImage: "rectangle.stack")
+				})
+			Button(
+				action: {
+					var p = CGPoint.zero
+					let width = UIScreen.main.bounds.size.width / 2
+					let top = UIApplication.shared.windows.first!.safeAreaInsets.top
+					let height = (UIScreen.main.bounds.size.height - top) / 2
+					if proxyFrame.minX < 360 {
+						p.x = proxyFrame.maxX + 180 - width
+					} else {
+						p.x = proxyFrame.minX - 180 - width
+					}
+					if proxyFrame.midY - top < 230 {
+						p.y = -height + 230
+					} else {
+						p.y = proxyFrame.midY - height
+					}
+					showStyle.wrappedValue = (node.id, p)
+				},
+				label: {
+					Label("style", systemImage: "rectangle.stack")
 				})
 			Button(
 				action: { svm.hide(nid: node.id) },
@@ -77,6 +125,7 @@ struct NodeView: View {
 					Label("delete", systemImage: "trash").foregroundColor(.red)
 				})
 		}
+
 		.offset(x: pvm.save.x + pvm.extra.width, y: pvm.save.y + pvm.extra.height)
 		.gesture(
 			DragGesture()

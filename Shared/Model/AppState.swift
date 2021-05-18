@@ -22,19 +22,19 @@ enum ColorSet: String, CaseIterable {
 	func toColor() -> Color {
 		switch self {
 		case .red:
-			return Color.red
+			return .red
 		case .orange:
-			return Color.orange
+			return .orange
 		case .yellow:
-			return Color.yellow
+			return .yellow
 		case .green:
-			return Color.green
+			return .green
 		case .blue:
-			return Color.blue
+			return .blue
 		case .purple:
-			return Color.purple
+			return .purple
 		case .pink:
-			return Color.pink
+			return .pink
 		}
 	}
 }

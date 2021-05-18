@@ -28,7 +28,6 @@ struct AetherSpaceApp: App {
 					perform: { _ in
 						svm.savePosition()
 						file.document.space = svm.space
-						print("save")
 					})
 		}
 	}

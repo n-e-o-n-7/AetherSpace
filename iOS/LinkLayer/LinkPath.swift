@@ -18,17 +18,22 @@ struct LinkPath: Shape {
 	var direct: Bool {
 		headP.x < tailP.x
 	}
+	var curve: Bool = true
 	func path(in rect: CGRect) -> Path {
 		let h = headP.applyOffset(x: rect.size.width / 2, y: rect.size.height / 2)
 		let t = tailP.applyOffset(x: rect.size.width / 2, y: rect.size.height / 2)
 		var path = Path()
 
 		path.move(to: h)
+		if curve {
+			path.addCurve(
+				to: t,
+				control1: h.applyOffset(x: direct ? curveOffset : -curveOffset, y: 0),
+				control2: t.applyOffset(x: direct ? -curveOffset : curveOffset, y: 0))
+		} else {
+			path.addLine(to: t)
+		}
 
-		path.addCurve(
-			to: t,
-			control1: h.applyOffset(x: direct ? curveOffset : -curveOffset, y: 0),
-			control2: t.applyOffset(x: direct ? -curveOffset : curveOffset, y: 0))
 		if dash {
 			return path.strokedPath(StrokeStyle(lineCap: .round, lineJoin: .round, dash: [14]))
 		} else {

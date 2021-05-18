@@ -124,9 +124,9 @@ class SoundPlayer: ObservableObject {
 	}
 
 	private lazy var bands: [(lowerFrequency: Float, upperFrequency: Float)] = {
-		let frequencyBands: Int = 80  //频带数量
-		let startFrequency: Float = 100  //起始频率
-		let endFrequency: Float = 18000  //截止频率
+		let frequencyBands: Int = 80
+		let startFrequency: Float = 100
+		let endFrequency: Float = 18000
 		var bands = [(lowerFrequency: Float, upperFrequency: Float)]()
 		//1：根据起止频谱、频带数量确定增长的倍数：2^n
 		let n = log2(endFrequency / startFrequency) / Float(frequencyBands)
@@ -153,7 +153,7 @@ class SoundPlayer: ObservableObject {
 	//响度
 	private lazy var FrequencyWeights: [Float] = {
 		let Δf: Float = 20
-		let bins = fftSize / 2  //返回数组的大小
+		let bins = fftSize / 2
 		var f = (0..<bins).map { Float($0) * Δf }
 		f = f.map { $0 * $0 }
 
@@ -172,8 +172,7 @@ class SoundPlayer: ObservableObject {
 
 	//锯齿消除
 	private func highlightWaveform(spectrum: [Float]) -> [Float] {
-		//1: 定义权重数组，数组中间的5表示自己的权重
-		//   可以随意修改，个数需要奇数
+		//1: 定义权重数组，数组中间的5表示自己的权重,个数需要奇数
 		let weights: [Float] = [1, 2, 3, 5, 3, 2, 1]
 		let totalWeights = Float(weights.reduce(0, +))
 		let startIndex = weights.count / 2

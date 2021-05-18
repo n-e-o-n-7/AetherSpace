@@ -33,9 +33,9 @@ struct ContentView: View {
 					autoSave.setSave(frequency: time)
 				}
 
-		}.navigationViewStyle(StackNavigationViewStyle())
-			//MARK: - color
-			.accentColor(ColorSet(rawValue: mainColor)!.toColor())
+		}
+		.navigationViewStyle(StackNavigationViewStyle())
+		.accentColor(ColorSet(rawValue: mainColor)!.toColor())
 	}
 }
 

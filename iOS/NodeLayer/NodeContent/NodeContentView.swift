@@ -141,9 +141,10 @@ struct NodeContentView: View {
 		}.frame(width: 170)
 	}
 
+	@State private var edit = false
 	var tc: some View {
 
-		Text(node.title).opacity(0)
+		Text(node.title)
 			.overlay(
 				TextEditor(text: $node.title)
 					.introspectTextView { textView in
@@ -153,7 +154,6 @@ struct NodeContentView: View {
 						textView.textContainer.lineFragmentPadding = 0
 					}
 			)
-			.font(.title3)
 			//		.frame(width: 100, height: 100)
 			//		.frame(maxWidth: 170)
 			//		.fixedSize(horizontal: true, vertical: true)

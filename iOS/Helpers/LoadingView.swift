@@ -29,7 +29,7 @@ struct LoadingModifier: ViewModifier {
 }
 
 struct LoadingKey: EnvironmentKey {
-	static let defaultValue: Binding<Bool> = Binding(get: { return false }, set: { _ in })
+	static let defaultValue: Binding<Bool> = .constant(false)
 }
 
 extension EnvironmentValues {
@@ -40,7 +40,8 @@ extension EnvironmentValues {
 }
 
 extension View {
-	func canLoad(state: Bool = false, opacity: Double = 0.05, scale: CGFloat = 1.5) -> some View {
+
+	func canLoad(state: Bool = false, opacity: Double = 0.05, scale: CGFloat = 1) -> some View {
 		self.modifier(LoadingModifier(isLoading: state, opacity: opacity, scale: scale))
 	}
 }

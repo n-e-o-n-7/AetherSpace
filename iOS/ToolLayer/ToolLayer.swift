@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ToolLayer: View {
 	@Binding var showSearch: Bool
-
 	var body: some View {
 		HStack(alignment: .top) {
 			Spacer()

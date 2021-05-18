@@ -28,10 +28,10 @@ struct ShadowModifier: ViewModifier {
 				content
 				.shadow(
 					color: colorScheme == .light
-						? Color.gray.opacity(0.4) : Color.black.opacity(0.4),
-					radius: 14.0,
+						? Color.black.opacity(0.3) : Color.black.opacity(0.3),
+					radius: 100.0,
 					x: CGFloat(0),
-					y: CGFloat(0)
+					y: CGFloat(10)
 				)
 
 		case .thin:
@@ -39,16 +39,16 @@ struct ShadowModifier: ViewModifier {
 				content
 				.shadow(
 					color: colorScheme == .light
-						? Color.gray.opacity(0.1) : Color.black.opacity(0.1),
-					radius: 30.0,
+						? Color.black.opacity(0.1) : Color.black.opacity(0.1),
+					radius: 60.0,
 					x: CGFloat(0),
-					y: CGFloat(4)
+					y: CGFloat(10)
 				)
 		}
 	}
 }
 
-enum ShadowType {
+enum ShadowType: String, CaseIterable {
 	case thin
 	case base
 	case thick

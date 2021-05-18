@@ -23,13 +23,18 @@ struct LocalmodeView: View {
 				gestureState = currentState
 			}
 	}
+	@State var showStyle: (Nid, CGPoint)? = nil
 
 	var body: some View {
 		ZStack {
 			GeometryReader { proxy in
 				Background { offset in
-					showPicker.toggle()
-					position = offset
+					if showStyle != nil {
+						showStyle = nil
+					} else {
+						position = offset
+						showPicker.toggle()
+					}
 				}
 				.onDrop(
 					of: [String(kUTTypeURL)], isTargeted: nil,
@@ -81,11 +86,30 @@ struct LocalmodeView: View {
 			Group {
 				LinkLayer()
 				NodeLayer()
+					.environment(\.showStyle, $showStyle)
+
 			}
 			.scaleEffect(magnifyBy)
 			.offset(x: save.x + extra.width, y: save.y + extra.height)
-
+			if let (nid, point) = showStyle {
+				StyleView(nid: nid, close: closeStyleView).offset(x: point.x, y: point.y)
+				//                    .dragable()
+			}
 			NodeTrigger(position: $position, save: $save, isPresented: $showPicker)
 		}.gesture(magnification)
+	}
+
+	func closeStyleView() {
+		showStyle = nil
+	}
+}
+
+struct StyleKey: EnvironmentKey {
+	static let defaultValue: Binding<(Nid, CGPoint)?> = Binding(get: { return nil }, set: { _ in })
+}
+extension EnvironmentValues {
+	var showStyle: Binding<(Nid, CGPoint)?> {
+		get { self[StyleKey.self] }
+		set { self[StyleKey.self] = newValue }
 	}
 }
