@@ -33,13 +33,15 @@ struct MarkdownContent: View {
 				if show {
 					HStack(spacing: 0) {
 						Spacer()
-						TextEditor(text: $node.contents[0].markdown.unwrap()!).frame(
-							width: 0.6 * proxy.size.width,
-							alignment: .center
-						).introspectTextView { textView in
-							textView.showsVerticalScrollIndicator = false
-							textView.backgroundColor = UIColor.clear
-						}
+						TextEditor(text: $node.contents[0].markdown.unwrap()!).padding(.trailing)
+							.frame(
+								width: 0.6 * proxy.size.width,
+								alignment: .center
+							).introspectTextView { textView in
+								textView.showsVerticalScrollIndicator = false
+								textView.backgroundColor = UIColor.clear
+								textView.inputAccessoryView = MdInputAccessoryView(text: textView)
+							}
 						FodderPanel(nid: node.id).frame(
 							width: 0.2 * proxy.size.width,
 							alignment: .center
@@ -57,7 +59,8 @@ struct MarkdownContent: View {
 										codeFontSizeMultiple: 0.88
 									)
 								)
-						}.frame(width: 0.6 * proxy.size.width, height: proxy.size.height)
+						}.padding(.trailing).frame(
+							width: 0.6 * proxy.size.width, height: proxy.size.height)
 						//							.canLoad(state: true, opacity: 0, scale: 1)
 						Spacer()
 					}

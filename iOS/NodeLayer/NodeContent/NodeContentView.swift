@@ -105,15 +105,12 @@ struct NodeContentView: View {
 						.cancelOnDisappear(true)
 						.aspectRatio(contentMode: .fit)
 				}
-			}
-			.onTapGesture {
+			}.onTapGesture {
 				isPresented.toggle()
-			}
-			.fullScreenCover(isPresented: $isPresented) {
+			}.fullScreenCover(isPresented: $isPresented) {
 				ImageContent(node: $node)
-			}
-			.cornerRadius(9)
-			.shadow(.base)
+			}.cornerRadius(9)
+				.shadow(.base)
 		}.frame(width: 210)
 	}
 

@@ -14,7 +14,7 @@ struct NodeTrigger: View {
 	@EnvironmentObject var svm: SpaceVM
 	var body: some View {
 		Color(.clear)
-			.frame(width: 0, height: 0)
+			.frame(width: 1, height: 1)
 			//			.actionSheet(
 			//				isPresented: $isPresented,
 			//				content: {

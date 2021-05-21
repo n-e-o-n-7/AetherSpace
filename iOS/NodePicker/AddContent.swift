@@ -36,11 +36,10 @@ struct AddContent: View {
 		TextField(
 			"please enter link🔗",
 			text: $link
-		) { isEditing in
-
-		} onCommit: {
-
-		}
+		)
+		//        .introspectTextField { textField in
+		//			textField.inputAccessoryView = TfAccessoryView(label: "content", textview: textField)
+		//		}
 		.autocapitalization(.none)
 		.disableAutocorrection(true)
 		Spacer()

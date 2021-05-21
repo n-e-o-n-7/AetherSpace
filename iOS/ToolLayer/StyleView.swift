@@ -149,13 +149,13 @@ struct StyleView: View {
 					Picker(
 						selection: style.lineColor,
 						label: Group {
-							if style.textColor.wrappedValue == Color.clear {
+							if style.lineColor.wrappedValue == Color.clear {
 								Image(systemName: "circle")
 									.resizable()
 									.frame(width: 24, height: 24)
 									.foregroundColor(.gray)
 							} else {
-								Circle().fill(style.textColor.wrappedValue).frame(
+								Circle().fill(style.lineColor.wrappedValue).frame(
 									width: 24, height: 24)
 							}
 						}

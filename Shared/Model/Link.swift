@@ -9,7 +9,6 @@ import CoreGraphics
 import Foundation
 
 struct Link: Codable {
-
 	let creatTime: Date
 	let headNodeId: Nid
 	let tailNodeId: Nid
@@ -18,7 +17,6 @@ struct Link: Codable {
 	var justAdded: Bool
 
 	init(head: Nid, tail: Nid) {
-
 		self.creatTime = Date()
 		self.headNodeId = head
 		self.tailNodeId = tail

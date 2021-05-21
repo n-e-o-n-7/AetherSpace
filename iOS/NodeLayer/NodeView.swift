@@ -36,7 +36,7 @@ struct NodeView: View {
 						Group {
 							if node.style.border {
 								RoundedRectangle(cornerRadius: CornerRadius.mid.rawValue)
-									.stroke(
+									.strokeBorder(
 										node.style.lineColor,
 										style: node.style.dash
 											? StrokeStyle(
@@ -56,13 +56,13 @@ struct NodeView: View {
 								svm.addLink(head: sender, tail: node.id)
 							}
 						}
-					)
-					.onAppear(perform: {
+					).onAppear(perform: {
 						proxyFrame = proxy.frame(in: .global)
 					}).onChange(
 						of: proxy.frame(in: .global),
 						perform: { value in
 							proxyFrame = value
+							print(value)
 						})
 			}
 		)
@@ -125,7 +125,6 @@ struct NodeView: View {
 					Label("delete", systemImage: "trash").foregroundColor(.red)
 				})
 		}
-
 		.offset(x: pvm.save.x + pvm.extra.width, y: pvm.save.y + pvm.extra.height)
 		.gesture(
 			DragGesture()

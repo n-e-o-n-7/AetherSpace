@@ -110,6 +110,8 @@
 		E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
 		E9BD433F2616C095002148FA /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD433E2616C095002148FA /* TimePicker.swift */; };
 		E9BD43442616F9C8002148FA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD43432616F9C8002148FA /* AboutView.swift */; };
+		E9C2AAA82656827F00494754 /* MdInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2AAA72656827F00494754 /* MdInputAccessoryView.swift */; };
+		E9C2AAB22656A24400494754 /* TfAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2AAB12656A24400494754 /* TfAccessoryView.swift */; };
 		E9DA418D263400DE002508C1 /* AetherSpaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA418C263400DE002508C1 /* AetherSpaceTests.swift */; };
 		E9DA41A226340ADB002508C1 /* AetherSpaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA41A126340ADB002508C1 /* AetherSpaceUITests.swift */; };
 		E9E06E10261C40B800817066 /* NodeDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */; };
@@ -136,6 +138,19 @@
 			remoteInfo = "AetherSpace (iOS)";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E985A1E3265501B100E4B8F0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E91BBA34262AD5960005DBD9 /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
@@ -222,6 +237,8 @@
 		E9BD4331261466AF002148FA /* SpaceVMx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceVMx.swift; sourceTree = "<group>"; };
 		E9BD433E2616C095002148FA /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		E9BD43432616F9C8002148FA /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		E9C2AAA72656827F00494754 /* MdInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MdInputAccessoryView.swift; sourceTree = "<group>"; };
+		E9C2AAB12656A24400494754 /* TfAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TfAccessoryView.swift; sourceTree = "<group>"; };
 		E9DA418A263400DE002508C1 /* AetherSpaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AetherSpaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DA418C263400DE002508C1 /* AetherSpaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSpaceTests.swift; sourceTree = "<group>"; };
 		E9DA418E263400DE002508C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -345,6 +362,7 @@
 				E92F9EF2260D9F0C0092216F /* AddContent.swift */,
 				E92F9EF1260D9F0C0092216F /* DocumentPicker.swift */,
 				E92F9EF3260D9F0C0092216F /* ImagePicker.swift */,
+				E9C2AAB12656A24400494754 /* TfAccessoryView.swift */,
 			);
 			path = NodePicker;
 			sourceTree = "<group>";
@@ -366,6 +384,7 @@
 				E92F9F03260D9F110092216F /* NodeContentView.swift */,
 				E92F9F04260D9F110092216F /* MarkdownView.swift */,
 				E92F9F02260D9F110092216F /* MarkdownContent.swift */,
+				E9C2AAA72656827F00494754 /* MdInputAccessoryView.swift */,
 				E9E06E33261DF6E200817066 /* FodderPanel.swift */,
 				E9E06E29261DF5D600817066 /* FodderCell.swift */,
 				E9E06E2F261DF6D600817066 /* ToolPanel.swift */,
@@ -509,6 +528,7 @@
 				E92F9EA9260D9E130092216F /* Frameworks */,
 				E92F9EAA260D9E130092216F /* Resources */,
 				E958D334260DC59F0045FA42 /* ShellScript */,
+				E985A1E3265501B100E4B8F0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -696,6 +716,7 @@
 				E9611817264D62AE00B2F125 /* StyleView.swift in Sources */,
 				E92F9ED5260D9EAF0092216F /* PositionVM.swift in Sources */,
 				E985A1AA265252E000E4B8F0 /* Style.swift in Sources */,
+				E9C2AAA82656827F00494754 /* MdInputAccessoryView.swift in Sources */,
 				E92F9F0E260D9F110092216F /* MarkdownView.swift in Sources */,
 				E92F9F4F260D9F4F0092216F /* Upload.swift in Sources */,
 				E98B6977261B2B7300A5BAF8 /* SearchCell.swift in Sources */,
@@ -723,6 +744,7 @@
 				E92F9F21260D9F2D0092216F /* ToolLayer.swift in Sources */,
 				E92F9F19260D9F210092216F /* LinkView.swift in Sources */,
 				E985A1B12652A18200E4B8F0 /* CheckboxStyle.swift in Sources */,
+				E9C2AAB22656A24400494754 /* TfAccessoryView.swift in Sources */,
 				E9BD4332261466AF002148FA /* SpaceVMx.swift in Sources */,
 				E987711D26273B0200AF5C79 /* SoundWave.swift in Sources */,
 				E92F9F18260D9F210092216F /* LinkLayer.swift in Sources */,
@@ -969,6 +991,7 @@
 		E92F9EC3260D9E130092216F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -991,6 +1014,7 @@
 		E92F9EC4260D9E130092216F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

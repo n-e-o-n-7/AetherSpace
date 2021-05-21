@@ -15,7 +15,7 @@ struct ActionButtonBackgroundStyle: ButtonStyle {
 			.background(Color.accentColor)
 			.clipShape(Capsule())
 			.padding([.horizontal])
-			.shadow(radius: configuration.isPressed ? 2.0 : 6.0)
+			.shadow(radius: configuration.isPressed ? 20.0 : 60.0)
 			.scaleEffect(configuration.isPressed ? 0.95 : 1)
 	}
 }
