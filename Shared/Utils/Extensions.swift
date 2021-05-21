@@ -34,18 +34,7 @@ extension CGPoint {
 	}
 }
 
-//MARK: - Combine
-class SubscriptionToken {
-	var cancellable: AnyCancellable?
-	func unseal() { cancellable = nil }
-}
-
-extension AnyCancellable {
-	func seal(in token: SubscriptionToken) {
-		token.cancellable = self
-	}
-}
-
+//MARK: -Notification
 func accessNotifications(delegate: UNUserNotificationCenterDelegate) {
 
 	UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
@@ -94,6 +83,20 @@ class NotificationDelegate: NSObject, ObservableObject, UNUserNotificationCenter
 	}
 }
 
+
+//MARK: - Combine
+class SubscriptionToken {
+    var cancellable: AnyCancellable?
+    func unseal() { cancellable = nil }
+}
+
+extension AnyCancellable {
+    func seal(in token: SubscriptionToken) {
+        token.cancellable = self
+    }
+}
+
+//MARK: - Binding
 func ?? <T>(binding: Binding<T?>, fallback: T) -> Binding<T> {
 	return Binding(
 		get: {
@@ -180,6 +183,7 @@ extension Binding: Identifiable where Value: Identifiable {
 	}
 }
 
+//MARK: - Color
 extension Color {
 	func toString() -> String {
 		let uiColor = UIColor(self)
@@ -192,6 +196,7 @@ extension Color {
 	}
 }
 
+//MARK: - String
 extension String {
 	func toColor() -> Color? {
 		let ca = self.components(separatedBy: ",")
@@ -204,16 +209,18 @@ extension String {
 		}
 	}
 }
+extension String {
+    func toReg() -> NSRegularExpression? {
+        try? NSRegularExpression(pattern: self, options: .caseInsensitive)
+    }
+}
+
 
 typealias Nid = UUID
 typealias Lid = Int
 
-extension String {
-	func toReg() -> NSRegularExpression? {
-		try? NSRegularExpression(pattern: self, options: .caseInsensitive)
-	}
-}
 
+//MARK: - Data
 extension Data {
 	init(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
 		let audioBuffer = buffer.audioBufferList.pointee.mBuffers
@@ -365,6 +372,8 @@ extension Data {
 	}
 }
 
+
+//MARK: - Array
 extension Array where Element == Float {
 	var sum: Float {
 		return self.reduce(0, +)

@@ -10,12 +10,13 @@ import SwiftUI
 
 struct LocalmodeView: View {
 	@EnvironmentObject var svm: SpaceVM
+    
 	@State var save = CGPoint.zero
 	@State var extra = CGSize.zero
-	//MARK: - nodeTrigger
+    
 	@State var position = CGPoint.zero
 	@State var showPicker = false
-	//MARK: - MagnificationGesture
+
 	@GestureState var magnifyBy = CGFloat(1.0)
 	var magnification: some Gesture {
 		MagnificationGesture()
@@ -23,6 +24,7 @@ struct LocalmodeView: View {
 				gestureState = currentState
 			}
 	}
+    
 	@State var showStyle: (Nid, CGPoint)? = nil
 
 	var body: some View {

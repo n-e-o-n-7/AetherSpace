@@ -106,8 +106,6 @@
 		E99512D42611ED7200FA2CA7 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512D22611ED7200FA2CA7 /* Operation.swift */; };
 		E995474A2646822D0052F89F /* GlobalmodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99547492646822D0052F89F /* GlobalmodeView.swift */; };
 		E9A069A9261ED91D0013CAEA /* SoundShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A069A8261ED91D0013CAEA /* SoundShape.swift */; };
-		E9BD4332261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
-		E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD4331261466AF002148FA /* SpaceVMx.swift */; };
 		E9BD433F2616C095002148FA /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD433E2616C095002148FA /* TimePicker.swift */; };
 		E9BD43442616F9C8002148FA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD43432616F9C8002148FA /* AboutView.swift */; };
 		E9C2AAA82656827F00494754 /* MdInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2AAA72656827F00494754 /* MdInputAccessoryView.swift */; };
@@ -234,7 +232,6 @@
 		E99512D22611ED7200FA2CA7 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		E99547492646822D0052F89F /* GlobalmodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalmodeView.swift; sourceTree = "<group>"; };
 		E9A069A8261ED91D0013CAEA /* SoundShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundShape.swift; sourceTree = "<group>"; };
-		E9BD4331261466AF002148FA /* SpaceVMx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceVMx.swift; sourceTree = "<group>"; };
 		E9BD433E2616C095002148FA /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		E9BD43432616F9C8002148FA /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E9C2AAA72656827F00494754 /* MdInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MdInputAccessoryView.swift; sourceTree = "<group>"; };
@@ -480,7 +477,6 @@
 				E958D326260DB1C80045FA42 /* Link.swift */,
 				E99512D22611ED7200FA2CA7 /* Operation.swift */,
 				E92F9ECF260D9EAA0092216F /* SpaceVM.swift */,
-				E9BD4331261466AF002148FA /* SpaceVMx.swift */,
 				E92F9ED4260D9EAF0092216F /* PositionVM.swift */,
 				E9E06E0F261C40B800817066 /* NodeDropDelegate.swift */,
 				E98771152627341F00AF5C79 /* AutoSave.swift */,
@@ -745,7 +741,6 @@
 				E92F9F19260D9F210092216F /* LinkView.swift in Sources */,
 				E985A1B12652A18200E4B8F0 /* CheckboxStyle.swift in Sources */,
 				E9C2AAB22656A24400494754 /* TfAccessoryView.swift in Sources */,
-				E9BD4332261466AF002148FA /* SpaceVMx.swift in Sources */,
 				E987711D26273B0200AF5C79 /* SoundWave.swift in Sources */,
 				E92F9F18260D9F210092216F /* LinkLayer.swift in Sources */,
 				E92F9ECB260D9EA60092216F /* Space.swift in Sources */,
@@ -799,7 +794,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E985A1C026539E8100E4B8F0 /* ImageSinglePicker.swift in Sources */,
-				E9BD4333261466AF002148FA /* SpaceVMx.swift in Sources */,
 				E92F9EBB260D9E130092216F /* AetherSpaceDocument.swift in Sources */,
 				E92F9ED6260D9EAF0092216F /* PositionVM.swift in Sources */,
 				E92F9F57260D9F560092216F /* Constant.swift in Sources */,

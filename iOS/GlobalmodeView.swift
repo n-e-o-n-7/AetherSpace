@@ -12,7 +12,6 @@ struct GlobalmodeView: View {
 
 	@State private var linkSet: Set<Link> = []
 	@State private var nodeDic: [Nid: Node] = [:]
-	@State private var i = 1
 
 	@State private var currentNode: Nid? = nil
 	@AppStorage("mainColor") var mainColor = "blue"
@@ -20,7 +19,6 @@ struct GlobalmodeView: View {
 	@State var save = CGPoint.zero
 	@State var extra = CGSize.zero
 
-	//MARK: - MagnificationGesture
 	@GestureState private var magnifyBy = CGFloat(1.0)
 	@State private var saveScale = CGFloat(1.0)
 	var magnification: some Gesture {

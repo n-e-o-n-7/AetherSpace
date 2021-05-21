@@ -22,17 +22,13 @@ struct FrequencyShape: View {
 							.fill(Color.accentColor.opacity(0.4))
 							.frame(height: 300 * CGFloat(fac))
 					}
-
-				}
-				.frame(minWidth: 0, maxWidth: .infinity)
-
+				}.frame(minWidth: 0, maxWidth: .infinity)
 			).frame(height: 400)
 			.onReceive(timer) { _ in
 				if playing {
 					cur = player.analyseCur()
 				}
 			}
-
 	}
 
 	//	func action() {

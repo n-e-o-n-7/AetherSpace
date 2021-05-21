@@ -30,14 +30,12 @@ class SoundPlayer: ObservableObject {
 		let samples = Array(
 			UnsafeBufferPointer(start: buffer.floatChannelData![0], count: arraySize))
 
-		//MARK: - frequency
 		let total = samples.count / 11025 * 11025
 
 		self.frequency = stride(from: 0, to: total / fftSize, by: 1).map { i in
 			Array(samples[fftSize * i..<fftSize * (i + 1)])
 		}
 
-		//MARK: - normal
 		var i = 0
 		var ts: Float = 0
 		var result: [Float] = [0]

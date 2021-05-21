@@ -24,36 +24,7 @@ func uploadPublisher(data: Data, name: String, mimeType: String) -> AnyPublisher
 	.value()
 }
 
-//func upload(data: Data?, name: String?) {
-//
-//	if let data = data, let name = name {
-//		let fileType = name.split(separator: ".").last!
-//		let mimeType: String
-//		switch fileType {
-//		case "png":
-//			mimeType = "img/png"
-//		case "mp3":
-//			mimeType = "audio/mpeg"
-//		default:
-//			mimeType = ""
-//		}
-//		let token = SubscriptionToken()
-//		uploadPublisher(data: data, name: name, mimeType: mimeType)
-//			.sink(
-//				receiveCompletion: { c in
-//					print("\(c)")
-//					createNotification()
-//					token.unseal()
-//				},
-//				receiveValue: { value in
-//					print(value)
-//				}
-//			)
-//			.seal(in: token)
-//	}
-//}
 func upload(data: Data?, name: String?) -> AnyPublisher<uploadResponse, AFError>? {
-
 	if let data = data, let name = name {
 		let fileType = name.split(separator: ".").last!
 		let mimeType: String
@@ -65,7 +36,6 @@ func upload(data: Data?, name: String?) -> AnyPublisher<uploadResponse, AFError>
 		default:
 			mimeType = ""
 		}
-
 		return uploadPublisher(data: data, name: name, mimeType: mimeType)
 	}
 	return nil

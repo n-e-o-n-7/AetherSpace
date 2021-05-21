@@ -18,8 +18,25 @@ struct SearchView: View {
 	}
 	var searchResult: [Node] {
 		guard searchText != "" else { return [] }
+		if searchText.first == "？" || searchText.first == "?" {
+			print(searchText)
+			return nodes.filter { node in
+				(node.asHeadLinkIds.count + node.asTailLinkIds.count) == 0
+			}
+		}
 		return nodes.filter { node in
-			node.title.lowercased().contains(searchText.lowercased())
+			if node.title.lowercased().contains(searchText.lowercased()) {
+				return true
+			}
+			switch node.type {
+			case .link:
+				return node.contents[0].url!.lowercased().contains(searchText.lowercased())
+			case .markdown:
+				return node.contents[0].markdown!.lowercased().contains(searchText.lowercased())
+			default:
+				return false
+			}
+
 		}
 	}
 
@@ -127,7 +144,7 @@ struct SearchView: View {
 								self.searchText = history
 							},
 							label: {
-								Text(history).padding(.trailing, 8)
+								Text(history).padding(.trailing, 8).contentShape(Rectangle())
 							})
 					}
 				}.padding(.bottom, 13)

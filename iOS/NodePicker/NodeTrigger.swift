@@ -31,7 +31,7 @@ struct NodeTrigger: View {
 			.popover(isPresented: $isPresented, arrowEdge: .top) {
 				NodePicker(confirm: addNode)
 			}
-			.offset(x: position.x - 0, y: position.y - 0)
+			.offset(x: position.x, y: position.y)
 	}
 
 	func addNode(node: Node) {

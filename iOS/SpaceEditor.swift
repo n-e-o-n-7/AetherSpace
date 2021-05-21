@@ -140,12 +140,3 @@ struct SpaceEditor: View {
 		}
 	}
 }
-
-//struct SpaceEditor_Previews: PreviewProvider {
-//    @State static var space = Space(
-//        title: "Aether"
-//    )
-//    static var previews: some View {
-//        SpaceEditor(space: $space)
-//    }
-//}
