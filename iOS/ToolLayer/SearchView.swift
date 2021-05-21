@@ -13,35 +13,45 @@ struct SearchView: View {
 	@Binding var showSearch: Bool
 	@State private var searchText: String = ""
 
-	var nodes: [Node] {
-		svm.space.nodes.map { (_, node) in node }
+	var nodes: [ResNode] {
+		svm.space.nodes.map { (_, node) in ResNode(node: node) }
 	}
-	var searchResult: [Node] {
+	var searchResult: [ResNode] {
 		guard searchText != "" else { return [] }
-		if searchText.first == "？" || searchText.first == "?" {
+		if searchText.hasPrefix("？") || searchText.hasPrefix("?") {
 			print(searchText)
 			return nodes.filter { node in
-				(node.asHeadLinkIds.count + node.asTailLinkIds.count) == 0
+				node.linkCount == 0
 			}
 		}
-		return nodes.filter { node in
+		return nodes.compactMap { node in
 			if node.title.lowercased().contains(searchText.lowercased()) {
-				return true
+				return node
 			}
 			switch node.type {
 			case .link:
-				return node.contents[0].url!.lowercased().contains(searchText.lowercased())
+				if node.content.url!.lowercased().contains(searchText.lowercased()) {
+					return node
+				} else {
+					return nil
+				}
 			case .markdown:
-				return node.contents[0].markdown!.lowercased().contains(searchText.lowercased())
+				let extra = node.content.markdown!.range(of: searchText)
+				if extra == nil {
+					return nil
+				} else {
+					var newNode = node
+					newNode.extra = extra
+					return newNode
+				}
 			default:
-				return false
+				return nil
 			}
-
 		}
 	}
 
 	@State private var showFilter = false
-	var filterResult: [Node] {
+	var filterResult: [ResNode] {
 		guard showFilter else { return searchResult }
 		return searchResult.filter { node in
 			node.type == nodeType
@@ -159,7 +169,6 @@ struct SearchView: View {
 		ScrollView(showsIndicators: false) {
 			LazyVStack(alignment: .leading, spacing: 10) {
 				ForEach(filterResult, id: \.id) { node in
-					//						Divider()
 					HStack {
 						SearchCell(node: node)
 							.padding(9)
@@ -173,7 +182,7 @@ struct SearchView: View {
 						Button(
 							action: {
 								withAnimation {
-									svm.jump(to: node)
+									svm.jump(to: node.id)
 								}
 							},
 							label: {
@@ -192,9 +201,19 @@ struct SearchView: View {
 	}
 }
 
-//struct SearchView_Previews: PreviewProvider {
-//	static var previews: some View {
-//		SearchView(showSearch: .constant(true))
-//			.previewDevice("iPhone 11 Pro")
-//	}
-//}
+struct ResNode: Identifiable {
+	let id: Nid
+	let title: String
+	let type: Node.Species
+	let content: NodeContent
+	let linkCount: Int
+
+	var extra: Range<String.Index>? = nil
+	init(node: Node) {
+		id = node.id
+		title = node.title
+		type = node.type
+		content = node.contents.first!
+		linkCount = node.asHeadLinkIds.count + node.asTailLinkIds.count
+	}
+}

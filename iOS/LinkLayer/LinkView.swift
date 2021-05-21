@@ -44,9 +44,8 @@ struct LinkView: View {
 		return last == head || last == tail
 	}
 
-	@AppStorage("mainColor") var mainColor = "blue"
 	var body: some View {
 		LinkPath(headP: headP, tailP: tailP, dash: !isLinkCenter)
-			.stroke(ColorSet(rawValue: mainColor)!.toColor().opacity(0.3), lineWidth: lineWidth)
+			.stroke(Color.accentColor.opacity(0.3), lineWidth: lineWidth)
 	}
 }

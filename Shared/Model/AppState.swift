@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-struct AppState {
-}
-
 enum ColorSet: String, CaseIterable {
 	case red
 	case orange

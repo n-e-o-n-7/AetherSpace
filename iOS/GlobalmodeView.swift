@@ -14,7 +14,6 @@ struct GlobalmodeView: View {
 	@State private var nodeDic: [Nid: Node] = [:]
 
 	@State private var currentNode: Nid? = nil
-	@AppStorage("mainColor") var mainColor = "blue"
 
 	@State var save = CGPoint.zero
 	@State var extra = CGSize.zero
@@ -62,7 +61,7 @@ struct GlobalmodeView: View {
 							dash: false,
 							curve: false
 						)
-						.stroke(ColorSet(rawValue: mainColor)!.toColor(), lineWidth: 7)
+						.stroke(Color.accentColor, lineWidth: 7)
 						.opacity(
 							(currentNode == link.headId || currentNode == link.tailId) ? 1 : 0.2
 						)
@@ -78,7 +77,7 @@ struct GlobalmodeView: View {
 								width: 30, height: 30
 							).shadow(.base)
 							Text(node.title).foregroundColor(
-								ColorSet(rawValue: mainColor)!.toColor()
+								Color.accentColor
 							).frame(width: 70, height: 70)
 						}.onTapGesture {
 							currentNode = node.id
@@ -104,7 +103,6 @@ struct GlobalmodeView: View {
 		}
 	}
 
-	//no link node
 	func dfs(nid: Nid) {
 		guard links.count < svm.space.links.count else { return }
 		let node = svm.space.nodes[nid]!
@@ -136,7 +134,7 @@ struct GlobalmodeView: View {
 	func bfs(nid: Nid) {
 		var queue: [Nid] = [nid]
 		var visited: [Nid: Bool] = [:]
-		func loop(nid: Nid) {
+		func search(nid: Nid) {
 			visited[nid] = true
 			let node = svm.space.nodes[nid]!
 			let newNodes =
@@ -170,7 +168,7 @@ struct GlobalmodeView: View {
 		}
 
 		while queue.count != 0 {
-			loop(nid: queue.removeFirst())
+			search(nid: queue.removeFirst())
 		}
 	}
 

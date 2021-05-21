@@ -28,7 +28,7 @@ class SpaceVM: ObservableObject {
 	@Published var nodePosition: [Nid: PositionVM] = [:]
 
 	@AppStorage("cache") var cache: Bool = false
-	//MARK: - published?
+
 	var stack: [Operation] = []
 
 	func initData() {
@@ -91,7 +91,7 @@ extension SpaceVM {
 							token.unseal()
 						},
 						receiveValue: { value in
-							//MARK: - maybe change space
+							//maybe change space
 							self.space.nodes[nid]?.contents[index].path = server + "/" + value.name
 							if self.cache {
 								self.space.nodes[nid]?.contents[index].data = nil
@@ -165,8 +165,6 @@ extension SpaceVM {
 
 		stack.append(.addLink(newLink))
 
-		//MARK: -no nowNode
-
 	}
 
 	func removeLink(lid: Lid) {
@@ -223,11 +221,17 @@ extension SpaceVM {
 		self.initData(node: next)
 	}
 
+	func jump(to next: Nid) {
+		guard next != space.lastNodeId else { return }
+		savePosition()
+		space.lastNodeId = next
+		self.initData(node: space.nodes[next]!)
+	}
+
 }
 
 //MARK: - backout
 extension SpaceVM {
-
 	func backout() {
 		guard let op = stack.popLast() else { return }
 		switch op {

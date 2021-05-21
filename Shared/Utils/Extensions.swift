@@ -83,17 +83,16 @@ class NotificationDelegate: NSObject, ObservableObject, UNUserNotificationCenter
 	}
 }
 
-
 //MARK: - Combine
 class SubscriptionToken {
-    var cancellable: AnyCancellable?
-    func unseal() { cancellable = nil }
+	var cancellable: AnyCancellable?
+	func unseal() { cancellable = nil }
 }
 
 extension AnyCancellable {
-    func seal(in token: SubscriptionToken) {
-        token.cancellable = self
-    }
+	func seal(in token: SubscriptionToken) {
+		token.cancellable = self
+	}
 }
 
 //MARK: - Binding
@@ -210,15 +209,13 @@ extension String {
 	}
 }
 extension String {
-    func toReg() -> NSRegularExpression? {
-        try? NSRegularExpression(pattern: self, options: .caseInsensitive)
-    }
+	func toReg() -> NSRegularExpression? {
+		try? NSRegularExpression(pattern: self, options: .caseInsensitive)
+	}
 }
-
 
 typealias Nid = UUID
 typealias Lid = Int
-
 
 //MARK: - Data
 extension Data {
@@ -371,7 +368,6 @@ extension Data {
 		return pcmBuffer
 	}
 }
-
 
 //MARK: - Array
 extension Array where Element == Float {

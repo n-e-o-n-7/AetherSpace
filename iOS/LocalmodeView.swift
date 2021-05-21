@@ -10,10 +10,10 @@ import SwiftUI
 
 struct LocalmodeView: View {
 	@EnvironmentObject var svm: SpaceVM
-    
+
 	@State var save = CGPoint.zero
 	@State var extra = CGSize.zero
-    
+
 	@State var position = CGPoint.zero
 	@State var showPicker = false
 
@@ -24,7 +24,7 @@ struct LocalmodeView: View {
 				gestureState = currentState
 			}
 	}
-    
+
 	@State var showStyle: (Nid, CGPoint)? = nil
 
 	var body: some View {

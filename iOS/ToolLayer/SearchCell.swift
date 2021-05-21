@@ -9,9 +9,9 @@ import Kingfisher
 import SwiftUI
 
 struct SearchCell: View {
-	let node: Node
+	let node: ResNode
 	var content: NodeContent {
-		node.contents.first!
+		node.content
 	}
 	var body: some View {
 		switch node.type {
@@ -50,7 +50,6 @@ struct SearchCell: View {
 		SwiftUI.Link(destination: URL(string: content.url!)!) {
 			Text(content.url!)
 		}
-
 		.padding(9)
 		.background(Color.accentColor.opacity(0.2).cornerRadius(CornerRadius.ssmall.rawValue))
 		.padding(.top, 30)
@@ -110,7 +109,6 @@ struct SearchCell: View {
 	}
 
 	var tc: some View {
-
 		Text(node.title)
 			.font(.title3)
 			.frame(maxWidth: 170)
@@ -120,7 +118,26 @@ struct SearchCell: View {
 	}
 
 	var mc: some View {
-		title
-			.frame(width: 170)
+		VStack(alignment: .leading, spacing: 9) {
+			title
+			if let extra = node.extra {
+				getText(text: content.markdown!, range: extra)
+			}
+		}
+		.frame(width: 210)
+	}
+
+	func getText(text: String, range: Range<String.Index>) -> Text {
+		return Text(
+			"..."
+				+ text[
+					(text.index(range.lowerBound, offsetBy: -20, limitedBy: text.startIndex)
+						?? text.startIndex)..<range.lowerBound])
+			+ Text(text[range]).foregroundColor(Color.accentColor)
+			+ Text(
+				text[
+					range.upperBound..<(text.index(
+						range.upperBound, offsetBy: 20, limitedBy: text.endIndex) ?? text.endIndex)]
+					+ "...")
 	}
 }
