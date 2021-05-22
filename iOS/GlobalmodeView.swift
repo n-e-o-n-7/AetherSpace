@@ -64,7 +64,7 @@ struct GlobalmodeView: View {
 						)
 						.stroke(Color.accentColor, lineWidth: 7)
 						.opacity(
-							(currentNode == link.headId || currentNode == link.tailId) ? 1 : 0.2
+							(currentNode == link.headId || currentNode == link.tailId) ? 0.7 : 0.2
 						)
 						.onTapGesture {
 							print("link")

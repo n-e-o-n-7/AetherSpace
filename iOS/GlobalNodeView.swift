@@ -29,8 +29,8 @@ struct GlobalNodeView: View {
 	}
 	var body: some View {
 		ZStack {
-			Circle().fill(Color.white).frame(
-				width: 30, height: 30
+			Circle().fill(Color.accentColor.opacity(0.2)).frame(
+				width: 40, height: 40
 			).shadow(.base)
 			Text(node.title).foregroundColor(
 				Color.accentColor
@@ -47,6 +47,5 @@ struct GlobalNodeView: View {
 		)
 		.offset(x: node.pos.x, y: node.pos.y)
 		.transition(.opacity)
-
 	}
 }
