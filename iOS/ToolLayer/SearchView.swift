@@ -29,12 +29,6 @@ struct SearchView: View {
 				return node
 			}
 			switch node.type {
-			case .link:
-				if node.content.url!.lowercased().contains(searchText.lowercased()) {
-					return node
-				} else {
-					return nil
-				}
 			case .markdown:
 				let extra = node.content.markdown!.range(of: searchText)
 				if extra == nil {
@@ -76,7 +70,6 @@ struct SearchView: View {
 		.cornerRadius(20)
 		.offset(x: 20)
 		.shadow(.thick)
-
 	}
 
 	var searchHead: some View {

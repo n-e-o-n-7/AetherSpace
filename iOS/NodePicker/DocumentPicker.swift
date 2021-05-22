@@ -43,10 +43,10 @@ struct DocumentPicker: UIViewControllerRepresentable {
 		) {
 
 			if let url = urls.first {
-				guard url.startAccessingSecurityScopedResource() else { return }
+
 				self.parent.sound = try! Data(contentsOf: url)
 				self.parent.soundName = String(url.absoluteString.split(separator: "/").last!)
-				url.stopAccessingSecurityScopedResource()
+
 			}
 
 		}

@@ -29,7 +29,7 @@ struct DecibelShape: View {
 				}
 				.frame(height: 400)
 				.background(Color.secondary.opacity(0.05))
-				HStack(alignment: .top, spacing: 30) {
+				LazyHStack(alignment: .top, spacing: 30) {
 					ForEach(0..<player.normal.count / 4, id: \.self) { i in
 						if i % 5 == 0 {
 							VStack(spacing: 0) {
