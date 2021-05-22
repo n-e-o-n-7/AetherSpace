@@ -32,22 +32,6 @@ struct SpaceEditor: View {
 		.navigationBarHidden(showSearch)
 	}
 
-	//    @GestureState var isDetectingLongPress = false
-	//    @State var completedLongPress = false
-	//    var longPress: some Gesture {
-	//        LongPressGesture(minimumDuration: 1)
-	//            .updating($isDetectingLongPress) {
-	//                currentstate, gestureState,
-	//                transaction in
-	//                gestureState = currentstate
-	//                transaction.animation = Animation.easeIn(duration: 2.0)
-	//            }
-	//            .onEnded { finished in
-	//                self.completedLongPress = finished
-	//                showHistory.toggle()
-	//            }
-	//    }
-
 	//MARK: - quit
 	@AppStorage("cache") var cache: Bool = false
 	@Environment(\.loading) var showLoad: Binding<Bool>

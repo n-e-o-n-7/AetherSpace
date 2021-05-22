@@ -141,7 +141,7 @@ struct NodeContentView: View {
 	@State private var edit = false
 	var tc: some View {
 
-		Text(node.title)
+		Text(node.title).opacity(0.1)
 			.overlay(
 				TextEditor(text: $node.title)
 					.introspectTextView { textView in

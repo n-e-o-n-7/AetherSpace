@@ -101,17 +101,20 @@ struct NodePicker: View {
 				}
 			}
 		case .link:
-			if contents.first!.url! == "" {
+			let url = contents.first!.url!
+			if url == "" {
 				errorMessage = "no url"
 				showAlert = true
 				return
 			} else if urlReg.matches(
-				in: contents.first!.url!, options: [],
+				in: url, options: [],
 				range: NSMakeRange(0, contents.first!.url!.count)
 			).count == 0 {
 				errorMessage = "wrong url"
 				showAlert = true
 				return
+			} else if !url.hasPrefix("https://") && !url.hasPrefix("http://") {
+				contents[0].url = "https://" + url
 			}
 		case .markdown:
 			if contents.count == 0 {

@@ -106,6 +106,7 @@
 		E99512D42611ED7200FA2CA7 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99512D22611ED7200FA2CA7 /* Operation.swift */; };
 		E995474A2646822D0052F89F /* GlobalmodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99547492646822D0052F89F /* GlobalmodeView.swift */; };
 		E9A069A9261ED91D0013CAEA /* SoundShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A069A8261ED91D0013CAEA /* SoundShape.swift */; };
+		E9AC860F2658E9A300A8C534 /* GlobalNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AC860E2658E9A300A8C534 /* GlobalNodeView.swift */; };
 		E9BD433F2616C095002148FA /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD433E2616C095002148FA /* TimePicker.swift */; };
 		E9BD43442616F9C8002148FA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD43432616F9C8002148FA /* AboutView.swift */; };
 		E9C2AAA82656827F00494754 /* MdInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2AAA72656827F00494754 /* MdInputAccessoryView.swift */; };
@@ -232,6 +233,7 @@
 		E99512D22611ED7200FA2CA7 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		E99547492646822D0052F89F /* GlobalmodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalmodeView.swift; sourceTree = "<group>"; };
 		E9A069A8261ED91D0013CAEA /* SoundShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundShape.swift; sourceTree = "<group>"; };
+		E9AC860E2658E9A300A8C534 /* GlobalNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalNodeView.swift; sourceTree = "<group>"; };
 		E9BD433E2616C095002148FA /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		E9BD43432616F9C8002148FA /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E9C2AAA72656827F00494754 /* MdInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MdInputAccessoryView.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 			children = (
 				E91C1840264B9314006D6795 /* SpaceEditor.swift */,
 				E99547492646822D0052F89F /* GlobalmodeView.swift */,
+				E9AC860E2658E9A300A8C534 /* GlobalNodeView.swift */,
 				E91C184A264B9377006D6795 /* LocalmodeView.swift */,
 				E9BD43422616F9AD002148FA /* SetHome */,
 				E92F9EF0260D9F0C0092216F /* NodePicker */,
@@ -756,6 +759,7 @@
 				E91C184B264B9377006D6795 /* LocalmodeView.swift in Sources */,
 				E99512B6260F8E1400FA2CA7 /* LinkPath.swift in Sources */,
 				E92F9F3E260D9F3A0092216F /* imageList.swift in Sources */,
+				E9AC860F2658E9A300A8C534 /* GlobalNodeView.swift in Sources */,
 				E9E06E2A261DF5D600817066 /* FodderCell.swift in Sources */,
 				E958D327260DB1C80045FA42 /* Link.swift in Sources */,
 				E92F9F23260D9F2D0092216F /* SearchBar.swift in Sources */,

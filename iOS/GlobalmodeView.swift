@@ -28,6 +28,7 @@ struct GlobalmodeView: View {
 				saveScale *= finalState
 			}
 	}
+
 	var links: [Link] {
 		Array(linkSet)
 	}
@@ -72,18 +73,7 @@ struct GlobalmodeView: View {
 				}
 				Group {
 					ForEach(nodes, id: \.id) { node in
-						ZStack {
-							Circle().fill(Color.white).frame(
-								width: 30, height: 30
-							).shadow(.base)
-							Text(node.title).foregroundColor(
-								Color.accentColor
-							).frame(width: 70, height: 70)
-						}.onTapGesture {
-							currentNode = node.id
-
-						}.offset(x: node.pos.x, y: node.pos.y)
-							.transition(.opacity)
+						GlobalNodeView(node: node, current: self.current)
 					}
 				}
 			}.scaleEffect(magnifyBy * saveScale)
@@ -172,6 +162,9 @@ struct GlobalmodeView: View {
 		}
 	}
 
+	func current(nid: Nid) {
+		currentNode = nid
+	}
 	struct Link: Hashable {
 		let headId: Nid
 		let tailId: Nid
