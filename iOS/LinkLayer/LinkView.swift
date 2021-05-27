@@ -47,5 +47,6 @@ struct LinkView: View {
 	var body: some View {
 		LinkPath(headP: headP, tailP: tailP, dash: !isLinkCenter)
 			.stroke(Color.accentColor.opacity(0.3), lineWidth: lineWidth)
+
 	}
 }

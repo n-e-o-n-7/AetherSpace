@@ -20,6 +20,7 @@ struct LinkPath: Shape {
 	}
 	var curve: Bool = true
 	func path(in rect: CGRect) -> Path {
+		print(rect.width, rect.height)
 		let h = headP.applyOffset(x: rect.size.width / 2, y: rect.size.height / 2)
 		let t = tailP.applyOffset(x: rect.size.width / 2, y: rect.size.height / 2)
 		var path = Path()
